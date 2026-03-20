@@ -53,6 +53,30 @@ if ($nsHits.Count -gt 0) {
     Write-Host "[OK] Namespace isolation (Aeostara only)" -ForegroundColor Green
 }
 
+# 4. No Python in product source
+$pythonHits = Get-ChildItem -Path "$SourceDir/include","$SourceDir/src" -Recurse -Include "*.h","*.cpp" |
+    Select-String -Pattern 'python|Python' -List
+
+if ($pythonHits.Count -gt 0) {
+    Write-Host "[FAIL] Python references in product source:" -ForegroundColor Red
+    $pythonHits | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
+    $failures++
+} else {
+    Write-Host "[OK] No Python references in product source" -ForegroundColor Green
+}
+
+# 5. No YAML in product source
+$yamlHits = Get-ChildItem -Path "$SourceDir/include","$SourceDir/src" -Recurse -Include "*.h","*.cpp" |
+    Select-String -Pattern 'yaml|YAML|Yaml|yaml-cpp' -List
+
+if ($yamlHits.Count -gt 0) {
+    Write-Host "[FAIL] YAML references in product source:" -ForegroundColor Red
+    $yamlHits | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
+    $failures++
+} else {
+    Write-Host "[OK] No YAML references in product source" -ForegroundColor Green
+}
+
 Write-Host ""
 if ($failures -eq 0) {
     Write-Host "Architecture check PASSED" -ForegroundColor Green

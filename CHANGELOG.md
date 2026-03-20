@@ -29,5 +29,5 @@ All notable changes to Aeostara will be documented in this file.
 - C++20, CMake 3.28+, MSVC 2022, vcpkg
 - Single dependency: nlohmann/json
 - /W4 /WX (warnings as errors)
-- JSON-only for v0.1 (YAML support deferred to v0.2)
+- JSON-only configuration scope
 - Namespace: `Aeostara` (standalone, no Forsetti dependency)

@@ -147,6 +147,69 @@ public:
         }
     }
 
+    // Compliance: No Python references in product source
+    TEST_METHOD(NoPythonInSourceTree)
+    {
+        auto srcRoot = fs::path(AEOSTARA_SOURCE_DIR);
+        auto includeRoot = srcRoot / "include";
+        auto srcDir = srcRoot / "src";
+
+        auto files = collectSourceFiles(includeRoot);
+        auto srcFiles = collectSourceFiles(srcDir);
+        files.insert(files.end(), srcFiles.begin(), srcFiles.end());
+
+        std::regex pythonRef(R"(\bpython\b|\bPython\b|\.py[\"'\s>])");
+
+        for (const auto& filePath : files) {
+            auto content = readFileContent(filePath);
+            Assert::IsFalse(
+                std::regex_search(content, pythonRef),
+                (L"Forbidden Python reference found in: " + filePath.wstring()).c_str());
+        }
+    }
+
+    // Compliance: No YAML references in product source
+    TEST_METHOD(NoYamlInSourceTree)
+    {
+        auto srcRoot = fs::path(AEOSTARA_SOURCE_DIR);
+        auto includeRoot = srcRoot / "include";
+        auto srcDir = srcRoot / "src";
+
+        auto files = collectSourceFiles(includeRoot);
+        auto srcFiles = collectSourceFiles(srcDir);
+        files.insert(files.end(), srcFiles.begin(), srcFiles.end());
+
+        std::regex yamlRef(R"(yaml|YAML|Yaml|\.yml|yaml-cpp)");
+
+        for (const auto& filePath : files) {
+            auto content = readFileContent(filePath);
+            Assert::IsFalse(
+                std::regex_search(content, yamlRef),
+                (L"Forbidden YAML reference found in: " + filePath.wstring()).c_str());
+        }
+    }
+
+    // Compliance: No YAML support claims in documentation
+    TEST_METHOD(NoYamlClaimsInDocs)
+    {
+        auto srcRoot = fs::path(AEOSTARA_SOURCE_DIR);
+
+        std::vector<fs::path> docFiles = {
+            srcRoot / "README.md",
+            srcRoot / "CHANGELOG.md"
+        };
+
+        std::regex yamlClaim(R"(YAML support|yaml support|YAML.+supported|supports?.+YAML)");
+
+        for (const auto& filePath : docFiles) {
+            if (!fs::exists(filePath)) continue;
+            auto content = readFileContent(filePath);
+            Assert::IsFalse(
+                std::regex_search(content, yamlClaim),
+                (L"YAML support claim found in: " + filePath.wstring()).c_str());
+        }
+    }
+
     // One-way dependency: CLI depends on Core, not the reverse
     TEST_METHOD(CoreDoesNotDependOnCLI)
     {

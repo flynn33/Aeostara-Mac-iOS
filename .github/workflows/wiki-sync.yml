@@ -1,0 +1,147 @@
+# Aeostara Wiki Agent
+# Syncs project documentation to the GitHub wiki on repo changes.
+# Copyright (c) 2026 James Daley. All Rights Reserved.
+
+name: Wiki Sync
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - 'LICENSE.md'
+      - 'include/**/*.h'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+        with:
+          path: main
+
+      - name: Clone wiki
+        run: |
+          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki || {
+            mkdir wiki
+            cd wiki
+            git init
+            git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git"
+          }
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate wiki pages
+        run: |
+          cd main
+
+          # --- Home.md ---
+          cp README.md ../wiki/Home.md
+
+          # --- Changelog.md ---
+          cp CHANGELOG.md ../wiki/Changelog.md
+
+          # --- Architecture.md ---
+          cat > ../wiki/Architecture.md << 'ARCH_EOF'
+          # Aeostara Architecture
+
+          ## Overview
+
+          Aeostara follows a strict one-way dependency model:
+
+          ```
+          AeostaraCLI (exe)
+            └── AeostaraCore (static lib)
+                  └── nlohmann/json (vcpkg)
+          ```
+
+          - **AeostaraCore** is a static library containing all contracts, interfaces, and logic
+          - **AeostaraCLI** is the executable that wires up the engine and parses commands
+          - No reverse dependencies: Core never references CLI
+
+          ## Compliance
+
+          - C++20 native, MSVC 2022, /W4 /WX
+          - JSON-only configuration scope
+          - No Python runtime dependency
+          - Forsetti-compliant (R001 approved deps, R005 interface-first)
+          - All concrete types are `final`
+          - Namespace: `Aeostara` (no Forsetti namespace in source)
+
+          ## Interfaces
+
+          | Interface | Purpose | Implementation |
+          |-----------|---------|----------------|
+          | `IHealingEngine` | Top-level healing orchestrator | `HealingEngine` |
+          | `IConfigAdapter` | Config file read/encode/repair | `JsonConfigAdapter` |
+          | `IBackupProvider` | Backup creation and restoration | `BackupManager` |
+          | `IAuditSink` | Audit event recording | `JsonLinesAuditTrail` |
+          | `IFileSystem` | File I/O abstraction | `DefaultFileSystem` |
+
+          ## Public API Reference
+
+          See [API-Reference](API-Reference) for auto-generated header documentation.
+          ARCH_EOF
+
+          # --- CLI-Reference.md ---
+          cat > ../wiki/CLI-Reference.md << 'CLI_EOF'
+          # CLI Reference
+
+          ## Commands
+
+          ```
+          aeostara validate <config> --desired <desired> [--invariants <invariants>]
+          aeostara diff    <config> --desired <desired> [--invariants <invariants>]
+          aeostara heal    <config> --desired <desired> [--invariants <invariants>] [--audit <audit.jsonl>]
+          ```
+
+          ### validate
+          Parse and validate config, check for drift and invariant violations.
+          - Exit 0: Valid, no drift
+          - Exit 1: Drift detected
+          - Exit 2: Error (parse failure, missing file)
+
+          ### diff
+          Show drift events and a proposed deterministic repair plan.
+          - Exit 0: No drift
+          - Exit 1: Drift detected, plan generated
+          - Exit 2: Error
+
+          ### heal
+          Execute the full healing flow: backup, repair, verify, rollback on failure.
+          - Exit 0: Heal successful
+          - Exit 1: Policy blocked or verification failed
+          - Exit 2: Error
+
+          ## Options
+
+          | Option | Short | Description |
+          |--------|-------|-------------|
+          | `--config` | `-c` | Config file path (or first positional arg) |
+          | `--desired` | `-d` | Desired state file path (required) |
+          | `--invariants` | `-i` | Invariant rules file path (optional) |
+          | `--audit` | `-a` | Audit trail output path (default: aeostara-audit.jsonl) |
+          | `--help` | `-h` | Show help message |
+          CLI_EOF
+
+          # --- API-Reference.md (auto-generated from headers) ---
+          python ../.github/scripts/parse-headers.py include/AeostaraCore ../wiki/API-Reference.md
+        working-directory: main
+
+      - name: Push wiki changes
+        run: |
+          cd wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "No wiki changes" && exit 0
+          git commit -m "docs: sync wiki from $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push origin master || git push origin HEAD:master

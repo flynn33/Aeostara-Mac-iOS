@@ -111,6 +111,15 @@ powershell -ExecutionPolicy Bypass -File Scripts/verify-aeostara-guardrails.ps1
 powershell -ExecutionPolicy Bypass -File Scripts/check-architecture.ps1
 ```
 
+## Compliance
+
+- **C++20 native** — standalone Windows executable, no interpreted runtime
+- **JSON-only** — all configuration files are JSON; no YAML parser included
+- **No Python dependency** — build, test, and run require only MSVC, CMake, and vcpkg
+- **Forsetti-compliant** — R001 (approved dependencies only), R005 (interface-first, all types final)
+- **ASH-inspired** — healing semantics follow the Aeostara Self-Healing architectural pattern
+- **Host-agnostic core** — AeostaraCore has no Forsetti runtime coupling; future hosting via adapter
+
 ## License
 
 Proprietary. All rights reserved. See [LICENSE.md](LICENSE.md).

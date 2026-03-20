@@ -90,7 +90,30 @@ $coreToCli = Get-ChildItem -Path "$SourceDir/include/AeostaraCore","$SourceDir/s
 Write-Check "Core does not depend on CLI" ($coreToCli.Count -eq 0) `
     ($coreToCli | ForEach-Object { $_.Path } | Out-String)
 
-# ---- 6. Required files exist ----
+# ---- 6. Compliance: No Python in product source ----
+Write-Host ""
+Write-Host "--- Compliance Checks ---" -ForegroundColor Cyan
+
+$pythonRefs = Get-ChildItem -Path "$SourceDir/include","$SourceDir/src" -Recurse -Include "*.h","*.cpp","*.hpp" |
+    Select-String -Pattern 'python|Python|\.py[\"''\s]' -List
+
+Write-Check "No Python references in product source" ($pythonRefs.Count -eq 0) `
+    ($pythonRefs | ForEach-Object { $_.Path } | Out-String)
+
+# ---- 7. Compliance: No YAML in product source ----
+$yamlRefs = Get-ChildItem -Path "$SourceDir/include","$SourceDir/src" -Recurse -Include "*.h","*.cpp","*.hpp" |
+    Select-String -Pattern 'yaml|YAML|Yaml|\.yml|yaml-cpp' -List
+
+Write-Check "No YAML references in product source" ($yamlRefs.Count -eq 0) `
+    ($yamlRefs | ForEach-Object { $_.Path } | Out-String)
+
+# ---- 8. Compliance: No YAML claims in docs ----
+$yamlClaims = Select-String -Path "$SourceDir/README.md" -Pattern 'YAML support|yaml support' -List
+
+Write-Check "No YAML support claims in README" ($yamlClaims.Count -eq 0) `
+    ($yamlClaims | ForEach-Object { $_.Line } | Out-String)
+
+# ---- 9. Required files exist ----
 Write-Host ""
 Write-Host "--- File Existence Checks ---" -ForegroundColor Cyan
 
