@@ -1,0 +1,20 @@
+{
+  "platform": "ios",
+  "displayName": "Aeostara for iOS",
+  "status": "scaffold",
+  "toolchain": {
+    "ide": "Xcode",
+    "minimumTarget": "iOS 16.0",
+    "swift": "5.9+"
+  },
+  "implementation": {
+    "language": "Swift + C++ (Obj-C++ bridge)",
+    "testFramework": "XCTest",
+    "dependencies": ["nlohmann/json (via SPM or embedded)"]
+  },
+  "shell": {
+    "type": "SwiftUI app",
+    "cli": false
+  },
+  "forsettiBridge": "stub"
+}
