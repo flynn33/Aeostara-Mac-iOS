@@ -1,20 +1,35 @@
 {
   "platform": "macos",
   "displayName": "Aeostara for macOS",
-  "status": "scaffold",
+  "status": "implemented",
+  "version": "0.1.0",
   "toolchain": {
-    "compiler": "Clang",
-    "buildSystem": "CMake or Xcode",
-    "minimumTarget": "macOS 13.0"
+    "compiler": "Apple Clang",
+    "buildSystem": "CMake 3.28+ with Ninja",
+    "minimumTarget": "macOS 13.0",
+    "standard": "C++20"
   },
   "implementation": {
-    "language": "C++ or Swift",
-    "testFramework": "Catch2 or XCTest",
-    "dependencies": ["nlohmann/json"]
+    "language": "C++20",
+    "testFramework": "Catch2",
+    "dependencies": ["nlohmann/json", "catch2"]
   },
   "shell": {
     "type": "CLI",
-    "futureGUI": "AppKit or SwiftUI"
+    "commands": ["validate", "diff", "heal"],
+    "futureGUI": "AppKit or SwiftUI (deferred)"
   },
-  "forsettiBridge": "stub"
+  "compliance": {
+    "forsettiBridge": "stub",
+    "configFormat": "JSON-only",
+    "noPython": true,
+    "noYAML": true
+  },
+  "acceptanceScenarios": [
+    "valid config / no drift",
+    "invalid config / parse error",
+    "policy blocked",
+    "successful repair",
+    "forced rollback"
+  ]
 }
