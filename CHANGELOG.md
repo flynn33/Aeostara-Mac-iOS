@@ -14,7 +14,7 @@ All notable changes to Aeostara will be documented in this file.
 - **Acceptance targets and compliance checklist** in `specs/acceptance/`
 - **Shared test fixtures** in `fixtures/`
 - **CI scripts** (Python) for schema validation, acceptance testing, and compliance checking
-- **Platform branches**: `platform/windows` (full implementation), `platform/macos` (scaffold), `platform/ios` (scaffold)
+- **Platform branches**: `platform/windows` (full implementation), `platform/macos` (implemented), `platform/ios` (alpha)
 
 ### Changed
 

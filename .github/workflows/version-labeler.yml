@@ -8,7 +8,7 @@ on:
   pull_request:
     types: [opened, edited, synchronize]
   push:
-    branches: [master]
+    branches: [main]
 
 permissions:
   contents: write
@@ -78,7 +78,7 @@ jobs:
             core.info(`Applied label: ${newLabel}`);
 
   tag-version:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

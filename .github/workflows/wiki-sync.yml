@@ -6,7 +6,7 @@ name: Wiki Sync
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'README.md'
       - 'CHANGELOG.md'
@@ -144,4 +144,4 @@ jobs:
           git add -A
           git diff --cached --quiet && echo "No wiki changes" && exit 0
           git commit -m "docs: sync wiki from $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          git push origin master || git push origin HEAD:master
+          git push origin main || git push origin HEAD:main

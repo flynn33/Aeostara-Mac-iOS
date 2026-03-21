@@ -1,0 +1,744 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000000000000000000001 /* AeostaraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* AeostaraApp.swift */; };
+		A10000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* ContentView.swift */; };
+		A10000000000000000000003 /* AeostaraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* AeostaraViewModel.swift */; };
+		A10000000000000000000004 /* AeostaraBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* AeostaraBridge.mm */; };
+		A10000000000000000000005 /* AuditTrail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* AuditTrail.cpp */; };
+		A10000000000000000000006 /* BackupManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* BackupManager.cpp */; };
+		A10000000000000000000007 /* Contracts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* Contracts.cpp */; };
+		A10000000000000000000008 /* DriftAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* DriftAnalyzer.cpp */; };
+		A10000000000000000000009 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* FileSystem.cpp */; };
+		A1000000000000000000000A /* HealingEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* HealingEngine.cpp */; };
+		A1000000000000000000000B /* Invariant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* Invariant.cpp */; };
+		A1000000000000000000000C /* InvariantParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000C /* InvariantParser.cpp */; };
+		A1000000000000000000000D /* JsonConfigAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000D /* JsonConfigAdapter.cpp */; };
+		A1000000000000000000000E /* JsonPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000E /* JsonPath.cpp */; };
+		A1000000000000000000000F /* PolicyEvaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000F /* PolicyEvaluator.cpp */; };
+		A10000000000000000000010 /* RepairPlanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* RepairPlanner.cpp */; };
+		A10000000000000000000011 /* RollbackManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* RollbackManager.cpp */; };
+		A10000000000000000000012 /* Verification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000012 /* Verification.cpp */; };
+		A10000000000000000000013 /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000013 /* Version.cpp */; };
+		A10000000000000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* Assets.xcassets */; };
+		A10000000000000000000090 /* AeostaraBridgeTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000090 /* AeostaraBridgeTests.mm */; };
+		A10000000000000000000091 /* AeostaraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000091 /* AeostaraUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A30000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A50000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A40000000000000000000001;
+			remoteInfo = AeostaraApp;
+		};
+		A30000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A50000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A40000000000000000000001;
+			remoteInfo = AeostaraApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A20000000000000000000001 /* AeostaraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeostaraApp.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* AeostaraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeostaraViewModel.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* AeostaraBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AeostaraBridge.mm; sourceTree = "<group>"; };
+		A20000000000000000000015 /* AeostaraKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AeostaraKit.h; sourceTree = "<group>"; };
+		A20000000000000000000005 /* AuditTrail.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AuditTrail.cpp; sourceTree = "<group>"; };
+		A20000000000000000000006 /* BackupManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BackupManager.cpp; sourceTree = "<group>"; };
+		A20000000000000000000007 /* Contracts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Contracts.cpp; sourceTree = "<group>"; };
+		A20000000000000000000008 /* DriftAnalyzer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DriftAnalyzer.cpp; sourceTree = "<group>"; };
+		A20000000000000000000009 /* FileSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystem.cpp; sourceTree = "<group>"; };
+		A2000000000000000000000A /* HealingEngine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HealingEngine.cpp; sourceTree = "<group>"; };
+		A2000000000000000000000B /* Invariant.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Invariant.cpp; sourceTree = "<group>"; };
+		A2000000000000000000000C /* InvariantParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InvariantParser.cpp; sourceTree = "<group>"; };
+		A2000000000000000000000D /* JsonConfigAdapter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JsonConfigAdapter.cpp; sourceTree = "<group>"; };
+		A2000000000000000000000E /* JsonPath.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = JsonPath.cpp; sourceTree = "<group>"; };
+		A2000000000000000000000F /* PolicyEvaluator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PolicyEvaluator.cpp; sourceTree = "<group>"; };
+		A20000000000000000000010 /* RepairPlanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RepairPlanner.cpp; sourceTree = "<group>"; };
+		A20000000000000000000011 /* RollbackManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RollbackManager.cpp; sourceTree = "<group>"; };
+		A20000000000000000000012 /* Verification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Verification.cpp; sourceTree = "<group>"; };
+		A20000000000000000000013 /* Version.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Version.cpp; sourceTree = "<group>"; };
+		A20000000000000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A20000000000000000000020 /* AuditTrail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditTrail.h; sourceTree = "<group>"; };
+		A20000000000000000000021 /* BackupManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackupManager.h; sourceTree = "<group>"; };
+		A20000000000000000000022 /* Contracts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Contracts.h; sourceTree = "<group>"; };
+		A20000000000000000000023 /* DriftAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriftAnalyzer.h; sourceTree = "<group>"; };
+		A20000000000000000000024 /* FileSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSystem.h; sourceTree = "<group>"; };
+		A20000000000000000000025 /* HealingEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HealingEngine.h; sourceTree = "<group>"; };
+		A20000000000000000000026 /* Invariant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Invariant.h; sourceTree = "<group>"; };
+		A20000000000000000000027 /* InvariantParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvariantParser.h; sourceTree = "<group>"; };
+		A20000000000000000000028 /* JsonConfigAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonConfigAdapter.h; sourceTree = "<group>"; };
+		A20000000000000000000029 /* JsonPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonPath.h; sourceTree = "<group>"; };
+		A2000000000000000000002A /* PolicyEvaluator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PolicyEvaluator.h; sourceTree = "<group>"; };
+		A2000000000000000000002B /* RepairPlanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepairPlanner.h; sourceTree = "<group>"; };
+		A2000000000000000000002C /* RollbackManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RollbackManager.h; sourceTree = "<group>"; };
+		A2000000000000000000002D /* Verification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Verification.h; sourceTree = "<group>"; };
+		A2000000000000000000002E /* Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
+		A2000000000000000000002F /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		A20000000000000000000030 /* Error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
+		A20000000000000000000031 /* Export.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Export.h; sourceTree = "<group>"; };
+		A20000000000000000000032 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		A20000000000000000000040 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		A20000000000000000000090 /* AeostaraBridgeTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AeostaraBridgeTests.mm; sourceTree = "<group>"; };
+		A20000000000000000000091 /* AeostaraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeostaraUITests.swift; sourceTree = "<group>"; };
+		A200000000000000000000A0 /* Aeostara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aeostara.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A200000000000000000000A1 /* AeostaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AeostaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A200000000000000000000A2 /* AeostaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AeostaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A60000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A60000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A60000000000000000000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A70000000000000000000001 /* = BEGIN MAINGROUP = */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000002 /* platform */,
+				A70000000000000000000005 /* AeostaraCore */,
+				A7000000000000000000000A /* AeostaraTests */,
+				A7000000000000000000000B /* AeostaraUITests */,
+				A70000000000000000000099 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A70000000000000000000099 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A200000000000000000000A0 /* Aeostara.app */,
+				A200000000000000000000A1 /* AeostaraTests.xctest */,
+				A200000000000000000000A2 /* AeostaraUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000002 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000003 /* ios */,
+			);
+			path = platform;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000003 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000004 /* AeostaraApp */,
+				A70000000000000000000009 /* AeostaraKit */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000004 /* AeostaraApp */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* AeostaraApp.swift */,
+				A20000000000000000000002 /* ContentView.swift */,
+				A20000000000000000000003 /* AeostaraViewModel.swift */,
+				A20000000000000000000014 /* Assets.xcassets */,
+			);
+			path = AeostaraApp;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000009 /* AeostaraKit */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000004 /* AeostaraBridge.mm */,
+				A20000000000000000000015 /* AeostaraKit.h */,
+			);
+			path = AeostaraKit;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000005 /* AeostaraCore */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000006 /* src */,
+				A70000000000000000000007 /* include */,
+			);
+			path = AeostaraCore;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000006 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000005 /* AuditTrail.cpp */,
+				A20000000000000000000006 /* BackupManager.cpp */,
+				A20000000000000000000007 /* Contracts.cpp */,
+				A20000000000000000000008 /* DriftAnalyzer.cpp */,
+				A20000000000000000000009 /* FileSystem.cpp */,
+				A2000000000000000000000A /* HealingEngine.cpp */,
+				A2000000000000000000000B /* Invariant.cpp */,
+				A2000000000000000000000C /* InvariantParser.cpp */,
+				A2000000000000000000000D /* JsonConfigAdapter.cpp */,
+				A2000000000000000000000E /* JsonPath.cpp */,
+				A2000000000000000000000F /* PolicyEvaluator.cpp */,
+				A20000000000000000000010 /* RepairPlanner.cpp */,
+				A20000000000000000000011 /* RollbackManager.cpp */,
+				A20000000000000000000012 /* Verification.cpp */,
+				A20000000000000000000013 /* Version.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000007 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				A70000000000000000000008 /* AeostaraCore */,
+				A7000000000000000000000C /* nlohmann */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		A70000000000000000000008 /* AeostaraCore */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000020 /* AuditTrail.h */,
+				A20000000000000000000021 /* BackupManager.h */,
+				A20000000000000000000022 /* Contracts.h */,
+				A2000000000000000000002F /* Config.h */,
+				A20000000000000000000023 /* DriftAnalyzer.h */,
+				A20000000000000000000030 /* Error.h */,
+				A20000000000000000000031 /* Export.h */,
+				A20000000000000000000024 /* FileSystem.h */,
+				A20000000000000000000025 /* HealingEngine.h */,
+				A20000000000000000000026 /* Invariant.h */,
+				A20000000000000000000027 /* InvariantParser.h */,
+				A20000000000000000000028 /* JsonConfigAdapter.h */,
+				A20000000000000000000029 /* JsonPath.h */,
+				A2000000000000000000002A /* PolicyEvaluator.h */,
+				A2000000000000000000002B /* RepairPlanner.h */,
+				A2000000000000000000002C /* RollbackManager.h */,
+				A20000000000000000000032 /* Types.h */,
+				A2000000000000000000002D /* Verification.h */,
+				A2000000000000000000002E /* Version.h */,
+			);
+			path = AeostaraCore;
+			sourceTree = "<group>";
+		};
+		A7000000000000000000000C /* nlohmann */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000040 /* json.hpp */,
+			);
+			path = nlohmann;
+			sourceTree = "<group>";
+		};
+		A7000000000000000000000A /* AeostaraTests */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000090 /* AeostaraBridgeTests.mm */,
+			);
+			path = AeostaraTests;
+			sourceTree = "<group>";
+		};
+		A7000000000000000000000B /* AeostaraUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000091 /* AeostaraUITests.swift */,
+			);
+			path = AeostaraUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A40000000000000000000001 /* AeostaraApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000000000000000000001 /* Build configuration list for PBXNativeTarget "AeostaraApp" */;
+			buildPhases = (
+				A90000000000000000000001 /* Sources */,
+				A60000000000000000000001 /* Frameworks */,
+				AA0000000000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AeostaraApp;
+			productName = Aeostara;
+			productReference = A200000000000000000000A0 /* Aeostara.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A40000000000000000000002 /* AeostaraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000000000000000000002 /* Build configuration list for PBXNativeTarget "AeostaraTests" */;
+			buildPhases = (
+				A90000000000000000000002 /* Sources */,
+				A60000000000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB0000000000000000000001 /* PBXTargetDependency */,
+			);
+			name = AeostaraTests;
+			productName = AeostaraTests;
+			productReference = A200000000000000000000A1 /* AeostaraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A40000000000000000000003 /* AeostaraUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000000000000000000003 /* Build configuration list for PBXNativeTarget "AeostaraUITests" */;
+			buildPhases = (
+				A90000000000000000000003 /* Sources */,
+				A60000000000000000000003 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB0000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = AeostaraUITests;
+			productName = AeostaraUITests;
+			productReference = A200000000000000000000A2 /* AeostaraUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A50000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = "James Daley";
+				TargetAttributes = {
+					A40000000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					A40000000000000000000002 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = A40000000000000000000001;
+					};
+					A40000000000000000000003 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = A40000000000000000000001;
+					};
+				};
+			};
+			buildConfigurationList = A80000000000000000000004 /* Build configuration list for PBXProject "Aeostara" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A70000000000000000000001 /* = BEGIN MAINGROUP = */;
+			productRefGroup = A70000000000000000000099 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A40000000000000000000001 /* AeostaraApp */,
+				A40000000000000000000002 /* AeostaraTests */,
+				A40000000000000000000003 /* AeostaraUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA0000000000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000014 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A90000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000001 /* AeostaraApp.swift in Sources */,
+				A10000000000000000000002 /* ContentView.swift in Sources */,
+				A10000000000000000000003 /* AeostaraViewModel.swift in Sources */,
+				A10000000000000000000004 /* AeostaraBridge.mm in Sources */,
+				A10000000000000000000005 /* AuditTrail.cpp in Sources */,
+				A10000000000000000000006 /* BackupManager.cpp in Sources */,
+				A10000000000000000000007 /* Contracts.cpp in Sources */,
+				A10000000000000000000008 /* DriftAnalyzer.cpp in Sources */,
+				A10000000000000000000009 /* FileSystem.cpp in Sources */,
+				A1000000000000000000000A /* HealingEngine.cpp in Sources */,
+				A1000000000000000000000B /* Invariant.cpp in Sources */,
+				A1000000000000000000000C /* InvariantParser.cpp in Sources */,
+				A1000000000000000000000D /* JsonConfigAdapter.cpp in Sources */,
+				A1000000000000000000000E /* JsonPath.cpp in Sources */,
+				A1000000000000000000000F /* PolicyEvaluator.cpp in Sources */,
+				A10000000000000000000010 /* RepairPlanner.cpp in Sources */,
+				A10000000000000000000011 /* RollbackManager.cpp in Sources */,
+				A10000000000000000000012 /* Verification.cpp in Sources */,
+				A10000000000000000000013 /* Version.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A90000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000090 /* AeostaraBridgeTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A90000000000000000000003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000000000000000000091 /* AeostaraUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AB0000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A40000000000000000000001 /* AeostaraApp */;
+			targetProxy = A30000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		AB0000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A40000000000000000000001 /* AeostaraApp */;
+			targetProxy = A30000000000000000000002 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AC0000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AC0000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AC0000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/AeostaraCore/include",
+					"$(SRCROOT)/AeostaraCore/include/nlohmann",
+				);
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesdaley.aeostara;
+				PRODUCT_NAME = Aeostara;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "platform/ios/AeostaraKit/AeostaraKit.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC0000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/AeostaraCore/include",
+					"$(SRCROOT)/AeostaraCore/include/nlohmann",
+				);
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesdaley.aeostara;
+				PRODUCT_NAME = Aeostara;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "platform/ios/AeostaraKit/AeostaraKit.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AC0000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/AeostaraCore/include",
+					"$(SRCROOT)/AeostaraCore/include/nlohmann",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesdaley.aeostara.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aeostara.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Aeostara";
+			};
+			name = Debug;
+		};
+		AC0000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/AeostaraCore/include",
+					"$(SRCROOT)/AeostaraCore/include/nlohmann",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesdaley.aeostara.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aeostara.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Aeostara";
+			};
+			name = Release;
+		};
+		AC0000000000000000000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesdaley.aeostara.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AeostaraApp;
+			};
+			name = Debug;
+		};
+		AC0000000000000000000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesdaley.aeostara.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AeostaraApp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000000000000000000004 /* Build configuration list for PBXProject "Aeostara" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC0000000000000000000001 /* Debug */,
+				AC0000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000000000000000000001 /* Build configuration list for PBXNativeTarget "AeostaraApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC0000000000000000000003 /* Debug */,
+				AC0000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000000000000000000002 /* Build configuration list for PBXNativeTarget "AeostaraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC0000000000000000000005 /* Debug */,
+				AC0000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000000000000000000003 /* Build configuration list for PBXNativeTarget "AeostaraUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC0000000000000000000007 /* Debug */,
+				AC0000000000000000000008 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A50000000000000000000001 /* Project object */;
+}

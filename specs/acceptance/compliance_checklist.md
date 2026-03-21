@@ -3,8 +3,8 @@
 ## Branches
 - [ ] `main` branch contains only specifications (no compilable source)
 - [ ] `platform/windows` branch contains full Windows implementation
-- [ ] `platform/macos` branch contains macOS scaffold
-- [ ] `platform/ios` branch contains iOS scaffold
+- [ ] `platform/macos` branch contains macOS native implementation
+- [ ] `platform/ios` branch contains iOS native implementation
 - [ ] Branch responsibilities documented
 - [ ] Merge policy documented
 
@@ -25,15 +25,26 @@
 - [ ] No YAML in product source
 
 ## Platform: macOS (platform/macos)
-- [ ] Scaffold files present
+- [ ] C++20 core builds on Apple Clang
+- [ ] Catch2 tests pass via ctest
+- [ ] CLI commands work (validate, diff, heal)
 - [ ] Platform manifest present
+- [ ] CI workflow proves build on macOS runner
 - [ ] README documents build approach
+- [ ] No Python in product source
+- [ ] No YAML in product source
 
 ## Platform: iOS (platform/ios)
-- [ ] Scaffold files present
+- [ ] Xcode project committed and buildable
+- [ ] SwiftUI app target builds for simulator
+- [ ] Obj-C++ bridge wires C++ core
+- [ ] XCTest unit tests pass
+- [ ] UI smoke tests exist
 - [ ] Platform manifest present
-- [ ] Bridging header stub present
-- [ ] SwiftUI app stub present
+- [ ] CI workflow proves build on macOS runner
+- [ ] README documents build approach
+- [ ] No Python in product source
+- [ ] No YAML in product source
 
 ## Shared Test Fixtures
 - [ ] All 6 fixture files present on all branches

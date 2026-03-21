@@ -147,7 +147,7 @@ jobs:
           git add CHANGELOG.md README.md
           git diff --cached --quiet && echo "No changes to commit" && exit 0
           git commit -m "docs: update changelog and readme for ${{ steps.changelog.outputs.tag }}"
-          git push origin HEAD:master
+          git push origin HEAD:main
 
       - name: Create GitHub Release
         if: steps.changelog.outputs.tag != ''

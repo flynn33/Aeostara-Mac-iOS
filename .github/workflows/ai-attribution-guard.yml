@@ -1,6 +1,6 @@
 # Aeostara AI Attribution Guard
 # Blocks commits and pushes containing AI attribution markers.
-# Configure as a required status check on master to enforce.
+# Configure as a required status check on main to enforce.
 # Copyright (c) 2026 James Daley. All Rights Reserved.
 
 name: AI Attribution Guard
