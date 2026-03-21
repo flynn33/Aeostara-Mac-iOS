@@ -1,20 +1,43 @@
 {
   "platform": "ios",
   "displayName": "Aeostara for iOS",
-  "status": "scaffold",
+  "status": "implemented-alpha",
+  "version": "0.1.0",
   "toolchain": {
     "ide": "Xcode",
     "minimumTarget": "iOS 16.0",
-    "swift": "5.9+"
+    "swift": "5.9+",
+    "cppStandard": "C++20"
   },
   "implementation": {
-    "language": "Swift + C++ (Obj-C++ bridge)",
+    "language": "Swift + C++20 (Obj-C++ bridge)",
     "testFramework": "XCTest",
     "dependencies": ["nlohmann/json (via SPM or embedded)"]
   },
   "shell": {
     "type": "SwiftUI app",
-    "cli": false
+    "cli": false,
+    "features": [
+      "File import via document picker",
+      "Sandbox-local file staging",
+      "Validate / Diff / Heal operations",
+      "Audit trail viewer",
+      "Backup in app container"
+    ]
   },
-  "forsettiBridge": "stub"
+  "compliance": {
+    "forsettiBridge": "stub",
+    "configFormat": "JSON-only",
+    "noPython": true,
+    "noYAML": true,
+    "sandboxed": true
+  },
+  "architecture": {
+    "layers": [
+      "SwiftUI App (AeostaraApp/)",
+      "Obj-C++ Bridge (AeostaraKit/)",
+      "C++ Core (AeostaraCore/)"
+    ],
+    "bridgeDesign": "thin — translates types only, no healing logic"
+  }
 }

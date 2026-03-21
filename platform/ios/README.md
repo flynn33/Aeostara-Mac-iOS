@@ -1,42 +1,56 @@
-# Aeostara — iOS Platform Target
+# Aeostara for iOS
 
-## Status: Scaffold
+**Status**: Implemented Alpha v0.1.0
 
-This branch will contain the iOS native implementation of Aeostara.
+Deterministic JSON configuration drift detection and healing platform — iOS native client.
 
-## Target Architecture
-
-- **Language**: Swift + C++ (via Objective-C++ bridging)
-- **Build System**: Xcode
-- **Test Framework**: XCTest
-- **UI Framework**: SwiftUI
-
-## Implementation Approach
-
-1. Implement core healing engine in C++ (shared with macOS where possible)
-2. Create Objective-C++ bridging layer (`AeostaraKit/`) to expose C++ API to Swift
-3. Build SwiftUI app shell (`AeostaraApp/`) for configuration management
-4. Implement all 11 contracts from `specs/contracts/`
-5. Implement all algorithms following `specs/algorithms/` pseudo code
-6. Add platform-specific Forsetti bridge (stub initially)
-
-## Bridging Architecture
+## Architecture
 
 ```
 SwiftUI App (AeostaraApp/)
-  └── AeostaraKit (Obj-C++ bridge)
-        └── C++ Core (healing engine, contracts, algorithms)
+  └── Obj-C++ Bridge (AeostaraKit/)
+        └── C++ Core (AeostaraCore/)
+              └── nlohmann/json
 ```
 
-## Build Instructions
+- **AeostaraCore**: 11 contracts, 9 algorithms, 5 interfaces — identical C++20 core shared with macOS
+- **AeostaraKit**: Thin Objective-C++ bridge — translates Foundation types to/from C++, no healing logic
+- **AeostaraApp**: SwiftUI shell — file import, validate/diff/heal actions, result display, audit viewer
 
-*Not yet implemented. This branch contains scaffold files only.*
+## Build Requirements
+
+- Xcode (latest stable)
+- iOS 16.0+ deployment target
+- Swift 5.9+
+- nlohmann/json (via SPM or embedded)
+
+## Build
 
 Open the Xcode project and build for iOS Simulator or device.
 
-## Constraints
+## Features
 
-- iOS apps cannot run CLI commands — all interaction is via SwiftUI
-- File system access is sandboxed — use app container or document picker
-- Backup storage uses app-local directories
-- Audit trail stored in app container
+- **File Import**: Document picker to import config and desired state JSON files
+- **Sandbox Staging**: Files copied to app container for safe manipulation
+- **Validate**: Check config against desired state and invariants
+- **Diff**: Show drift events and proposed repair plan
+- **Heal**: Apply deterministic repair with backup, verification, and rollback
+- **Audit Trail**: View JSONL audit events in-app
+- **Backup**: Stored in `Documents/backups/`
+- **Rollback**: Automatic rollback on verification failure
+
+## iOS Constraints
+
+- No CLI — all interaction via SwiftUI interface
+- File system sandboxed — uses app container and document picker
+- Backup and audit stored in app's Documents directory
+- Bridge layer is thin — all healing logic in C++ core
+
+## Compliance
+
+- C++20 native core — no interpreted runtime
+- JSON-only configuration scope
+- No Python or YAML in shipped product
+- Forsetti-compliant (host-agnostic core, interface-first, all types final)
+- ASH-inspired healing semantics
+- Deterministic outputs matching Windows and macOS behavior
