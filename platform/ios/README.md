@@ -26,7 +26,29 @@ SwiftUI App (AeostaraApp/)
 
 ## Build
 
-Open the Xcode project and build for iOS Simulator or device.
+### Generate Xcode Project (via CMake)
+
+```bash
+cmake -G Xcode -B build/ios
+open build/ios/Aeostara.xcodeproj
+```
+
+Then build and run in Xcode for iOS Simulator or device.
+
+### Dependencies
+
+nlohmann/json is embedded as a single-header in `AeostaraCore/include/nlohmann/json.hpp` — no external package manager required.
+
+## Test
+
+XCTest suite in `AeostaraTests/AeostaraBridgeTests.mm` covers:
+- C++ core tests (JsonPath, DriftAnalyzer, RepairPlanner, HealingEngine)
+- Obj-C++ bridge tests (validate, diff, heal through AeostaraEngine wrapper)
+- Acceptance scenarios (no drift, successful repair)
+
+```bash
+xcodebuild test -project build/ios/Aeostara.xcodeproj -scheme AeostaraTests
+```
 
 ## Features
 

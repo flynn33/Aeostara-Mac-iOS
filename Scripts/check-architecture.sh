@@ -26,8 +26,8 @@ if [ -z "$SCAN_DIRS" ]; then
     exit 0
 fi
 
-# 1. No Python in product source
-PYTHON_HITS=$(grep -rl -E 'python|Python' $SCAN_DIRS --include="*.h" --include="*.hpp" --include="*.cpp" --include="*.cc" --include="*.m" --include="*.mm" --include="*.swift" 2>/dev/null || true)
+# 1. No Python in product source (exclude vendored third-party headers)
+PYTHON_HITS=$(grep -rl -E 'python|Python' $SCAN_DIRS --include="*.h" --include="*.hpp" --include="*.cpp" --include="*.cc" --include="*.m" --include="*.mm" --include="*.swift" 2>/dev/null | grep -v '/nlohmann/' || true)
 if [ -n "$PYTHON_HITS" ]; then
     echo "[FAIL] Python references in product source:"
     echo "$PYTHON_HITS"

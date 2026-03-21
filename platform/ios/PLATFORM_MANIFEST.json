@@ -1,7 +1,7 @@
 {
   "platform": "ios",
   "displayName": "Aeostara for iOS",
-  "status": "implemented-alpha",
+  "status": "implemented",
   "version": "0.1.0",
   "toolchain": {
     "ide": "Xcode",
@@ -12,7 +12,9 @@
   "implementation": {
     "language": "Swift + C++20 (Obj-C++ bridge)",
     "testFramework": "XCTest",
-    "dependencies": ["nlohmann/json (via SPM or embedded)"]
+    "dependencies": ["nlohmann/json (embedded single-header)"],
+    "buildSystem": "CMake generating Xcode project",
+    "tests": "XCTest (AeostaraBridgeTests.mm)"
   },
   "shell": {
     "type": "SwiftUI app",
