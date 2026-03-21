@@ -19,6 +19,11 @@
     "commands": ["validate", "diff", "heal"],
     "futureGUI": "AppKit or SwiftUI (deferred)"
   },
+  "ci": {
+    "buildWorkflow": "macos-build-test.yml",
+    "ciProven": true,
+    "cliSmokeTested": true
+  },
   "compliance": {
     "forsettiBridge": "stub",
     "configFormat": "JSON-only",
