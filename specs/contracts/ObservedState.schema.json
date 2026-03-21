@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ObservedState",
+  "description": "Snapshot of real system configuration at observation time",
+  "type": "object",
+  "properties": {
+    "sourceFile": {
+      "type": "string",
+      "description": "Path to the configuration file that was observed"
+    },
+    "data": {
+      "type": "object",
+      "description": "The raw parsed configuration data"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the observation was taken"
+    }
+  },
+  "required": ["sourceFile", "data", "timestamp"],
+  "additionalProperties": false
+}

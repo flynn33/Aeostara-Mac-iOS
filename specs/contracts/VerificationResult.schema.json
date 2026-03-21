@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerificationResult",
+  "description": "Outcome of post-repair verification",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "description": "Whether verification passed"
+    },
+    "failedChecks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of checks that failed (empty if success)"
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of verification"
+    }
+  },
+  "required": ["success", "failedChecks", "verifiedAt"],
+  "additionalProperties": false
+}

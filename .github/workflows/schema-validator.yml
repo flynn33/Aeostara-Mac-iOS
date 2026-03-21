@@ -1,0 +1,28 @@
+# Aeostara Schema Validator
+# Validates JSON Schema contract definitions are well-formed.
+# Copyright (c) 2026 James Daley. All Rights Reserved.
+
+name: Schema Validator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'specs/contracts/**'
+  pull_request:
+    paths:
+      - 'specs/contracts/**'
+
+jobs:
+  validate-schemas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate contract schemas
+        run: python ci/validate_schemas.py

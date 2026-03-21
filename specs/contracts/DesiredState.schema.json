@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DesiredState",
+  "description": "Declared desired configuration state",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "The desired configuration data"
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin of this desired state (file path or identifier)"
+    }
+  },
+  "required": ["data", "source"],
+  "additionalProperties": false
+}

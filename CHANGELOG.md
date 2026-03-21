@@ -2,6 +2,26 @@
 
 All notable changes to Aeostara will be documented in this file.
 
+## [0.2.0] - 2026-03-21
+
+### Added
+
+- **Specification-first branch model**: `main` holds platform-agnostic specs, `platform/*` branches hold native implementations
+- **11 JSON Schema contract definitions** in `specs/contracts/`
+- **9 pseudo code algorithm specs** in `specs/algorithms/` (healing flow, drift analysis, repair planning, etc.)
+- **5 interface pseudo code specs** in `specs/interfaces/` (IHealingEngine, IConfigAdapter, IBackupProvider, IAuditSink, IFileSystem)
+- **Architecture documents** in `specs/architecture/` (boundaries, branching strategy, compliance rules, native target architecture)
+- **Acceptance targets and compliance checklist** in `specs/acceptance/`
+- **Shared test fixtures** in `fixtures/`
+- **CI scripts** (Python) for schema validation, acceptance testing, and compliance checking
+- **Platform branches**: `platform/windows` (full implementation), `platform/macos` (scaffold), `platform/ios` (scaffold)
+
+### Changed
+
+- Renamed `master` branch to `main`
+- `main` branch now contains only specifications (no compilable source code)
+- All C++20 source code moved to `platform/windows` branch
+
 ## [0.1.0] - 2026-03-20
 
 ### Added

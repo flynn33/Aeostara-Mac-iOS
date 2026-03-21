@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AuditEvent",
+  "description": "Audit trail record for a healing operation",
+  "type": "object",
+  "properties": {
+    "eventID": {
+      "type": "string",
+      "description": "Unique event identifier"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ValidationPerformed",
+        "DiffGenerated",
+        "HealStarted",
+        "BackupCreated",
+        "RepairApplied",
+        "VerificationSucceeded",
+        "VerificationFailed",
+        "RollbackExecuted",
+        "PolicyBlocked",
+        "NoDrift"
+      ],
+      "description": "The type of audit event"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the event"
+    },
+    "configFile": {
+      "type": "string",
+      "description": "Path to the config file this event relates to"
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional event-specific details",
+      "additionalProperties": true
+    }
+  },
+  "required": ["eventID", "type", "timestamp", "configFile"],
+  "additionalProperties": false
+}

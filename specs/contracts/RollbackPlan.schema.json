@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RollbackPlan",
+  "description": "Recovery procedure to restore a config file from backup",
+  "type": "object",
+  "properties": {
+    "planID": {
+      "type": "string",
+      "description": "ID of the repair plan that triggered this rollback"
+    },
+    "backupFilePath": {
+      "type": "string",
+      "description": "Path to the backup file"
+    },
+    "originalFilePath": {
+      "type": "string",
+      "description": "Path to the original config file to restore"
+    }
+  },
+  "required": ["planID", "backupFilePath", "originalFilePath"],
+  "additionalProperties": false
+}

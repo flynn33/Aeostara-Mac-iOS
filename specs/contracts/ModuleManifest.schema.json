@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ModuleManifest",
+  "description": "Aeostara module metadata (NOT Forsetti's module manifest)",
+  "type": "object",
+  "properties": {
+    "moduleID": {
+      "type": "string",
+      "description": "Unique module identifier"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Human-readable module name"
+    },
+    "version": {
+      "type": "string",
+      "description": "Module version string"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this module does"
+    },
+    "supportedConfigTypes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Config file types this module can handle (e.g., 'json')"
+    }
+  },
+  "required": ["moduleID", "displayName", "version", "supportedConfigTypes"],
+  "additionalProperties": false
+}

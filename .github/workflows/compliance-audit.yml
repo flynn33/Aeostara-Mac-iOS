@@ -1,0 +1,27 @@
+# Aeostara Compliance Audit
+# Scans platform branches for forbidden Python/YAML in product source.
+# Copyright (c) 2026 James Daley. All Rights Reserved.
+
+name: Compliance Audit
+
+on:
+  push:
+    branches:
+      - 'platform/**'
+  pull_request:
+    branches:
+      - 'platform/**'
+
+jobs:
+  compliance-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run compliance checker
+        run: python ci/compliance_checker.py .

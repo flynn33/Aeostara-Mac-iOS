@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RepairPlan",
+  "description": "Complete repair sequence with a deterministic plan ID",
+  "type": "object",
+  "properties": {
+    "planID": {
+      "type": "string",
+      "description": "Deterministic identifier generated via FNV-1a hash of the plan contents"
+    },
+    "actions": {
+      "type": "array",
+      "items": { "$ref": "RepairAction.schema.json" },
+      "description": "Ordered list of repair actions"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of plan creation"
+    },
+    "requiresBackup": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether a backup must be created before executing this plan"
+    }
+  },
+  "required": ["planID", "actions", "timestamp", "requiresBackup"],
+  "additionalProperties": false
+}

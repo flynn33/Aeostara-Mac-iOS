@@ -1,8 +1,0 @@
-{
-  "name": "aeostara",
-  "version-string": "0.1.0",
-  "description": "Aeostara — Deterministic Config Drift Healing CLI",
-  "dependencies": [
-    "nlohmann-json"
-  ]
-}

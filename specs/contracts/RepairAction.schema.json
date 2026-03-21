@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RepairAction",
+  "description": "A single remediation step to correct a drift",
+  "type": "object",
+  "properties": {
+    "keyPath": {
+      "type": "string",
+      "description": "Dot-path to the key being repaired"
+    },
+    "actionType": {
+      "type": "string",
+      "enum": ["Set", "Add", "Remove"],
+      "description": "The type of repair action"
+    },
+    "fromValue": {
+      "description": "The current value (before repair)"
+    },
+    "toValue": {
+      "description": "The target value (after repair)"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Why this repair is needed"
+    }
+  },
+  "required": ["keyPath", "actionType", "rationale"],
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EncodedState",
+  "description": "Flattened canonical representations of observed and desired states for drift comparison. Keys are dot-paths, values are the leaf values at those paths.",
+  "type": "object",
+  "properties": {
+    "observed": {
+      "type": "object",
+      "description": "Flattened map of observed state (dot-path keys to values)",
+      "additionalProperties": true
+    },
+    "desired": {
+      "type": "object",
+      "description": "Flattened map of desired state (dot-path keys to values)",
+      "additionalProperties": true
+    }
+  },
+  "required": ["observed", "desired"],
+  "additionalProperties": false
+}
