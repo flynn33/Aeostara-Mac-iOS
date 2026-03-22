@@ -1,53 +1,37 @@
-# Aeostara for iOS
+# Aeostara for iOS — Platform Details
 
-**Status**: Implemented Alpha v0.1.0
+**Status**: Source-complete (Swift/SwiftUI/SwiftPM), build-unverified
 
-Deterministic JSON configuration drift detection and healing platform — iOS native client.
+Native Swift reimplementation of the Aeostara deterministic JSON configuration drift detection and healing platform for iOS, compliant with Apple Forsetti framework requirements.
 
 ## Architecture
 
 ```
-SwiftUI App (AeostaraApp/)
-  └── Obj-C++ Bridge (AeostaraKit/)
-        └── C++ Core (AeostaraCore/)
-              └── nlohmann/json
+AeostaraApp (SwiftUI application)
+  └── AeostaraServices (Swift module — sandbox I/O)
+        └── AeostaraDomain (Swift module — healing logic)
+              └── Foundation (JSON, FileManager, Date)
 ```
 
-- **AeostaraCore**: 11 contracts, 9 algorithms, 5 interfaces — identical C++20 core shared with macOS
-- **AeostaraKit**: Thin Objective-C++ bridge — translates Foundation types to/from C++, no healing logic
-- **AeostaraApp**: SwiftUI shell — file import, validate/diff/heal actions, result display, audit viewer
+- **AeostaraDomain**: 11 contracts, 9 algorithms, 5 protocols — full healing engine in pure Swift
+- **AeostaraServices**: iOS-specific I/O (sandbox FileManager, document picker integration)
+- **AeostaraApp**: SwiftUI interface — file import, validate/diff/heal actions, audit viewer
+- **XCTest + XCUITest**: Full test coverage including UI flows
 
 ## Build Requirements
 
-- Xcode (latest stable)
+- Xcode 15+ or Swift 5.9+ toolchain
 - iOS 16.0+ deployment target
-- Swift 5.9+
-- nlohmann/json (via SPM or embedded)
+- No external dependencies (Foundation only)
 
-## Build
-
-### Generate Xcode Project (via CMake)
+## Build & Test
 
 ```bash
-cmake -G Xcode -B build/ios
-open build/ios/Aeostara.xcodeproj
-```
-
-Then build and run in Xcode for iOS Simulator or device.
-
-### Dependencies
-
-nlohmann/json is embedded as a single-header in `AeostaraCore/include/nlohmann/json.hpp` — no external package manager required.
-
-## Test
-
-XCTest suite in `AeostaraTests/AeostaraBridgeTests.mm` covers:
-- C++ core tests (JsonPath, DriftAnalyzer, RepairPlanner, HealingEngine)
-- Obj-C++ bridge tests (validate, diff, heal through AeostaraEngine wrapper)
-- Acceptance scenarios (no drift, successful repair)
-
-```bash
-xcodebuild test -project build/ios/Aeostara.xcodeproj -scheme AeostaraTests
+swift build
+swift test
+# Or via Xcode:
+xcodebuild -scheme AeostaraApp -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -scheme AeostaraTests -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
 ## Features
@@ -58,21 +42,14 @@ xcodebuild test -project build/ios/Aeostara.xcodeproj -scheme AeostaraTests
 - **Diff**: Show drift events and proposed repair plan
 - **Heal**: Apply deterministic repair with backup, verification, and rollback
 - **Audit Trail**: View JSONL audit events in-app
-- **Backup**: Stored in `Documents/backups/`
-- **Rollback**: Automatic rollback on verification failure
-
-## iOS Constraints
-
-- No CLI — all interaction via SwiftUI interface
-- File system sandboxed — uses app container and document picker
-- Backup and audit stored in app's Documents directory
-- Bridge layer is thin — all healing logic in C++ core
+- **Backup/Rollback**: Automatic rollback on verification failure
 
 ## Compliance
 
-- C++20 native core — no interpreted runtime
-- JSON-only configuration scope
+- Swift-native — no C++, no Objective-C++, no interpreted runtime
+- JSON-only configuration scope (Foundation JSONSerialization)
 - No Python or YAML in shipped product
-- Forsetti-compliant (host-agnostic core, interface-first, all types final)
+- Forsetti-compliant (host-agnostic domain, protocol-first, all classes final)
 - ASH-inspired healing semantics
-- Deterministic outputs matching Windows and macOS behavior
+- Deterministic outputs across platforms
+- No third-party dependencies

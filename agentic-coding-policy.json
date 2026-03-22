@@ -1,41 +1,42 @@
 {
   "schemaVersion": "1.0",
-  "policyName": "Aeostara Agentic Coding Policy",
+  "policyName": "Aeostara Agentic Coding Policy — Apple macOS",
+  "platform": "macos",
   "rules": [
     {
       "id": "R001",
-      "name": "Native Technologies Only",
-      "description": "Use only C++20 standard library, Windows SDK, and Microsoft-provided tools (vcpkg, MSVC, CppUnitTest). nlohmann/json via vcpkg is allowed. No Boost, no non-Microsoft third-party tools.",
+      "name": "Native Apple Technologies Only",
+      "description": "Use only Swift, SwiftUI, Foundation, and Apple-provided frameworks. Build with Xcode-native projects or SwiftPM (Package.swift). No C++, no Objective-C++, no CMake, no vcpkg, no nlohmann/json, no Boost, no non-Apple third-party dependencies in shipped product paths.",
       "severity": "error"
     },
     {
       "id": "R002",
-      "name": "Sealed Core Library",
-      "description": "AeostaraCore is a sealed static library. Consumers use public headers in include/AeostaraCore/ only.",
+      "name": "Sealed Domain Module",
+      "description": "AeostaraMacDomain is a sealed Swift module. Consumers import only its public API. No direct access to internal types.",
       "severity": "error"
     },
     {
       "id": "R003",
       "name": "No Forsetti Dependency",
-      "description": "AeostaraCore and AeostaraCLI must not include any ForsettiCore, ForsettiPlatform, or ForsettiHostTemplate headers. Aeostara Core remains host-agnostic.",
+      "description": "AeostaraMacDomain and AeostaraMacCLI must not import any Forsetti modules. Aeostara domain remains host-agnostic.",
       "severity": "error"
     },
     {
       "id": "R004",
-      "name": "Interface-First Design",
-      "description": "All major components expose abstract interfaces (pure virtual classes). Implementations use constructor dependency injection.",
+      "name": "Protocol-First Design",
+      "description": "All major components expose Swift protocols. Implementations use initializer-based dependency injection.",
       "severity": "error"
     },
     {
       "id": "R005",
-      "name": "Strict OOP",
-      "description": "All concrete classes must be final. All classes use constructor DI. No hidden globals or singletons.",
+      "name": "Strict Value/Reference Discipline",
+      "description": "Prefer structs for data types (contracts). Use final classes only where reference semantics and DI are required. All classes are final. No hidden globals or singletons.",
       "severity": "error"
     },
     {
       "id": "R006",
       "name": "One-Way Dependencies",
-      "description": "AeostaraCore depends on nothing except nlohmann/json. AeostaraCLI depends on AeostaraCore. Tests depend on AeostaraCore. No reverse or lateral imports.",
+      "description": "AeostaraMacDomain depends on Foundation only. AeostaraMacServices depends on AeostaraMacDomain and Foundation. AeostaraMacCLI depends on AeostaraMacDomain and AeostaraMacServices. Tests depend on domain and services. No reverse or lateral imports.",
       "severity": "error"
     },
     {
@@ -60,13 +61,27 @@
   "architecture_constraints": {
     "must_not_import_rules": [
       {
-        "source": "AeostaraCore",
-        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraCLI"]
+        "source": "AeostaraMacDomain",
+        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraMacCLI", "AeostaraMacServices"]
       },
       {
-        "source": "AeostaraCLI",
+        "source": "AeostaraMacServices",
+        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraMacCLI"]
+      },
+      {
+        "source": "AeostaraMacCLI",
         "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate"]
       }
+    ],
+    "forbidden_in_shipped_paths": [
+      "*.cpp", "*.hpp", "*.h", "*.cc", "*.cxx", "*.mm",
+      "CMakeLists.txt", "CMakePresets.json", "vcpkg.json",
+      "Catch2", "nlohmann/json"
+    ],
+    "allowed_exceptions": [
+      { "pattern": "ci/**", "reason": "CI automation scripts" },
+      { "pattern": ".github/**", "reason": "GitHub Actions workflows" },
+      { "pattern": "_quarantine/**", "reason": "Non-compliant reference artifacts" }
     ]
   }
 }

@@ -1,0 +1,16 @@
+{
+  "server": {
+    "host": "localhost",
+    "port": 9090,
+    "ssl_enabled": true
+  },
+  "database": {
+    "host": "db.example.com",
+    "port": 3306,
+    "name": "aeostara_dev"
+  },
+  "logging": {
+    "level": "DEBUG",
+    "file": "/var/log/aeostara.log"
+  }
+}
