@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "policyName": "Aeostara Agentic Coding Policy — Apple iOS",
-  "platform": "ios",
+  "policyName": "Aeostara Agentic Coding Policy — Apple macOS",
+  "platform": "macos",
   "rules": [
     {
       "id": "R001",
@@ -12,13 +12,13 @@
     {
       "id": "R002",
       "name": "Sealed Domain Module",
-      "description": "AeostaraDomain is a sealed Swift module. Consumers import only its public API. No direct access to internal types.",
+      "description": "AeostaraMacDomain is a sealed Swift module. Consumers import only its public API. No direct access to internal types.",
       "severity": "error"
     },
     {
       "id": "R003",
       "name": "No Forsetti Dependency",
-      "description": "AeostaraDomain and AeostaraApp must not import any Forsetti modules. Aeostara domain remains host-agnostic.",
+      "description": "AeostaraMacDomain and AeostaraMacCLI must not import any Forsetti modules. Aeostara domain remains host-agnostic.",
       "severity": "error"
     },
     {
@@ -36,7 +36,7 @@
     {
       "id": "R006",
       "name": "One-Way Dependencies",
-      "description": "AeostaraDomain depends on Foundation only. AeostaraServices depends on AeostaraDomain and Foundation. AeostaraApp depends on AeostaraDomain, AeostaraServices, and SwiftUI. Tests depend on domain and services. No reverse or lateral imports.",
+      "description": "AeostaraMacDomain depends on Foundation only. AeostaraMacServices depends on AeostaraMacDomain and Foundation. AeostaraMacCLI depends on AeostaraMacDomain, AeostaraMacServices, and Foundation. Tests depend on domain and services. No reverse or lateral imports.",
       "severity": "error"
     },
     {
@@ -61,15 +61,15 @@
   "architecture_constraints": {
     "must_not_import_rules": [
       {
-        "source": "AeostaraDomain",
-        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraApp", "AeostaraServices"]
+        "source": "AeostaraMacDomain",
+        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraMacCLI", "AeostaraMacServices"]
       },
       {
-        "source": "AeostaraServices",
-        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraApp"]
+        "source": "AeostaraMacServices",
+        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraMacCLI"]
       },
       {
-        "source": "AeostaraApp",
+        "source": "AeostaraMacCLI",
         "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate"]
       }
     ],
