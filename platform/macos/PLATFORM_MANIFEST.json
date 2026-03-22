@@ -1,34 +1,51 @@
 {
   "platform": "macos",
   "displayName": "Aeostara for macOS",
-  "status": "implemented",
+  "status": "source-complete, build-unverified",
   "version": "0.1.0",
   "toolchain": {
-    "compiler": "Apple Clang",
-    "buildSystem": "CMake 3.28+ with Ninja",
     "minimumTarget": "macOS 13.0",
-    "standard": "C++20"
+    "swift": "5.9+",
+    "buildSystem": "SwiftPM (Package.swift)"
   },
   "implementation": {
-    "language": "C++20",
-    "testFramework": "Catch2",
-    "dependencies": ["nlohmann/json", "catch2"]
+    "language": "Swift (pure — no C++, no Objective-C++)",
+    "testFramework": "XCTest",
+    "dependencies": []
+  },
+  "modules": {
+    "domain": "AeostaraMacDomain (Sources/AeostaraMacDomain/) — 14 Swift files",
+    "services": "AeostaraMacServices (Sources/AeostaraMacServices/) — 2 Swift files",
+    "cli": "AeostaraMacCLI (Sources/AeostaraMacCLI/) — 3 Swift files",
+    "tests": "AeostaraMacTests (Tests/AeostaraMacTests/) — 12 Swift files + fixtures"
   },
   "shell": {
     "type": "CLI",
-    "commands": ["validate", "diff", "heal"],
-    "futureGUI": "AppKit or SwiftUI (deferred)"
+    "commands": ["validate", "diff", "heal"]
   },
   "ci": {
     "buildWorkflow": "macos-build-test.yml",
-    "ciProven": true,
-    "cliSmokeTested": true
+    "testTargets": ["AeostaraMacTests"]
   },
   "compliance": {
-    "forsettiBridge": "stub",
+    "nativeOnly": true,
     "configFormat": "JSON-only",
     "noPython": true,
-    "noYAML": true
+    "noYAML": true,
+    "noCpp": true,
+    "noObjCpp": true,
+    "noCMake": true,
+    "noVcpkg": true,
+    "noCatch2": true,
+    "noNlohmannJson": true,
+    "forsettiCompliant": true,
+    "allClassesFinal": true,
+    "foundationOnly": true
+  },
+  "quarantine": {
+    "path": "_quarantine/",
+    "contents": "Non-compliant reference artifacts from pre-remediation C++20 implementation",
+    "shipped": false
   },
   "acceptanceScenarios": [
     "valid config / no drift",
