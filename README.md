@@ -61,7 +61,7 @@ IHealingEngine, IConfigAdapter, IBackupProvider, IAuditSink, IFileSystem
 - **JSON-only** — all configuration files are JSON; no YAML parser
 - **No Python** — shipped product has no Python dependency
 - **No C++/Obj-C++** — pure Swift implementation
-- **Forsetti-compliant** — protocol-based integration, host-agnostic domain
+- **Forsetti-compliant** — domain contracts are Forsetti-independent; platform services and app may integrate with iOS Forsetti framework per boundary rules
 - **ASH-inspired** — healing semantics follow the Aeostara Self-Healing pattern
 
 ## License
