@@ -105,10 +105,10 @@ jobs:
           fi
 
           if [ -n "$DIFF_RANGE" ]; then
-            DIFF_CONTENT=$(git diff "$DIFF_RANGE" --unified=0 -- '*.h' '*.cpp' '*.hpp' '*.md' '*.json' '*.txt' '*.cmake' '*.ps1' 2>/dev/null || true)
+            DIFF_CONTENT=$(git diff "$DIFF_RANGE" --unified=0 -- '*.h' '*.cpp' '*.hpp' '*.swift' '*.md' '*.json' '*.txt' '*.cmake' '*.ps1' '*.yml' '*.yaml' 2>/dev/null || true)
           else
             # For initial push, check staged content of all tracked files
-            DIFF_CONTENT=$(git diff --no-index /dev/null . --unified=0 -- '*.h' '*.cpp' '*.hpp' '*.md' '*.json' '*.txt' '*.cmake' '*.ps1' 2>/dev/null || true)
+            DIFF_CONTENT=$(git diff --no-index /dev/null . --unified=0 -- '*.h' '*.cpp' '*.hpp' '*.swift' '*.md' '*.json' '*.txt' '*.cmake' '*.ps1' '*.yml' '*.yaml' 2>/dev/null || true)
           fi
 
           for PATTERN in "${FILE_PATTERNS[@]}"; do
