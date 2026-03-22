@@ -64,7 +64,7 @@ product_boundaries, branching_strategy, compliance_rules, native_target_architec
 - **JSON-only** — all configuration files are JSON; no YAML parser
 - **No Python** — shipped product has no Python dependency
 - **No C++/Obj-C++** — pure Swift implementation
-- **Forsetti-compliant** — protocol-based integration, host-agnostic domain
+- **Forsetti-compliant** — domain contracts are Forsetti-independent; platform services may integrate with macOS Forsetti framework per boundary rules
 - **ASH-inspired** — healing semantics follow the Aeostara Self-Healing pattern
 
 ## License

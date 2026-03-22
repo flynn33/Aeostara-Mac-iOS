@@ -17,8 +17,8 @@
     },
     {
       "id": "R003",
-      "name": "No Forsetti Dependency",
-      "description": "AeostaraMacDomain and AeostaraMacCLI must not import any Forsetti modules. Aeostara domain remains host-agnostic.",
+      "name": "Forsetti Boundary Compliance",
+      "description": "This branch is a macOS-native realization branch. AeostaraMacDomain (contracts/algorithms) remains Forsetti-independent. AeostaraMacServices and AeostaraMacCLI may integrate with the macOS Forsetti framework. Boundary rules: no framework modification, no direct module-to-module communication, no direct OS communication, no module-owned UI, framework-mediated I/O only.",
       "severity": "error"
     },
     {
@@ -66,11 +66,11 @@
       },
       {
         "source": "AeostaraMacServices",
-        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraMacCLI"]
+        "must_not_include": ["AeostaraMacCLI"]
       },
       {
         "source": "AeostaraMacCLI",
-        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate"]
+        "must_not_include": []
       }
     ],
     "forbidden_in_shipped_paths": [
