@@ -1,20 +1,26 @@
 {
   "platform": "ios",
   "displayName": "Aeostara for iOS",
-  "status": "implemented",
+  "status": "source-complete, build-unverified",
   "version": "0.1.0",
   "toolchain": {
-    "ide": "Xcode",
+    "ide": "Xcode 15+",
     "minimumTarget": "iOS 16.0",
-    "swift": "5.9+",
-    "cppStandard": "C++20"
+    "swift": "5.9+"
   },
   "implementation": {
-    "language": "Swift + C++20 (Obj-C++ bridge)",
-    "testFramework": "XCTest",
-    "dependencies": ["nlohmann/json (embedded single-header)"],
-    "buildSystem": "Xcode project (committed .xcodeproj)",
-    "tests": "XCTest (AeostaraBridgeTests.mm), XCUITest (AeostaraUITests.swift)"
+    "language": "Swift (pure — no C++, no Objective-C++)",
+    "uiFramework": "SwiftUI",
+    "buildSystem": "SwiftPM (Package.swift)",
+    "testFramework": "XCTest, XCUITest",
+    "dependencies": []
+  },
+  "modules": {
+    "domain": "AeostaraDomain (Sources/AeostaraDomain/) — 14 Swift files",
+    "services": "AeostaraServices (Sources/AeostaraServices/) — 3 Swift files",
+    "app": "AeostaraApp (Sources/AeostaraApp/) — 3 Swift files",
+    "tests": "AeostaraTests (Tests/AeostaraTests/) — 12 Swift files + fixtures",
+    "uiTests": "AeostaraUITests (Tests/AeostaraUITests/) — 1 Swift file"
   },
   "shell": {
     "type": "SwiftUI app",
@@ -29,23 +35,27 @@
   },
   "ci": {
     "buildWorkflow": "ios-build-test.yml",
-    "xcodeProjectCommitted": true,
-    "appMetadata": true,
     "testTargets": ["AeostaraTests", "AeostaraUITests"]
   },
   "compliance": {
-    "forsettiBridge": "stub",
+    "nativeOnly": true,
     "configFormat": "JSON-only",
     "noPython": true,
     "noYAML": true,
-    "sandboxed": true
+    "noCpp": true,
+    "noObjCpp": true,
+    "noCMake": true,
+    "noVcpkg": true,
+    "noCatch2": true,
+    "noNlohmannJson": true,
+    "sandboxed": true,
+    "forsettiCompliant": true,
+    "allClassesFinal": true,
+    "foundationOnly": true
   },
-  "architecture": {
-    "layers": [
-      "SwiftUI App (AeostaraApp/)",
-      "Obj-C++ Bridge (AeostaraKit/)",
-      "C++ Core (AeostaraCore/)"
-    ],
-    "bridgeDesign": "thin — translates types only, no healing logic"
+  "quarantine": {
+    "path": "_quarantine/",
+    "contents": "Non-compliant reference artifacts from pre-remediation C++20/Obj-C++ implementation",
+    "shipped": false
   }
 }
