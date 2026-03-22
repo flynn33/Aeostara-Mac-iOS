@@ -1,58 +1,57 @@
-# Aeostara for macOS
+# Aeostara for macOS — Platform Details
 
-**Status**: Implemented v0.1.0
+**Status**: Source-complete (Swift/SwiftPM), build-unverified
 
-Deterministic JSON configuration drift detection and healing platform — macOS native implementation.
+Native Swift reimplementation of the Aeostara deterministic JSON configuration drift detection and healing platform for macOS, compliant with Apple Forsetti framework requirements.
 
 ## Architecture
 
 ```
-AeostaraCLI (executable)
-  └── AeostaraCore (static library)
-        └── nlohmann/json (vcpkg)
+AeostaraMacCLI (executable target)
+  └── AeostaraMacServices (Swift module — platform I/O)
+        └── AeostaraMacDomain (Swift module — healing logic)
+              └── Foundation (JSON, FileManager, Date)
 ```
 
-- **AeostaraCore**: 11 contracts, 9 algorithms, 5 interfaces — full healing engine
-- **AeostaraCLI**: `validate`, `diff`, `heal` commands matching Windows behavioral parity
-- **Catch2**: Fixture-driven test suite covering all 5 acceptance scenarios
+- **AeostaraMacDomain**: 11 contracts, 9 algorithms, 5 protocols — full healing engine in pure Swift
+- **AeostaraMacServices**: Platform-specific I/O (FileManager-based config adapter, filesystem)
+- **AeostaraMacCLI**: `validate`, `diff`, `heal` commands matching spec behavior parity
+- **XCTest**: Fixture-driven test suite covering all 5 acceptance scenarios
 
 ## Build Requirements
 
 - macOS 13.0+
-- Apple Clang (Xcode Command Line Tools)
-- CMake 3.28+
-- Ninja build system
-- vcpkg (for nlohmann/json and Catch2)
+- Xcode 15+ or Swift 5.9+ toolchain
+- No external dependencies (Foundation only)
 
 ## Build
 
 ```bash
-export VCPKG_ROOT=/path/to/vcpkg
-cmake --preset debug
-cmake --build --preset debug
+swift build
 ```
 
 ## Test
 
 ```bash
-ctest --preset debug
+swift test
 ```
 
 ## CLI Usage
 
 ```bash
-aeostara validate <config> --desired <desired> [--invariants <invariants>]
-aeostara diff    <config> --desired <desired> [--invariants <invariants>]
-aeostara heal    <config> --desired <desired> [--invariants <invariants>] [--audit <audit.jsonl>]
+swift run AeostaraMacCLI validate <config> --desired <desired> [--invariants <invariants>]
+swift run AeostaraMacCLI diff    <config> --desired <desired> [--invariants <invariants>]
+swift run AeostaraMacCLI heal    <config> --desired <desired> [--invariants <invariants>] [--audit <audit.jsonl>]
 ```
 
 Exit codes: 0 = success/no drift, 1 = drift/policy blocked, 2 = error
 
 ## Compliance
 
-- C++20 native — no interpreted runtime
-- JSON-only configuration scope
+- Swift-native — no C++, no Objective-C++, no interpreted runtime
+- JSON-only configuration scope (Foundation JSONSerialization)
 - No Python or YAML in shipped product
-- Forsetti-compliant (host-agnostic core, interface-first, all types final)
+- Forsetti-compliant (host-agnostic domain, protocol-first, all classes final)
 - ASH-inspired healing semantics
 - Deterministic outputs across platforms
+- No third-party dependencies

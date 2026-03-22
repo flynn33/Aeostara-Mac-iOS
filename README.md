@@ -15,10 +15,30 @@ This repository uses a specification-first branch strategy:
 |--------|---------|
 | `main` | Platform-agnostic specifications: JSON contract schemas, pseudo code algorithms, interface definitions, architecture docs, test fixtures |
 | `platform/windows` | Windows native implementation (C++20, MSVC, CMake, vcpkg) |
-| `platform/macos` | macOS native implementation (C++20, Apple Clang, CMake, Catch2) |
-| `platform/ios` | iOS native implementation (SwiftUI, Obj-C++ bridge, C++20 core) |
+| `platform/macos` | macOS native implementation (Swift, SwiftPM, XCTest) |
+| `platform/ios` | iOS native implementation (Swift, SwiftUI, XCTest/XCUITest) |
 
 Spec changes on `main` merge down into platform branches. Platform code never merges back to `main`.
+
+## macOS Implementation
+
+This branch (`platform/macos`) contains the native Swift implementation for macOS.
+
+### Module Structure
+
+- **AeostaraMacDomain** — Pure Swift healing engine (contracts, algorithms, protocols)
+- **AeostaraMacServices** — Platform I/O (FileManager-based config adapter, filesystem)
+- **AeostaraMacCLI** — Command-line interface (`validate`, `diff`, `heal`)
+- **AeostaraMacTests** — XCTest suite (unit + acceptance)
+
+### Build & Test
+
+```bash
+swift build
+swift test
+```
+
+No external dependencies — Foundation only.
 
 ## Specifications
 
@@ -38,25 +58,14 @@ IHealingEngine, IConfigAdapter, IBackupProvider, IAuditSink, IFileSystem
 Design documents in `specs/architecture/`:
 product_boundaries, branching_strategy, compliance_rules, native_target_architecture
 
-## Product Stack
-
-- **Aeostara** = product (customer-facing behavior, contracts, adapters)
-- **ASH Pattern System** = healing kernel (encoded state, drift, correction semantics)
-- **Forsetti Framework** = host/runtime framework (shell, lifecycle, UI)
-
 ## Compliance
 
-- **Native only** — shipped product is a compiled native binary
+- **Native only** — shipped product is a compiled Swift binary
 - **JSON-only** — all configuration files are JSON; no YAML parser
 - **No Python** — shipped product has no Python dependency
-- **Forsetti-compliant** — interface-based integration, host-agnostic core
+- **No C++/Obj-C++** — pure Swift implementation
+- **Forsetti-compliant** — protocol-based integration, host-agnostic domain
 - **ASH-inspired** — healing semantics follow the Aeostara Self-Healing pattern
-
-## Platform Targets
-
-- **Windows** — C++20, MSVC 2022, CMake, vcpkg (`platform/windows`)
-- **macOS** — native implementation (`platform/macos`)
-- **iOS** — Swift + C++ bridging (`platform/ios`)
 
 ## License
 

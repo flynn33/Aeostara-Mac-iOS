@@ -1,0 +1,29 @@
+[
+  {
+    "invariant_id": "INV-001",
+    "name": "Database Port Standard",
+    "description": "Database port must be 5432",
+    "severity": "high",
+    "expression": "database.port == 5432",
+    "applies_to": ["database"],
+    "auto_remediate": true
+  },
+  {
+    "invariant_id": "INV-002",
+    "name": "SSL Required",
+    "description": "SSL must be enabled",
+    "severity": "critical",
+    "expression": "server.ssl_enabled == true",
+    "applies_to": ["server"],
+    "auto_remediate": true
+  },
+  {
+    "invariant_id": "INV-003",
+    "name": "Log Level Valid",
+    "description": "Log level must be INFO",
+    "severity": "medium",
+    "expression": "logging.level == \"INFO\"",
+    "applies_to": ["logging"],
+    "auto_remediate": true
+  }
+]
