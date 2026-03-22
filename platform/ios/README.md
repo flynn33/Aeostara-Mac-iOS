@@ -2,6 +2,8 @@
 
 **Status**: Source-complete (Swift/SwiftUI/SwiftPM), build-unverified
 
+> **Build verification blocker**: This remediation was performed on Windows where no Apple build tools are available. Build verification requires macOS with Swift 5.9+ toolchain and Xcode 15+ (for iOS Simulator). The `build-unverified` status will remain until `swift build`, `swift test`, and Xcode simulator builds are executed successfully on macOS.
+
 Native Swift reimplementation of the Aeostara deterministic JSON configuration drift detection and healing platform for iOS, compliant with Apple Forsetti framework requirements.
 
 ## Architecture
