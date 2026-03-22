@@ -1,5 +1,5 @@
 # Aeostara macOS Build & Test
-# Proves the C++20 native implementation builds and tests on Apple hardware.
+# Proves the native Swift implementation builds and tests on Apple hardware.
 # Copyright (c) 2026 James Daley. All Rights Reserved.
 
 name: macOS Build & Test
@@ -16,28 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies via vcpkg
-        run: |
-          git clone https://github.com/microsoft/vcpkg.git /tmp/vcpkg
-          /tmp/vcpkg/bootstrap-vcpkg.sh
-          /tmp/vcpkg/vcpkg install nlohmann-json catch2
-
-      - name: Configure CMake
-        run: |
-          cmake -B build \
-            -DCMAKE_BUILD_TYPE=Debug \
-            -DCMAKE_CXX_STANDARD=20 \
-            -DBUILD_TESTING=ON \
-            -DCMAKE_TOOLCHAIN_FILE=/tmp/vcpkg/scripts/buildsystems/vcpkg.cmake \
-            -G Ninja
+      - name: Show Swift version
+        run: swift --version
 
       - name: Build
-        run: cmake --build build
+        run: swift build
 
       - name: Run tests
-        run: ctest --test-dir build --output-on-failure
-
-      - name: CLI smoke tests
-        run: |
-          chmod +x tests/CLISmokeTests/smoke_test.sh
-          tests/CLISmokeTests/smoke_test.sh build
+        run: swift test

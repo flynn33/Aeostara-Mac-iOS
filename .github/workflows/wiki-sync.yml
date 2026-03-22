@@ -354,19 +354,26 @@ jobs:
           short_sha="$(echo "$COMMIT_SHA" | cut -c1-7)"
           git commit -m "docs(wiki): sync ${BRANCH_NAME} (${short_sha})"
 
+          # Detect wiki default branch (main or master)
+          WIKI_BRANCH="main"
+          git ls-remote --heads origin master >/dev/null 2>&1 && WIKI_BRANCH="master"
+
           for attempt in 1 2 3; do
-            if git push origin HEAD:main; then
+            # Rebase on remote before pushing to avoid non-fast-forward
+            git fetch origin "$WIKI_BRANCH" 2>/dev/null || true
+            git rebase "origin/${WIKI_BRANCH}" 2>/dev/null || {
+              git rebase --abort 2>/dev/null || true
+              # If rebase fails, force-reset and re-apply our changes
+              git reset --soft "origin/${WIKI_BRANCH}" 2>/dev/null || true
+              git commit -m "docs(wiki): sync ${BRANCH_NAME} (${short_sha})" --allow-empty 2>/dev/null || true
+            }
+
+            if git push origin "HEAD:${WIKI_BRANCH}"; then
               exit 0
             fi
 
-            echo "Push attempt ${attempt} failed; rebasing and retrying"
-            git fetch origin main || true
-            if ! git rebase origin/main; then
-              git rebase --abort || true
-              echo "Rebase conflict while retrying wiki push"
-              exit 1
-            fi
-            sleep 2
+            echo "Push attempt ${attempt} failed; retrying in 3s"
+            sleep 3
           done
 
           echo "Failed to push wiki updates after retries"

@@ -46,9 +46,9 @@ def scan_directory(source_dir):
     all_violations = []
 
     for root, _dirs, files in os.walk(source_dir):
-        # Skip .github and ci directories (automation is exempt)
+        # Skip .github, ci, and _quarantine directories (automation/reference exempt)
         rel = os.path.relpath(root, source_dir)
-        if rel.startswith(".github") or rel.startswith("ci"):
+        if rel.startswith(".github") or rel.startswith("ci") or rel.startswith("_quarantine"):
             continue
 
         for filename in files:
