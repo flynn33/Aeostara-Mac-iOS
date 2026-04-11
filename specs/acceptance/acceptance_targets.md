@@ -1,40 +1,61 @@
 # Acceptance Targets
 
-All platform implementations must pass these scenarios to be considered compliant.
+All downstream implementations must satisfy these ASH-conformance behaviors.
 
-## Shared Behavior Scenarios
+## Core Behavioral Scenarios
 
-### 1. Valid Config — No Drift
-**Input:** `fixtures/valid_config.json` + `fixtures/desired_state.json`
-**Expected:** validate returns valid=true, no drifts, exit code 0
+### 1. Semantically stable despite superficial drift
 
-### 2. Invalid Config — Parse Error
-**Input:** `fixtures/invalid_config.json` (malformed JSON)
-**Expected:** validate returns valid=false, error message, exit code 2
+Expected outcome:
 
-### 3. Policy Block — Critical Invariant Violation
-**Input:** `fixtures/policy_blocked_config.json` + `fixtures/desired_state.json` + `fixtures/invariants.json`
-**Expected:** heal returns blocked, audit event with type=PolicyBlocked, exit code 1
+- `StateValidityDiagnostic.isValid = true`
+- `SystemStateClass = STABLE`
+- `RecoveryCategory = NO_ACTION`
 
-### 4. Successful Repair
-**Input:** `fixtures/repairable_config.json` + `fixtures/desired_state.json` + `fixtures/invariants.json`
-**Expected:** heal returns success=true, backup created, config repaired, audit trail, exit code 0
+### 2. Semantically unstable despite minimal/no superficial drift
 
-### 5. Forced Rollback — Verification Failure
-**Input:** repairable config with a mock/stub file system that returns bad content on verify re-read
-**Expected:** rollback executed, audit records VerificationFailed + RollbackExecuted
+Expected outcome:
 
-## Cross-Branch Acceptance
+- diagnostic indicates non-valid state
+- `SystemStateClass in {UNSTABLE, CORRECTABLE}`
+- `RecoveryCategory in {NORMALIZE_STATE, APPLY_CORRECTION}`
 
-1. `main` preserves specification correctness (schemas validate, pseudo code is consistent)
-2. `platform/windows` passes all 5 shared behavior scenarios
-3. `platform/macos` passes all 5 shared behavior scenarios (when implemented)
-4. `platform/ios` passes minimum behavior scenarios (when implemented)
-5. Deterministic outputs match across platforms for the same input
+### 3. Correction blocked; fallback selected
 
-## Compliance Acceptance
+Expected outcome:
 
-1. Shipped product does not require Python
-2. Shipped product does not require YAML
-3. Core implementation remains host-agnostic
-4. Forsetti bridges are isolated from core healing modules
+- policy or correction-path block present
+- `RecoveryCategory = FALLBACK_REQUIRED`
+- `FallbackDecision.selectionOutcome = SELECTED`
+
+### 4. Fallback unavailable; containment entered
+
+Expected outcome:
+
+- fallback selection unable to choose candidate
+- containment decision enters restricted mode
+
+### 5. Containment breach; safe halt entered
+
+Expected outcome:
+
+- `SafeHaltDecision.enterSafeHalt = true`
+- terminal semantics asserted
+
+### 6. Post-execution verification failure triggers rollback/escalation
+
+Expected outcome:
+
+- verification failure captured
+- rollback and/or escalation path executed deterministically
+
+### 7. Policy gate blocks unsafe action before mutation
+
+Expected outcome:
+
+- blocked outcome returned before actuator mutation
+- policy/audit records present
+
+## Determinism Requirements
+
+For identical inputs, diagnostics, classification, recovery category, and plan shape must be identical.

@@ -1,68 +1,55 @@
-# Aeostara
+# Aeostara (iOS Native Realization)
 
-**Deterministic JSON Configuration Drift Detection and Healing Platform** - v0.1
+**Downstream ASH-based healing platform** - iOS Swift/SwiftUI implementation
 
-Aeostara observes live configuration, compares it against a declared desired state, detects drift, evaluates invariant policy, and executes repairs with backup, verification, rollback, and audit trail.
+This branch is the iOS native realization of Aeostara. Semantic authority is upstream in ASH and downstream conformance specs on `main`; this branch implements native Apple execution behavior.
 
 Copyright (c) 2026 James Daley. All Rights Reserved.
 Proprietary and Confidential.
 
-## Branch Model
+## Branch Role
 
-This repository uses a specification-first branch strategy:
+- Semantic authority: ASH upstream + Aeostara downstream conformance specs from `main`
+- Branch responsibility: native iOS implementation using Swift/SwiftUI/SwiftPM/XCTest/XCUITest
+- Conflict rule: semantic alignment to `main`/ASH; iOS branch owns implementation mechanics
 
-| Branch | Purpose |
-|--------|---------|
-| `main` | Platform-agnostic specifications: JSON contract schemas, pseudo code algorithms, interface definitions, architecture docs, test fixtures |
-| `platform/windows` | Windows native implementation (C++20, MSVC, CMake, vcpkg) |
-| `platform/macos` | macOS native implementation (Swift, SwiftPM, XCTest) |
-| `platform/ios` | iOS native implementation (Swift, SwiftUI, XCTest/XCUITest) |
+## Native Apple Stack
 
-Spec changes on `main` merge down into platform branches. Platform code never merges back to `main`.
+- Swift
+- SwiftUI
+- Foundation
+- SwiftPM (`Package.swift`)
+- XCTest/XCUITest
 
-## iOS Implementation
+## Module Structure
 
-This branch (`platform/ios`) contains the native Swift/SwiftUI implementation for iOS.
+- `AeostaraDomain` - domain contracts/algorithms and orchestration interfaces
+- `AeostaraServices` - iOS sandbox/file adapters
+- `AeostaraApp` - SwiftUI app shell and interaction flows
+- `AeostaraTests` and `AeostaraUITests` - unit/acceptance/UI tests
 
-### Module Structure
-
-- **AeostaraDomain** — Pure Swift healing engine (contracts, algorithms, protocols)
-- **AeostaraServices** — iOS sandbox I/O (FileManager, document picker integration)
-- **AeostaraApp** — SwiftUI application (file import, validate/diff/heal, audit viewer)
-- **AeostaraTests** — XCTest suite (unit + acceptance)
-- **AeostaraUITests** — XCUITest suite (UI flow tests)
-
-### Build & Test
+## Build and Test
 
 ```bash
 swift build
 swift test
 ```
 
-No external dependencies — Foundation only.
+## Execution Guarantees
 
-## Specifications
+- Deterministic execution
+- Policy gating before mutation
+- Backup before mutation
+- Verification after execution
+- Rollback/escalation on verification failure
+- Audit evidence for decision-critical actions
 
-### Contracts (11 types)
-JSON Schema definitions in `specs/contracts/`:
-ObservedState, DesiredState, EncodedState, Invariant, DriftEvent, RepairAction, RepairPlan, VerificationResult, RollbackPlan, AuditEvent, ModuleManifest
+## Branch Alignment
 
-### Algorithms (9)
-Pseudo code in `specs/algorithms/`:
-healing_flow, drift_analysis, repair_planning, policy_evaluation, json_path, verification, rollback, backup, audit
+This branch is validated against `platform_ios` profile contract:
 
-### Interfaces (5)
-Pseudo code in `specs/interfaces/`:
-IHealingEngine, IConfigAdapter, IBackupProvider, IAuditSink, IFileSystem
-
-## Compliance
-
-- **Native only** — shipped product is a compiled Swift binary
-- **JSON-only** — all configuration files are JSON; no YAML parser
-- **No Python** — shipped product has no Python dependency
-- **No C++/Obj-C++** — pure Swift implementation
-- **Forsetti-compliant** — domain contracts are Forsetti-independent; platform services and app may integrate with iOS Forsetti framework per boundary rules
-- **ASH-inspired** — healing semantics follow the Aeostara Self-Healing pattern
+- `branch_profiles/platform_ios.profile.json`
+- `python3 ci/branch_alignment_checker.py . --profile platform_ios`
 
 ## License
 
