@@ -1,87 +1,38 @@
 {
-  "schemaVersion": "1.0",
-  "policyName": "Aeostara Agentic Coding Policy — Apple macOS",
-  "platform": "macos",
+  "schemaVersion": "1.1",
+  "policyName": "Aeostara macOS Branch Policy",
+  "policyScope": "platform/macos",
+  "description": "Policy for macOS native realization branch aligned to downstream ASH conformance semantics.",
   "rules": [
     {
-      "id": "R001",
-      "name": "Native Apple Technologies Only",
-      "description": "Use only Swift, SwiftUI, Foundation, and Apple-provided frameworks. Build with Xcode-native projects or SwiftPM (Package.swift). No C++, no Objective-C++, no CMake, no vcpkg, no nlohmann/json, no Boost, no non-Apple third-party dependencies in shipped product paths.",
+      "id": "M001",
+      "name": "Upstream Semantic Alignment",
+      "description": "Branch semantics must align with ASH upstream authority and Aeostara downstream conformance artifacts from main.",
       "severity": "error"
     },
     {
-      "id": "R002",
-      "name": "Sealed Domain Module",
-      "description": "AeostaraMacDomain is a sealed Swift module. Consumers import only its public API. No direct access to internal types.",
+      "id": "M002",
+      "name": "Native Apple Implementation",
+      "description": "Implementation remains Swift/Foundation/SwiftPM/XCTest native for macOS runtime delivery.",
       "severity": "error"
     },
     {
-      "id": "R003",
-      "name": "Forsetti Boundary Compliance",
-      "description": "This branch is a macOS-native realization branch. AeostaraMacDomain (contracts/algorithms) remains Forsetti-independent. AeostaraMacServices and AeostaraMacCLI may integrate with the macOS Forsetti framework. Boundary rules: no framework modification, no direct module-to-module communication, no direct OS communication, no module-owned UI, framework-mediated I/O only.",
+      "id": "M003",
+      "name": "Protocol-First Modularity",
+      "description": "Use protocol-based boundaries, initializer dependency injection, and one-way module dependencies.",
       "severity": "error"
     },
     {
-      "id": "R004",
-      "name": "Protocol-First Design",
-      "description": "All major components expose Swift protocols. Implementations use initializer-based dependency injection.",
+      "id": "M004",
+      "name": "Deterministic Safety Envelope",
+      "description": "Policy gating, backup, verification, rollback, fallback/containment/safe-halt escalation hooks, and audit evidence are mandatory.",
       "severity": "error"
     },
     {
-      "id": "R005",
-      "name": "Strict Value/Reference Discipline",
-      "description": "Prefer structs for data types (contracts). Use final classes only where reference semantics and DI are required. All classes are final. No hidden globals or singletons.",
-      "severity": "error"
-    },
-    {
-      "id": "R006",
-      "name": "One-Way Dependencies",
-      "description": "AeostaraMacDomain depends on Foundation only. AeostaraMacServices depends on AeostaraMacDomain and Foundation. AeostaraMacCLI depends on AeostaraMacDomain, AeostaraMacServices, and Foundation. Tests depend on domain and services. No reverse or lateral imports.",
-      "severity": "error"
-    },
-    {
-      "id": "R007",
-      "name": "Deterministic Behavior",
-      "description": "No random production behavior. All repair plans are deterministic. Same input must produce same output.",
-      "severity": "error"
-    },
-    {
-      "id": "R008",
-      "name": "Proprietary Licensing",
-      "description": "All source files carry proprietary header comment. Copyright (c) 2026 James Daley. All Rights Reserved.",
-      "severity": "error"
-    },
-    {
-      "id": "R009",
-      "name": "No Mutation Without Rollback",
-      "description": "Every file mutation must be preceded by a backup. Rollback must be available for every repair action.",
+      "id": "M005",
+      "name": "No Interpreted Runtime in Product",
+      "description": "Shipped product paths must not depend on Python or YAML parsers.",
       "severity": "error"
     }
-  ],
-  "architecture_constraints": {
-    "must_not_import_rules": [
-      {
-        "source": "AeostaraMacDomain",
-        "must_not_include": ["ForsettiCore", "ForsettiPlatform", "ForsettiHostTemplate", "AeostaraMacCLI", "AeostaraMacServices"]
-      },
-      {
-        "source": "AeostaraMacServices",
-        "must_not_include": ["AeostaraMacCLI"]
-      },
-      {
-        "source": "AeostaraMacCLI",
-        "must_not_include": []
-      }
-    ],
-    "forbidden_in_shipped_paths": [
-      "*.cpp", "*.hpp", "*.h", "*.cc", "*.cxx", "*.mm",
-      "CMakeLists.txt", "CMakePresets.json", "vcpkg.json",
-      "Catch2", "nlohmann/json", "AeostaraBridge.mm"
-    ],
-    "allowed_exceptions": [
-      { "pattern": "ci/**", "reason": "CI automation scripts" },
-      { "pattern": ".github/**", "reason": "GitHub Actions workflows" },
-      { "pattern": "_quarantine/**", "reason": "Non-compliant reference artifacts" }
-    ]
-  }
+  ]
 }
