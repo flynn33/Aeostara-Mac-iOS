@@ -4,7 +4,7 @@ import Foundation
 @testable import AeostaraDomain
 
 /// In-memory file system for testing. No disk I/O.
-final class InMemoryFileSystem: IFileSystem {
+class InMemoryFileSystem: IFileSystem {
     var files: [String: String] = [:]
 
     func readFile(path: String) throws -> String {

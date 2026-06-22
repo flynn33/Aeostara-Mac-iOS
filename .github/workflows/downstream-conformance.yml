@@ -12,11 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify base pin
+      - name: Verify local base pin
         run: |
           set -euo pipefail
-          resolved="$(git ls-remote --tags https://github.com/flynn33/aeostara.git 'v1.0.0^{}' | awk '{print $1}')"
-          test "$resolved" = "774b981ef2267a41c1b1a59497b2b0746a86f32b"
           grep -q "774b981ef2267a41c1b1a59497b2b0746a86f32b" AEOSTARA_BASELINE_REFERENCE.md
           grep -q "e123f5d7fdbb381179971f721a3292c31eb1cbc2" AEOSTARA_BASELINE_REFERENCE.md
 

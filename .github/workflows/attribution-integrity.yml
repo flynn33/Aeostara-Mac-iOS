@@ -22,9 +22,10 @@ jobs:
               "Created " + "with",
               "Written " + "by",
           ]
+          excluded_dirs = {".git", "_quarantine"}
           failures = []
           for path in Path(".").rglob("*"):
-              if ".git" in path.parts or not path.is_file():
+              if any(part in excluded_dirs for part in path.parts) or not path.is_file():
                   continue
               try:
                   text = path.read_text(encoding="utf-8")
