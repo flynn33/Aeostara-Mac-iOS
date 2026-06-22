@@ -14,4 +14,4 @@ The implementation branches are permanent and non-merging. macOS implementation 
 
 ## Base Authority
 
-The Apple implementation branches pin to Aeostara platform-agnostic base release `v1.0.0` from `flynn33/aeostara` at commit `b51ef8d018e82cc073c30813804795a2b7695fa9`.
+The Apple implementation branches pin to Aeostara platform-agnostic base release `v1.0.0` from `flynn33/aeostara` at commit `dfa401fa1826a73f5747dd83c74ff963e15eb32f`.
