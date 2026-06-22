@@ -54,7 +54,6 @@ public final class Verification {
         }
 
         // Check invariants hold
-        let repairedAnyCodable = repairedFlat.mapValues { AnyCodable($0) }
         for invariant in invariants {
             let holds = policyEvaluator.evaluateExpression(invariant.expression, state: repairedFlat)
             if !holds {
