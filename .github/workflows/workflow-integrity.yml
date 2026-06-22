@@ -1,0 +1,28 @@
+name: Workflow Integrity
+
+on:
+  push:
+    branches: [platform/macos]
+  pull_request:
+    branches: [platform/macos]
+
+jobs:
+  workflow-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check workflow controls
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          tokens = ["continue" + "-on-error", "|" + "| true", "if: always" + "()"]
+          failures = []
+          for path in Path(".github/workflows").glob("*.yml"):
+              text = path.read_text(encoding="utf-8")
+              for token in tokens:
+                  if token in text:
+                      failures.append(f"{path}: {token}")
+          if failures:
+              raise SystemExit("\n".join(failures))
+          PY

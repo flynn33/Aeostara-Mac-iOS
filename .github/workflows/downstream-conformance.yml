@@ -1,0 +1,27 @@
+name: Downstream Conformance
+
+on:
+  push:
+    branches: [platform/macos]
+  pull_request:
+    branches: [platform/macos]
+
+jobs:
+  downstream-conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify base pin
+        run: |
+          set -euo pipefail
+          resolved="$(git ls-remote --tags https://github.com/flynn33/aeostara.git 'v1.0.0^{}' | awk '{print $1}')"
+          test "$resolved" = "b51ef8d018e82cc073c30813804795a2b7695fa9"
+          grep -q "b51ef8d018e82cc073c30813804795a2b7695fa9" AEOSTARA_BASELINE_REFERENCE.md
+          grep -q "e123f5d7fdbb381179971f721a3292c31eb1cbc2" AEOSTARA_BASELINE_REFERENCE.md
+
+      - name: Verify migration provenance
+        run: |
+          set -euo pipefail
+          grep -q "b992a4b7f7b0847744a86bc50e4b946b1ef84119" MIGRATION_PROVENANCE.md
+          grep -q "import/platform-macos-b992a4b" MIGRATION_PROVENANCE.md

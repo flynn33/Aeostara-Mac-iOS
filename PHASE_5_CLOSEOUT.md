@@ -18,7 +18,7 @@ Old C++20 core, Catch2 tests, CMake artifacts, and nlohmann/json moved to `_quar
 
 ### Documentation
 - Root README, platform README, platform policy doc all describe Swift-native architecture
-- Governance policy (`agentic-coding-policy.json`) corrected to reference macOS modules
+- Governance policy (`aeostara-conformance-policy.json`) corrected to reference macOS modules
 - Platform manifest updated to reflect actual Swift implementation
 
 ## Compliance Status

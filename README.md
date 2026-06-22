@@ -2,16 +2,16 @@
 
 **Downstream ASH-based healing platform** - macOS Swift implementation
 
-This branch is the macOS native realization of Aeostara. Semantic authority is upstream in ASH and downstream conformance specs on `main`; this branch implements native Apple execution behavior.
+This branch is the macOS native realization of Aeostara. Semantic authority is upstream in ASH and the pinned Aeostara base release; this branch implements native Apple execution behavior.
 
 Copyright (c) 2026 James Daley. All Rights Reserved.
 Proprietary and Confidential.
 
 ## Branch Role
 
-- Semantic authority: ASH upstream + Aeostara downstream conformance specs from `main`
+- Semantic authority: ASH upstream and `flynn33/aeostara` release `v1.0.0`
 - Branch responsibility: native macOS implementation using Swift/SwiftPM/XCTest
-- Conflict rule: semantic alignment to `main`/ASH; macOS branch owns implementation mechanics
+- Conflict rule: semantic alignment to the pinned Aeostara release and ASH; macOS branch owns implementation mechanics
 
 ## Native Apple Stack
 
@@ -43,12 +43,10 @@ swift test
 - Rollback/escalation on verification failure
 - Audit evidence for decision-critical actions
 
-## Branch Alignment
+## Base Pin and Migration
 
-This branch is validated against `platform_macos` profile contract:
-
-- `branch_profiles/platform_macos.profile.json`
-- `python3 ci/branch_alignment_checker.py . --profile platform_macos`
+- [Aeostara baseline reference](AEOSTARA_BASELINE_REFERENCE.md)
+- [Migration provenance](MIGRATION_PROVENANCE.md)
 
 ## License
 
