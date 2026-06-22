@@ -2,7 +2,7 @@
 
 ## Scope
 
-This document supplements the root `agentic-coding-policy.json` with Apple-native Forsetti compliance rules for the `platform/ios` branch.
+This document supplements the root `aeostara-conformance-policy.json` with Apple-native Forsetti compliance rules for the `platform/ios` branch.
 
 ## Required Toolchain
 

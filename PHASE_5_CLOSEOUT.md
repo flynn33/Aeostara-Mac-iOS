@@ -19,7 +19,7 @@ Old C++20 core, Obj-C++ bridge, CMake artifacts, and nlohmann/json moved to `_qu
 
 ### Documentation
 - Root README, platform README, platform policy doc all describe Swift-native architecture
-- Governance policy (`agentic-coding-policy.json`) corrected to reference iOS modules
+- Governance policy (`aeostara-conformance-policy.json`) corrected to reference iOS modules
 - Platform manifest updated to reflect actual Swift implementation
 
 ## Compliance Status

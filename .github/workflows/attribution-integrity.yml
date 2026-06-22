@@ -1,0 +1,40 @@
+name: Attribution Integrity
+
+on:
+  push:
+    branches: [platform/ios]
+  pull_request:
+    branches: [platform/ios]
+
+jobs:
+  attribution-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check attribution markers
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          blocked = [
+              "Co-" + "authored-by:",
+              "Generated " + "by",
+              "Created " + "with",
+              "Written " + "by",
+          ]
+          failures = []
+          for path in Path(".").rglob("*"):
+              if ".git" in path.parts or not path.is_file():
+                  continue
+              try:
+                  text = path.read_text(encoding="utf-8")
+              except UnicodeDecodeError:
+                  continue
+              lowered = text.lower()
+              for token in blocked:
+                  if token.lower() in lowered:
+                      failures.append(str(path))
+                      break
+          if failures:
+              raise SystemExit("\n".join(sorted(failures)))
+          PY

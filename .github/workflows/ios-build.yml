@@ -1,8 +1,4 @@
-# Aeostara iOS Build & Test
-# Proves the native Swift/SwiftUI implementation builds and tests on Apple hardware.
-# Copyright (c) 2026 James Daley. All Rights Reserved.
-
-name: iOS Build & Test
+name: iOS Build
 
 on:
   push:
@@ -11,7 +7,7 @@ on:
     branches: [platform/ios]
 
 jobs:
-  build-and-test:
+  ios-build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,8 +15,11 @@ jobs:
       - name: Show Swift version
         run: swift --version
 
-      - name: Build
+      - name: Build supported package products
         run: swift build
 
       - name: Run tests
         run: swift test
+
+      - name: Verify app shell sources are present
+        run: test -f Sources/AeostaraApp/AeostaraApp.swift
