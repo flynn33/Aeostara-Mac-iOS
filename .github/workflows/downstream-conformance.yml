@@ -16,8 +16,8 @@ jobs:
         run: |
           set -euo pipefail
           resolved="$(git ls-remote --tags https://github.com/flynn33/aeostara.git 'v1.0.0^{}' | awk '{print $1}')"
-          test "$resolved" = "b51ef8d018e82cc073c30813804795a2b7695fa9"
-          grep -q "b51ef8d018e82cc073c30813804795a2b7695fa9" AEOSTARA_BASELINE_REFERENCE.md
+          test "$resolved" = "dfa401fa1826a73f5747dd83c74ff963e15eb32f"
+          grep -q "dfa401fa1826a73f5747dd83c74ff963e15eb32f" AEOSTARA_BASELINE_REFERENCE.md
           grep -q "e123f5d7fdbb381179971f721a3292c31eb1cbc2" AEOSTARA_BASELINE_REFERENCE.md
 
       - name: Verify migration provenance
