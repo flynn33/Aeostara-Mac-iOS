@@ -5,54 +5,57 @@ import Foundation
 import AeostaraMacDomain
 import AeostaraMacServices
 
-// MARK: - Dependency Injection Bootstrap
+@main
+enum AeostaraMacCLI {
 
-let fileSystem = DefaultFileSystem()
+    static func main() {
+        let fileSystem = DefaultFileSystem()
 
-let timestampProvider: () -> String = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    formatter.timeZone = TimeZone(identifier: "UTC")
-    return formatter.string(from: Date())
+        let timestampProvider: () -> String = {
+            timestamp(format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
+        }
+
+        let backupTimestampProvider: () -> String = {
+            timestamp(format: "yyyyMMdd_HHmmss")
+        }
+
+        let eventIDProvider: () -> String = {
+            UUID().uuidString
+        }
+
+        let adapter = JsonConfigAdapter(fileSystem: fileSystem, timestampProvider: timestampProvider)
+        let backupManager = BackupManager(fileSystem: fileSystem, timestampProvider: backupTimestampProvider)
+        let driftAnalyzer = DriftAnalyzer()
+        let repairPlanner = RepairPlanner()
+        let policyEvaluator = PolicyEvaluator()
+        let invariantParser = InvariantParser()
+        let verification = Verification(policyEvaluator: policyEvaluator)
+        let rollbackManager = RollbackManager(backupProvider: backupManager)
+
+        let engine = HealingEngine(
+            adapter: adapter,
+            backupManager: backupManager,
+            driftAnalyzer: driftAnalyzer,
+            repairPlanner: repairPlanner,
+            policyEvaluator: policyEvaluator,
+            invariantParser: invariantParser,
+            verification: verification,
+            rollbackManager: rollbackManager,
+            fileSystem: fileSystem,
+            timestampProvider: timestampProvider,
+            eventIDProvider: eventIDProvider
+        )
+
+        let command = CommandParser.parse(CommandLine.arguments)
+        let runner = CLIRunner(engine: engine)
+        let exitCode = runner.run(command: command)
+        exit(exitCode)
+    }
+
+    private static func timestamp(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        return formatter.string(from: Date())
+    }
 }
-
-let backupTimestampProvider: () -> String = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyyMMdd_HHmmss"
-    formatter.timeZone = TimeZone(identifier: "UTC")
-    return formatter.string(from: Date())
-}
-
-let eventIDProvider: () -> String = {
-    UUID().uuidString
-}
-
-let adapter = JsonConfigAdapter(fileSystem: fileSystem, timestampProvider: timestampProvider)
-let backupManager = BackupManager(fileSystem: fileSystem, timestampProvider: backupTimestampProvider)
-let driftAnalyzer = DriftAnalyzer()
-let repairPlanner = RepairPlanner()
-let policyEvaluator = PolicyEvaluator()
-let invariantParser = InvariantParser()
-let verification = Verification(policyEvaluator: policyEvaluator)
-let rollbackManager = RollbackManager(backupProvider: backupManager)
-
-let engine = HealingEngine(
-    adapter: adapter,
-    backupManager: backupManager,
-    driftAnalyzer: driftAnalyzer,
-    repairPlanner: repairPlanner,
-    policyEvaluator: policyEvaluator,
-    invariantParser: invariantParser,
-    verification: verification,
-    rollbackManager: rollbackManager,
-    fileSystem: fileSystem,
-    timestampProvider: timestampProvider,
-    eventIDProvider: eventIDProvider
-)
-
-// MARK: - Run
-
-let command = CommandParser.parse(CommandLine.arguments)
-let runner = CLIRunner(engine: engine)
-let exitCode = runner.run(command: command)
-exit(exitCode)

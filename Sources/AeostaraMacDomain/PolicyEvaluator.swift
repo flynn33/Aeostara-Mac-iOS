@@ -8,14 +8,14 @@ public final class PolicyEvaluator {
 
     public init() {}
 
-    /// Evaluate whether a repair plan is allowed given invariant rules and the desired state.
-    /// Critical non-auto-remediatable invariants that would be violated block the plan.
-    public func evaluatePolicy(plan: RepairPlan, invariants: [Invariant], desiredState: [String: AnyCodable]) -> PolicyDecision {
-        let desiredFlat = flattenAnyCodable(desiredState)
+    /// Evaluate whether a repair plan is allowed given invariant rules and the current state.
+    /// Critical non-auto-remediatable invariants that are violated block the plan.
+    public func evaluatePolicy(plan: RepairPlan, invariants: [Invariant], state: [String: AnyCodable]) -> PolicyDecision {
+        let currentFlat = flattenAnyCodable(state)
 
         for invariant in invariants {
             if invariant.severity == .critical && !invariant.autoRemediate {
-                let holds = evaluateExpression(invariant.expression, state: desiredFlat)
+                let holds = evaluateExpression(invariant.expression, state: currentFlat)
                 if !holds {
                     return PolicyDecision(
                         allowed: false,

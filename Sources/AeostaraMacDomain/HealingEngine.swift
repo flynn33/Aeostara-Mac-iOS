@@ -162,7 +162,7 @@ public final class HealingEngine: IHealingEngine {
         let policyDecision = policyEvaluator.evaluatePolicy(
             plan: plan,
             invariants: invariants,
-            desiredState: desired.data
+            state: observed.data
         )
 
         // Step 9: Policy blocked?

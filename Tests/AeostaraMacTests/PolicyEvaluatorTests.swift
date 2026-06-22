@@ -57,11 +57,11 @@ final class PolicyEvaluatorTests: XCTestCase {
             autoRemediate: false
         )
         let plan = RepairPlan(planID: "test", actions: [], timestamp: "now", requiresBackup: true)
-        let desiredState: [String: AnyCodable] = [
+        let state: [String: AnyCodable] = [
             "server": AnyCodable(["ssl_enabled": false])
         ]
 
-        let decision = evaluator.evaluatePolicy(plan: plan, invariants: [invariant], desiredState: desiredState)
+        let decision = evaluator.evaluatePolicy(plan: plan, invariants: [invariant], state: state)
         XCTAssertFalse(decision.allowed)
     }
 
@@ -74,11 +74,11 @@ final class PolicyEvaluatorTests: XCTestCase {
             autoRemediate: true
         )
         let plan = RepairPlan(planID: "test", actions: [], timestamp: "now", requiresBackup: true)
-        let desiredState: [String: AnyCodable] = [
+        let state: [String: AnyCodable] = [
             "database": AnyCodable(["port": 3306])
         ]
 
-        let decision = evaluator.evaluatePolicy(plan: plan, invariants: [invariant], desiredState: desiredState)
+        let decision = evaluator.evaluatePolicy(plan: plan, invariants: [invariant], state: state)
         XCTAssertTrue(decision.allowed)
     }
 
