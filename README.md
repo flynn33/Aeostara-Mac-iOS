@@ -16,6 +16,12 @@ The implementation branches are permanent and non-merging. macOS implementation 
 
 The Apple implementation branches pin to Aeostara platform-agnostic base release `v1.0.0` from `flynn33/aeostara` at commit `774b981ef2267a41c1b1a59497b2b0746a86f32b`.
 
+## Contributing
+
+This project is open source under Apache License, Version 2.0. You are welcome to use, modify, and redistribute the code under that license.
+
+Outside contributions to this repository are not accepted. Pull requests and collaboration requests will not be reviewed or merged. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 
 Copyright 2026 James Daley
