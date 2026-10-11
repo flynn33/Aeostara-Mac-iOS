@@ -134,12 +134,14 @@ let package = Package(
     (root / 'SDK_MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n')
     if inventory(root, modules) != entries:
         raise SystemExit('Staged SDK changed during inventory')
-    package = subprocess.run(['swift', 'package', '--package-path', str(root), 'dump-package'], text=True, capture_output=True)
+    package = subprocess.run(['swift', 'package', '--package-path', str(root), '--scratch-path', str(output / 'PackageValidation'), 'dump-package'], text=True, capture_output=True)
     if package.returncode:
         raise SystemExit('Invalid binary package: ' + package.stderr)
     graph = json.loads(package.stdout)
     if len(graph['targets']) != 2 or any(t['type'] != 'binary' for t in graph['targets']) or graph['dependencies']:
         raise SystemExit('Binary package includes unexpected targets/dependencies')
+    if inventory(root, modules) != entries:
+        raise SystemExit('Package graph inspection changed the SDK allowlist')
     archive = output / ('Aeostara-' + platform + '-SDK-' + config['sdk_version'] + '.zip')
     subprocess.run(['/usr/bin/ditto', '-c', '-k', '--keepParent', '--norsrc', str(root), str(archive)], check=True)
     with zipfile.ZipFile(archive) as zipped:
