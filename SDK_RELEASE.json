@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0",
+  "sdk_version": "0.1.0-rc.1",
+  "release_kind": "prerelease; not latest stable",
+  "release_state": "Native final SDK packages and consumers technically accepted; immutable publication inputs prepared. Tag, draft and published-download verification follow this coordination commit.",
+  "release_url": "https://github.com/flynn33/Aeostara-Mac-iOS/releases/tag/sdk/apple/v0.1.0-rc.1",
+  "coordination_role": "Metadata only; external release manifest records this commit once it exists",
+  "native_sources": {
+    "macos": {
+      "branch": "platform/macos",
+      "commit": "79e5c9ce8cc9f9a3e38b6bd90fdfe7f521174e92",
+      "source_tag": "sdk/macos/v0.1.0-rc.1"
+    },
+    "ios": {
+      "branch": "platform/ios",
+      "commit": "a26c03522a3d42eb7f105d1523bc6409e358d08d",
+      "source_tag": "sdk/ios/v0.1.0-rc.1"
+    }
+  },
+  "coordination_tag": "sdk/apple/v0.1.0-rc.1",
+  "authorities": {
+    "policy_0_7_0": "8dd6e75a06336491b249fac3577db75458db8c13",
+    "base_1_0_0": "774b981ef2267a41c1b1a59497b2b0746a86f32b",
+    "ash": "e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+    "forsetti": "not_applicable"
+  },
+  "public_products": {
+    "macos": {
+      "AeostaraMacDomain": [
+        "AeostaraMacDomain"
+      ],
+      "AeostaraMacServices": [
+        "AeostaraMacServices",
+        "AeostaraMacDomain"
+      ]
+    },
+    "ios": {
+      "AeostaraDomain": [
+        "AeostaraDomain"
+      ],
+      "AeostaraServices": [
+        "AeostaraServices",
+        "AeostaraDomain"
+      ]
+    }
+  },
+  "assets": [
+    {
+      "name": "Aeostara-macOS-SDK-0.1.0-rc.1.zip",
+      "bytes": 1887027,
+      "sha256": "e858c6c54e18b40c2a2624d33ba3035fb9ffcdd02d0c77d8b8fe41d6fcf64436",
+      "sdk_manifest_sha256": "71afd65fe1f166c37cbeb9bd1296f2b4bdd66eb192cc9838a8efcf420033d63d"
+    },
+    {
+      "name": "Aeostara-iOS-SDK-0.1.0-rc.1.zip",
+      "bytes": 2757205,
+      "sha256": "881dba844bcc8a64a5aaa4ad8ff2a54a47ec59b4428ea617fb9374379e7136f8",
+      "sdk_manifest_sha256": "ce76000d7d0315f3f0b45abf4b56089f75c50b8d4580d0c255c1e1a517521e1f"
+    },
+    {
+      "name": "Aeostara-Apple-SDK-Examples-0.1.0-rc.1.zip",
+      "bytes": 56249,
+      "sha256": "16d6cc813cc2c17add9ac6f5b40a6548bdec5f2fbf29766f0103cfafdd1867d2"
+    },
+    {
+      "name": "Aeostara-Apple-SDK-Guide-0.1.0-rc.1.md",
+      "bytes": 9924,
+      "sha256": "5d2e0e3c844dfcff504edeba2e13e4abeebfd0b9d7d32a9acd4293210f611ac2"
+    }
+  ],
+  "additional_assets": [
+    "Aeostara-Apple-SDK-Release-0.1.0-rc.1.json",
+    "SHA256SUMS"
+  ],
+  "source_tests": {
+    "macos": {
+      "Debug": 125,
+      "Release": 124,
+      "CLI": 5
+    },
+    "ios": {
+      "host": 129,
+      "SimulatorDebug": 129,
+      "SimulatorRelease": 125
+    }
+  },
+  "source_test_binding": "Actual source test receipts retained; exact unchanged executable source independently rebound to final commits. Full source suites were not rerun after notice/format/tool/doc-only revisions.",
+  "final_binary_tests": {
+    "macos": {
+      "Domain": 2,
+      "Services": 9
+    },
+    "ios_simulator": {
+      "Domain": 2,
+      "Services": 8
+    }
+  },
+  "app_qualification": {
+    "macos": "Two universal app builds and two arm64 host runtimes",
+    "ios": "Two universal simulator builds and two arm64 simulator runtimes; two generic arm64 device builds only",
+    "services": "Actual HEALED synthetic input, verified original backup, mandatory durable audit and lean paired export",
+    "diagnostic_pairs": "Four actual success/fault pairs; full JSON/Markdown appendix, completion bytes/SHA256, private modes and causal links independently checked"
+  },
+  "independent_reviews": [
+    {
+      "id": "final-remote-sdk-artifact-review-01",
+      "sha256": "3da6bb07e2a9f366cd9b5891d179a7ed4f7e82bd1ff9e45c4224c88e7994180f"
+    },
+    {
+      "id": "final-remote-source-byte-rebind-01",
+      "sha256": "dc2747148c94561aebba6ece4ed2baab7d2ff689b83af3e6a531848608f31c30"
+    },
+    {
+      "id": "remote-final-consumer-binding-review-01",
+      "sha256": "b69e29ef211b98f25f7d63dfac5bb8e03558b5a01c5bc2e00ad3f4a8ad0f39bb"
+    },
+    {
+      "id": "remote-final-consumer-admission-postcheck-01",
+      "sha256": "d4c4965cc0a1549e099494a97145641e5a7cc26efc01603d4513592195a1d608"
+    },
+    {
+      "id": "final-remote-binary-consumer-review-01",
+      "sha256": "178861bfc240324977f2b97e79635508e8355727ecc4eb108809f1cae7eb00c9"
+    },
+    {
+      "id": "sdk-api-final-source-review",
+      "sha256": "1d899e0c59ea14d4340d91678ae410c524dcbac251f4ac72764a7723e4d05f43"
+    },
+    {
+      "id": "diagnostics-final-source-review",
+      "sha256": "9a2b8b6daf57b499f103b2738e5758c78e10e4136bb5c9a5bbb892a88a2796c3"
+    },
+    {
+      "id": "native-lifecycle-review",
+      "sha256": "d92e7c1f80d688655856ffd59456213dbe0c68b0cb60a7030e918d61275bd41c"
+    }
+  ],
+  "signing": "No distribution signing identity; linker ad-hoc macOS/simulator signatures; unsigned device frameworks; no notarization",
+  "license": {
+    "authority_commit": "b92f058b4deb2b58c63ff9825b49b68772615254",
+    "sha256": "18dfde32c0cdce320832cb12a8730f2be531825dfa4df15f8791317bbc4cd8ba",
+    "terms": "Owner dual license; non-commercial/academic/personal use; commercial use requires a separate written license"
+  },
+  "limitations": [
+    "Physical iOS runtime and Intel runtime unverified",
+    "Historical minimum supported OS runtime unverified",
+    "Sandbox, extensions, Catalyst, fatal-termination flush and cross-process diagnostic continuity unverified",
+    "Application distribution signing, installation and notarization unqualified",
+    "Depth-zero frozen ASH/base topology constraint conflict returns a typed diagnostic failure; positive depth exercised",
+    "Explicit public numeric/exponent and recorder bounds apply; no process-memory ceiling claim",
+    "Mac terminal source regressions are distinct from the selected binary consumer cases"
+  ]
+}

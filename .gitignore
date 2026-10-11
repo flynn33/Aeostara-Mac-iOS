@@ -1,0 +1,12 @@
+
+# Local generated build and user state
+.build/
+.swiftpm/
+DerivedData/
+*.xcarchive/
+*.xcresult/
+xcuserdata/
+*.xcuserstate
+.DS_Store
+__pycache__/
+*.pyc
