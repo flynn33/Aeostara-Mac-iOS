@@ -1,6 +1,16 @@
 # Changelog
 
-All notable changes to Aeostara will be documented in this file.
+Current Apple SDK version: `0.1.0-rc.1`. Earlier entries below retain the original upstream history and version series; they are not prior compiled Apple SDK releases.
+
+## [0.1.0-rc.1] - 2026-10-11
+
+- Native frozen base/ASH contracts and explicit source-bearing semantic context, registered policy, recovery planning and verified native resource lifecycle.
+- Durable audit, exclusive verified backup, exact restoration, resource leases and terminal recovery safeguards.
+- Internal bounded rich diagnostics and structurally separate lean release recorder with paired offline export.
+- Genuine dynamic XCFramework build tooling, local binary package distribution, payload inventories and coordinated consumer guides.
+- Current owner dual-license alignment and preserved permanent native branch isolation.
+
+## Historical upstream entries
 
 ## [0.2.0] - 2026-03-21
 

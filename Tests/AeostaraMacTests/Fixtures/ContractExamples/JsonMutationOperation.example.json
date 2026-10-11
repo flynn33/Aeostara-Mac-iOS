@@ -1,0 +1,26 @@
+{
+  "operationID": "jsonmutationoperation-operationid",
+  "op": "test",
+  "path": {
+    "pointer": "/system/state",
+    "tokens": [
+      "system",
+      "state"
+    ],
+    "pointsToMissing": false,
+    "pointsToNull": false
+  },
+  "preconditionHash": "9be9cf3f1f55d044e1250e92e3f483b70ad941530cfe07024d54526f5f663d5c",
+  "diagnosticReference": {
+    "diagnosticID": "diagnostic-state-validity-root",
+    "chainRootReference": "diagnostic-state-validity-root",
+    "diagnosticKind": "STATE_VALIDITY",
+    "ruleReferences": [
+      {
+        "ruleID": "ASH-STATE-VALIDITY-001",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+        "ruleFamily": "state-validity"
+      }
+    ]
+  }
+}

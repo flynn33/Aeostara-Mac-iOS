@@ -1,0 +1,306 @@
+{
+  "projectionSpecID": "semantic-projection-spec-b0-b8",
+  "dimensions": [
+    {
+      "dimensionID": "b0",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b0",
+          "tokens": [
+            "semantic",
+            "b0"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b0-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b0",
+          "value": 0
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b1",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b1",
+          "tokens": [
+            "semantic",
+            "b1"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b1-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b1",
+          "value": 1
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b2",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b2",
+          "tokens": [
+            "semantic",
+            "b2"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b2-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b2",
+          "value": 0
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b3",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b3",
+          "tokens": [
+            "semantic",
+            "b3"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b3-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b3",
+          "value": 1
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b4",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b4",
+          "tokens": [
+            "semantic",
+            "b4"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b4-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b4",
+          "value": 0
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b5",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b5",
+          "tokens": [
+            "semantic",
+            "b5"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b5-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b5",
+          "value": 1
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b6",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b6",
+          "tokens": [
+            "semantic",
+            "b6"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b6-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b6",
+          "value": 0
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b7",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b7",
+          "tokens": [
+            "semantic",
+            "b7"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b7-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b7",
+          "value": 1
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    {
+      "dimensionID": "b8",
+      "sourcePointers": [
+        {
+          "pointer": "/semantic/b8",
+          "tokens": [
+            "semantic",
+            "b8"
+          ],
+          "pointsToMissing": false,
+          "pointsToNull": false
+        }
+      ],
+      "mappingRule": "map-b8-from-semantic-evidence",
+      "evidence": [
+        {
+          "source": "fixtures/conformance/semantic_projection_vectors.json#b8",
+          "value": 0
+        }
+      ],
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "MAPPING",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    }
+  ],
+  "version": "1.0.0",
+  "sourceReferences": [
+    "specs/algorithms/semantic_projection.pseudo.md"
+  ]
+}

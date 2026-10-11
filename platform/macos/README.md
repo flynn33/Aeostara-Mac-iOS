@@ -1,59 +1,7 @@
-# Aeostara for macOS — Platform Details
+# Native macOS platform — SDK 0.1.0-rc.1
 
-**Status**: Source-complete (Swift/SwiftPM), build-unverified
+This branch owns `AeostaraMacDomain` and `AeostaraMacServices`. Start at the [current branch README](../../README.md) and [SDK integration guide](../../SDK/Documentation/Integration.md). Source tests, final compiled assets and binary-consumer execution have separate receipts in the coordinated release record. Minimum macOS 13.0; package tools 5.9.
 
-> **Build verification blocker**: This remediation was performed on Windows where no Apple build tools are available. Build verification requires macOS with Swift 5.9+ toolchain. The `build-unverified` status will remain until `swift build` and `swift test` are executed successfully on macOS.
+The former Windows-host build-unverified description and Forsetti-compliance claims are superseded. Forsetti is not selected for this SDK. The frozen Aeostara base/ASH contracts control semantics; a structural JSON diff does not establish compliance. Historical migration and phase records preserve their original scope.
 
-Native Swift reimplementation of the Aeostara deterministic JSON configuration drift detection and healing platform for macOS, compliant with Apple Forsetti framework requirements.
-
-## Architecture
-
-```
-AeostaraMacCLI (executable target)
-  └── AeostaraMacServices (Swift module — platform I/O)
-        └── AeostaraMacDomain (Swift module — healing logic)
-              └── Foundation (JSON, FileManager, Date)
-```
-
-- **AeostaraMacDomain**: 11 contracts, 9 algorithms, 5 protocols — full healing engine in pure Swift
-- **AeostaraMacServices**: Platform-specific I/O (FileManager-based config adapter, filesystem)
-- **AeostaraMacCLI**: `validate`, `diff`, `heal` commands matching spec behavior parity
-- **XCTest**: Fixture-driven test suite covering all 5 acceptance scenarios
-
-## Build Requirements
-
-- macOS 13.0+
-- Xcode 15+ or Swift 5.9+ toolchain
-- No external dependencies (Foundation only)
-
-## Build
-
-```bash
-swift build
-```
-
-## Test
-
-```bash
-swift test
-```
-
-## CLI Usage
-
-```bash
-swift run AeostaraMacCLI validate <config> --desired <desired> [--invariants <invariants>]
-swift run AeostaraMacCLI diff    <config> --desired <desired> [--invariants <invariants>]
-swift run AeostaraMacCLI heal    <config> --desired <desired> [--invariants <invariants>] [--audit <audit.jsonl>]
-```
-
-Exit codes: 0 = success/no drift, 1 = drift/policy blocked, 2 = error
-
-## Compliance
-
-- Swift-native — no C++, no Objective-C++, no interpreted runtime
-- JSON-only configuration scope (Foundation JSONSerialization)
-- No Python or YAML in shipped product
-- Forsetti-compliant (host-agnostic domain, protocol-first, all classes final)
-- ASH-inspired healing semantics
-- Deterministic outputs across platforms
-- No third-party dependencies
+The macOS CLI is a producer development consumer, excluded from SDK runtime packages. The private rich diagnostics target is also excluded. Applications own semantic context, recognized states, desired intent, policies, resource scope and consent. Copyright 2026 James Daley, DBA: Raven Forge Software. See the current dual license in `LICENSE`; commercial use requires a separate written license.

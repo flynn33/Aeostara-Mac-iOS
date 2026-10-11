@@ -1,0 +1,22 @@
+{
+  "planID": "generationplan-planid",
+  "planElements": [
+    {}
+  ],
+  "semanticInputs": {},
+  "diagnosticReferences": [
+    {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  ],
+  "planHash": "c8ad42ad10d0b59e354b1a7bf66322a902a770a2b2ce9429f47f9e6e6d21f26a"
+}

@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Acceptance tests mapping to main/specs/acceptance/acceptance_targets.md
 
 import XCTest
@@ -100,7 +100,7 @@ final class AcceptanceTests: XCTestCase {
 
         // Check audit contains PolicyBlocked event
         let auditContent = fs.files["/audit.jsonl"] ?? ""
-        XCTAssertTrue(auditContent.contains("PolicyBlocked"))
+        XCTAssertTrue(auditContent.contains("POLICY_GATE") && auditContent.contains("\"permitted\":false"))
     }
 
     // MARK: - Scenario 4: Successful Repair
@@ -123,10 +123,10 @@ final class AcceptanceTests: XCTestCase {
 
         // Audit trail should contain expected events
         let auditContent = fs.files["/audit.jsonl"] ?? ""
-        XCTAssertTrue(auditContent.contains("HealStarted"))
-        XCTAssertTrue(auditContent.contains("BackupCreated"))
-        XCTAssertTrue(auditContent.contains("RepairApplied"))
-        XCTAssertTrue(auditContent.contains("VerificationSucceeded"))
+        XCTAssertTrue(auditContent.contains("PLAN"))
+        XCTAssertTrue(auditContent.contains("BACKUP"))
+        XCTAssertTrue(auditContent.contains("EXECUTE"))
+        XCTAssertTrue(auditContent.contains("VERIFY") && auditContent.contains("\"passed\":true"))
     }
 
     // MARK: - Scenario 5: Forced Rollback — Verification Failure
@@ -138,22 +138,7 @@ final class AcceptanceTests: XCTestCase {
         fs.files["/desired.json"] = Self.desiredState
         fs.files["/invariants.json"] = Self.invariants
 
-        let adapter = TestConfigAdapterWithCorruptVerify(fileSystem: fs)
-        let backupManager = BackupManager(fileSystem: fs, timestampProvider: fixedTimestamp("20260322_000000"))
-        let policyEvaluator = PolicyEvaluator()
-        let engine = HealingEngine(
-            adapter: adapter,
-            backupManager: backupManager,
-            driftAnalyzer: DriftAnalyzer(),
-            repairPlanner: RepairPlanner(),
-            policyEvaluator: policyEvaluator,
-            invariantParser: InvariantParser(),
-            verification: Verification(policyEvaluator: policyEvaluator),
-            rollbackManager: RollbackManager(backupProvider: backupManager),
-            fileSystem: fs,
-            timestampProvider: fixedTimestamp(),
-            eventIDProvider: sequentialEventID()
-        )
+        let engine = buildTestEngine(fileSystem: fs)
 
         let result = try engine.heal(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: "/invariants.json", auditPath: "/audit.jsonl")
         XCTAssertFalse(result.success)
@@ -162,7 +147,7 @@ final class AcceptanceTests: XCTestCase {
 
         // Audit trail should contain rollback events
         let auditContent = fs.files["/audit.jsonl"] ?? ""
-        XCTAssertTrue(auditContent.contains("VerificationFailed") || auditContent.contains("RollbackExecuted"))
+        XCTAssertTrue(auditContent.contains("VERIFY") && auditContent.contains("\"passed\":false") && auditContent.contains("ROLLBACK"))
     }
 
     // MARK: - Heal with no drift

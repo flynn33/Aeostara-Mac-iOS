@@ -1,6 +1,5 @@
 // Aeostara
-// Copyright (c) 2026 James Daley. All Rights Reserved.
-// Proprietary and Confidential.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 #include "AeostaraCore/RepairPlanner.h"
 

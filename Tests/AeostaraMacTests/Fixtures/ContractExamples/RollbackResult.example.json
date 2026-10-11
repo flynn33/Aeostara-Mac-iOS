@@ -1,0 +1,18 @@
+{
+  "rollbackResultID": "rollbackresult-rollbackresultid",
+  "status": "SUCCEEDED",
+  "backupRecordID": "rollbackresult-backuprecordid",
+  "restoredHash": "deef581e9178d142e4d7ad2bdac31cd04c2ff3c6f0e2538d2319edc95882c9c4",
+  "diagnosticReference": {
+    "diagnosticID": "diagnostic-state-validity-root",
+    "chainRootReference": "diagnostic-state-validity-root",
+    "diagnosticKind": "STATE_VALIDITY",
+    "ruleReferences": [
+      {
+        "ruleID": "ASH-STATE-VALIDITY-001",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+        "ruleFamily": "state-validity"
+      }
+    ]
+  }
+}

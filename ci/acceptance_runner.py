@@ -2,9 +2,9 @@
 """
 Aeostara Acceptance Test Runner
 Runs acceptance tests against a platform's built binary.
-Copyright (c) 2026 James Daley. All Rights Reserved.
+Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
-Usage: python ci/acceptance_runner.py <binary_path> <fixtures_dir>
+Usage: python ci/acceptance_runner.py <binary_path> <fixtures_dir> <caller_context_template>
 
 The binary must support: validate, diff, heal commands with
 --desired, --invariants, --audit options.
@@ -16,10 +16,37 @@ import subprocess
 import sys
 import tempfile
 import shutil
+from pathlib import Path
+
+CONTEXT_TEMPLATE = None
 
 
 def run_command(binary, args, timeout=30):
     """Run a command and return (exit_code, stdout, stderr)."""
+    with tempfile.TemporaryDirectory(prefix="aeostara-cli-consumer-") as scope:
+        scope = os.path.realpath(scope)
+        context = json.loads(CONTEXT_TEMPLATE.read_text())
+        context["resourceRoot"] = scope
+        copied = {}
+        for index, argument in enumerate(args):
+            if os.path.isfile(argument):
+                name = os.path.basename(argument)
+                destination = os.path.join(scope, name)
+                if destination in copied and copied[destination] != argument:
+                    return -1, "", "Caller input resource collision"
+                shutil.copyfile(argument, destination)
+                copied[destination] = argument
+                args[index] = destination
+        if "--audit" in args:
+            index = args.index("--audit") + 1
+            args[index] = os.path.join(scope, "audit.jsonl")
+        context_path = os.path.join(scope, "context.json")
+        with open(context_path, "w") as stream:
+            json.dump(context, stream)
+        return run_scoped_command(binary, args + ["--semantic-context", context_path], timeout)
+
+
+def run_scoped_command(binary, args, timeout):
     cmd = [binary] + args
     try:
         result = subprocess.run(
@@ -142,10 +169,14 @@ SCENARIOS = [
 
 
 def main():
-    if len(sys.argv) != 3:
-        print(f"Usage: {sys.argv[0]} <binary_path> <fixtures_dir>", file=sys.stderr)
+    global CONTEXT_TEMPLATE
+    if len(sys.argv) != 4:
+        print(f"Usage: {sys.argv[0]} <binary_path> <fixtures_dir> <caller_context_template>", file=sys.stderr)
         sys.exit(1)
 
+    CONTEXT_TEMPLATE = Path(sys.argv[3]).resolve()
+    if not CONTEXT_TEMPLATE.is_file():
+        raise SystemExit("Missing declared caller semantic context")
     binary = os.path.abspath(sys.argv[1])
     fixtures = os.path.abspath(sys.argv[2])
 

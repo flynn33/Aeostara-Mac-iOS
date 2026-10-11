@@ -1,6 +1,5 @@
 # Aeostara — macOS Native Build
-# Copyright (c) 2026 James Daley. All Rights Reserved.
-# Proprietary and Confidential.
+# Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 cmake_minimum_required(VERSION 3.28)
 project(Aeostara VERSION 0.1.0 LANGUAGES CXX)

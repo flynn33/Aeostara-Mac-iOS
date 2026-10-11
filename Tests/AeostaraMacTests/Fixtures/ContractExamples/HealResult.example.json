@@ -1,0 +1,81 @@
+{
+  "healResultID": "heal-result-no-action",
+  "status": "NO_ACTION",
+  "recoveryPlan": {
+    "recoveryPlanID": "recovery-plan-no-action",
+    "planDisposition": "NO_ACTION",
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "RECOVERY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    },
+    "stateClass": "STABLE",
+    "recoveryCategory": "NO_ACTION",
+    "requiresPolicyGate": false,
+    "requiresBackup": false,
+    "recoverySteps": [],
+    "planHash": "cd5cec80216001f656e70816173b2475c5f642e7c112b93066a74d0f132d3262",
+    "createdAt": "2026-06-22T00:00:00Z"
+  },
+  "auditChain": {
+    "auditChainID": "audit-chain-state-validity",
+    "diagnosticChainReference": "diagnostic-chain-state-validity",
+    "events": [
+      {
+        "auditEventID": "audit-event-observe-001",
+        "eventSequence": 1,
+        "eventType": "OBSERVE",
+        "diagnosticReference": {
+          "diagnosticID": "diagnostic-state-validity-root",
+          "chainRootReference": "diagnostic-state-validity-root",
+          "diagnosticKind": "STATE_VALIDITY",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-VALIDITY-001",
+              "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+              "ruleFamily": "state-validity"
+            }
+          ]
+        },
+        "occurredAt": "2026-06-22T00:00:00Z",
+        "details": {
+          "phase": "observe"
+        }
+      }
+    ]
+  },
+  "diagnosticChain": {
+    "chainID": "diagnostic-chain-state-validity",
+    "rootDiagnosticID": "diagnostic-state-validity-root",
+    "diagnostics": [
+      {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "parentDiagnosticID": null,
+        "diagnosticKind": "STATE_VALIDITY",
+        "severity": "INFO",
+        "message": "Deterministic state-validity diagnostic for Aeostara schema examples.",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ],
+        "sourceReferences": [
+          "specs/ash_baseline/state_validity_diagnostic_binding.md"
+        ],
+        "evidence": {
+          "exampleSet": "schema_examples"
+        }
+      }
+    ]
+  }
+}

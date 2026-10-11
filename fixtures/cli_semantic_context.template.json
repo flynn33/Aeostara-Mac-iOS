@@ -1,0 +1,342 @@
+{
+  "formatVersion": 1,
+  "applicationScope": "cli-whole-document-fixture-application",
+  "resourceRoot": "REPLACE_WITH_CALLER_OWNED_EXISTING_ABSOLUTE_ROOT",
+  "projectionSpec": {
+    "projectionSpecID": "explicit-cli-root-document-intent-match",
+    "dimensions": [
+      {
+        "dimensionID": "b0",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b1",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b2",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b3",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b4",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b5",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b6",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b7",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      },
+      {
+        "dimensionID": "b8",
+        "sourcePointers": [
+          {
+            "pointer": "",
+            "tokens": [],
+            "pointsToMissing": false,
+            "pointsToNull": false
+          }
+        ],
+        "mappingRule": "application-root-intent-match",
+        "evidence": [
+          {
+            "sourceReference": "fixture-application:whole-document-equivalence-v1"
+          }
+        ],
+        "diagnosticReference": {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "diagnosticKind": "MAPPING",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ]
+        }
+      }
+    ],
+    "version": "1",
+    "sourceReferences": [
+      "fixture-application:whole-document-equivalence-v1"
+    ]
+  },
+  "intentConstraints": {
+    "pointers": [
+      ""
+    ],
+    "sourceReferences": [
+      "fixture-application:whole-document-equivalence-v1"
+    ]
+  },
+  "knownValidStates": {
+    "states": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "sourceReferences": [
+      "fixture-application:recognized-matching-document-state-v1"
+    ]
+  },
+  "mappings": [
+    {
+      "identifier": "application-root-intent-match",
+      "sourceReference": "fixture-application:whole-document-equivalence-v1",
+      "kind": "ROOT_DOCUMENT_INTENT_MATCH"
+    }
+  ],
+  "inputDiagnosticChains": [
+    {
+      "chainID": "cli-application-input-chain",
+      "rootDiagnosticID": "cli-application-input",
+      "diagnostics": [
+        {
+          "diagnosticID": "cli-application-input",
+          "chainRootReference": "cli-application-input",
+          "parentDiagnosticID": null,
+          "diagnosticKind": "MAPPING",
+          "severity": "INFO",
+          "message": "Caller declares explicit whole document intent match bindings",
+          "ruleReferences": [
+            {
+              "ruleID": "ASH-STATE-STRUCTURE-001",
+              "sourceReference": "ASH-Pattern-System@e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+              "ruleFamily": "STATE"
+            }
+          ],
+          "sourceReferences": [
+            "fixture-application:whole-document-equivalence-v1"
+          ],
+          "evidence": {
+            "declaration": "application-root-intent-match"
+          }
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "identifier": "application-cli-invariants",
+    "sourceReference": "fixture-application:critical-before-and-all-after-equality-policy-v1",
+    "mode": "ALLOW_SCOPED_RECOVERY"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.1",
+  "schemaVersion": "1.2",
   "policyName": "Aeostara macOS Branch Policy",
   "policyScope": "platform/macos",
   "description": "Policy for macOS native realization branch aligned to downstream ASH conformance semantics.",
@@ -7,7 +7,7 @@
     {
       "id": "M001",
       "name": "Upstream Semantic Alignment",
-      "description": "Branch semantics must align with ASH upstream authority and Aeostara downstream conformance artifacts from main.",
+      "description": "Branch semantics must align with the exact external ASH lineage and frozen Aeostara base; coordination main contains no native semantic implementation.",
       "severity": "error"
     },
     {
@@ -34,5 +34,10 @@
       "description": "Shipped product paths must not depend on Python or YAML parsers.",
       "severity": "error"
     }
-  ]
+  ],
+  "sdkVersion": "0.1.0-rc.1",
+  "authority": {
+    "baseCommit": "774b981ef2267a41c1b1a59497b2b0746a86f32b",
+    "ashCommit": "e123f5d7fdbb381179971f721a3292c31eb1cbc2"
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "transitionID": "transitiondefinition-transitionid",
+  "codewordReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+  "preconditions": [
+    "transitiondefinition-preconditions"
+  ],
+  "diagnosticRules": [
+    {
+      "ruleID": "ASH-STATE-VALIDITY-001",
+      "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+      "ruleFamily": "state-validity"
+    }
+  ]
+}

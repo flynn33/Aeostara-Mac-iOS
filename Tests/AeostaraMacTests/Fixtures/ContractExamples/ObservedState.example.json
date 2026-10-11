@@ -1,0 +1,26 @@
+{
+  "observedStateID": "observedstate-observedstateid",
+  "observedSystemState": {
+    "observedSystemStateID": "observedsystemstate-observedsystemstateid",
+    "documentReference": {
+      "documentID": "jsondocumentreference-documentid",
+      "role": "OBSERVED",
+      "canonicalHash": "88ec836bdd8a66d5402a4f3caf21b0e555a7061346896d38503c4650ff055c83",
+      "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md"
+    },
+    "surfaceDifferences": [],
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "evidenceOnly": true
+}

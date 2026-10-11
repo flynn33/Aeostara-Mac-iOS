@@ -1,0 +1,123 @@
+{
+  "source": {
+    "repository": "https://github.com/flynn33/aeostara",
+    "commit": "774b981ef2267a41c1b1a59497b2b0746a86f32b",
+    "path": "ci/common_checks.py:CanonicalJson.serialize",
+    "sourceSHA256": "13622e735c62b12fa0b9e6261332b4bfce3884795406f05337d48d8d3cc45adc"
+  },
+  "scope": "Focused finite numeric compatibility corpus derived by executing the actual pinned CanonicalJson serializer; not complete arbitrary floating-point parity or a runtime dependency",
+  "cases": [
+    {
+      "input": "0",
+      "canonical": "0"
+    },
+    {
+      "input": "-0",
+      "canonical": "0"
+    },
+    {
+      "input": "1",
+      "canonical": "1"
+    },
+    {
+      "input": "9007199254740993",
+      "canonical": "9007199254740993"
+    },
+    {
+      "input": "-9007199254740993",
+      "canonical": "-9007199254740993"
+    },
+    {
+      "input": "18446744073709551616",
+      "canonical": "18446744073709551616"
+    },
+    {
+      "input": "0.0",
+      "canonical": "0.0"
+    },
+    {
+      "input": "-0.0",
+      "canonical": "-0.0"
+    },
+    {
+      "input": "1.0",
+      "canonical": "1.0"
+    },
+    {
+      "input": "1.00",
+      "canonical": "1.0"
+    },
+    {
+      "input": "1e0",
+      "canonical": "1.0"
+    },
+    {
+      "input": "1e-4",
+      "canonical": "0.0001"
+    },
+    {
+      "input": "1e-5",
+      "canonical": "1e-05"
+    },
+    {
+      "input": "1e-6",
+      "canonical": "1e-06"
+    },
+    {
+      "input": "1e-7",
+      "canonical": "1e-07"
+    },
+    {
+      "input": "1e15",
+      "canonical": "1000000000000000.0"
+    },
+    {
+      "input": "1e16",
+      "canonical": "1e+16"
+    },
+    {
+      "input": "1e20",
+      "canonical": "1e+20"
+    },
+    {
+      "input": "1e23",
+      "canonical": "1e+23"
+    },
+    {
+      "input": "-1.234e-5",
+      "canonical": "-1.234e-05"
+    },
+    {
+      "input": "0.00012345678901234567",
+      "canonical": "0.00012345678901234567"
+    },
+    {
+      "input": "1.2345678901234567",
+      "canonical": "1.2345678901234567"
+    },
+    {
+      "input": "1.2345678901234568",
+      "canonical": "1.2345678901234567"
+    },
+    {
+      "input": "2.2250738585072014e-308",
+      "canonical": "2.2250738585072014e-308"
+    },
+    {
+      "input": "5e-324",
+      "canonical": "5e-324"
+    },
+    {
+      "input": "1.7976931348623157e308",
+      "canonical": "1.7976931348623157e+308"
+    },
+    {
+      "input": "1234567890123456.0",
+      "canonical": "1234567890123456.0"
+    },
+    {
+      "input": "0.10000000000000002",
+      "canonical": "0.10000000000000002"
+    }
+  ]
+}

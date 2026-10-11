@@ -1,0 +1,27 @@
+{
+  "repairPlanID": "repairplan-repairplanid",
+  "recoveryPlan": {
+    "recoveryPlanID": "recovery-plan-no-action",
+    "planDisposition": "NO_ACTION",
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "RECOVERY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    },
+    "stateClass": "STABLE",
+    "recoveryCategory": "NO_ACTION",
+    "requiresPolicyGate": false,
+    "requiresBackup": false,
+    "recoverySteps": [],
+    "planHash": "cd5cec80216001f656e70816173b2475c5f642e7c112b93066a74d0f132d3262",
+    "createdAt": "2026-06-22T00:00:00Z"
+  },
+  "repairActions": []
+}

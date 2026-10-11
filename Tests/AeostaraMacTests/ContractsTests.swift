@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 import XCTest
 @testable import AeostaraMacDomain

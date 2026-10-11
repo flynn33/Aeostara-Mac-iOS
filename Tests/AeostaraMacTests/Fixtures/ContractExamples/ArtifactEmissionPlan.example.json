@@ -1,0 +1,10 @@
+{
+  "emissionPlanID": "artifactemissionplan-emissionplanid",
+  "generationPlanID": "artifactemissionplan-generationplanid",
+  "artifacts": [
+    {}
+  ],
+  "traceability": [
+    {}
+  ]
+}

@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
@@ -9,45 +9,8 @@ import AeostaraMacServices
 enum AeostaraMacCLI {
 
     static func main() {
-        let fileSystem = DefaultFileSystem()
-
-        let timestampProvider: () -> String = {
-            timestamp(format: "yyyy-MM-dd'T'HH:mm:ss'Z'")
-        }
-
-        let backupTimestampProvider: () -> String = {
-            timestamp(format: "yyyyMMdd_HHmmss")
-        }
-
-        let eventIDProvider: () -> String = {
-            UUID().uuidString
-        }
-
-        let adapter = JsonConfigAdapter(fileSystem: fileSystem, timestampProvider: timestampProvider)
-        let backupManager = BackupManager(fileSystem: fileSystem, timestampProvider: backupTimestampProvider)
-        let driftAnalyzer = DriftAnalyzer()
-        let repairPlanner = RepairPlanner()
-        let policyEvaluator = PolicyEvaluator()
-        let invariantParser = InvariantParser()
-        let verification = Verification(policyEvaluator: policyEvaluator)
-        let rollbackManager = RollbackManager(backupProvider: backupManager)
-
-        let engine = HealingEngine(
-            adapter: adapter,
-            backupManager: backupManager,
-            driftAnalyzer: driftAnalyzer,
-            repairPlanner: repairPlanner,
-            policyEvaluator: policyEvaluator,
-            invariantParser: invariantParser,
-            verification: verification,
-            rollbackManager: rollbackManager,
-            fileSystem: fileSystem,
-            timestampProvider: timestampProvider,
-            eventIDProvider: eventIDProvider
-        )
-
         let command = CommandParser.parse(CommandLine.arguments)
-        let runner = CLIRunner(engine: engine)
+        let runner = CLIRunner()
         let exitCode = runner.run(command: command)
         exit(exitCode)
     }

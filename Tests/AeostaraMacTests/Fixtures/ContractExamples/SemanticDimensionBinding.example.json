@@ -1,0 +1,33 @@
+{
+  "dimensionID": "b0",
+  "sourcePointers": [
+    {
+      "pointer": "/semantic/b0",
+      "tokens": [
+        "semantic",
+        "b0"
+      ],
+      "pointsToMissing": false,
+      "pointsToNull": false
+    }
+  ],
+  "mappingRule": "map-b0-from-semantic-evidence",
+  "evidence": [
+    {
+      "source": "fixtures/conformance/semantic_projection_vectors.json#b0",
+      "value": 0
+    }
+  ],
+  "diagnosticReference": {
+    "diagnosticID": "diagnostic-state-validity-root",
+    "chainRootReference": "diagnostic-state-validity-root",
+    "diagnosticKind": "MAPPING",
+    "ruleReferences": [
+      {
+        "ruleID": "ASH-STATE-VALIDITY-001",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+        "ruleFamily": "state-validity"
+      }
+    ]
+  }
+}

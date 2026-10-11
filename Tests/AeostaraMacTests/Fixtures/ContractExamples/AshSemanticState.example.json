@@ -1,0 +1,66 @@
+{
+  "ashSemanticStateID": "ashsemanticstate-ashsemanticstateid",
+  "ashState": {
+    "stateID": "ash-state-stable",
+    "coordinates": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "sourceReference": "specs/ash_baseline/ash_state_space_binding.md",
+    "canonicalHash": "ff784047beb4e8645d7fb6484b65579af3b6fb4c49459eabe9b047298321f714"
+  },
+  "admissibilityResult": {
+    "resultID": "admissibilityresult-resultid",
+    "stateReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+    "status": "VALID",
+    "orbitReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "realmIdentity": {
+    "realmID": "realmidentity-realmid",
+    "stateReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+    "encoding": "F2^9-binary-vector",
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "diagnosticReference": {
+    "diagnosticID": "diagnostic-state-validity-root",
+    "chainRootReference": "diagnostic-state-validity-root",
+    "diagnosticKind": "STATE_VALIDITY",
+    "ruleReferences": [
+      {
+        "ruleID": "ASH-STATE-VALIDITY-001",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+        "ruleFamily": "state-validity"
+      }
+    ]
+  }
+}

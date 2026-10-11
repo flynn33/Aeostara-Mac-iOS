@@ -35,3 +35,10 @@ __pycache__/
 
 # Audit trail files (generated at runtime)
 *.jsonl
+
+# Local generated build and user state
+.build/
+.swiftpm/
+*.xcarchive/
+*.xcresult/
+*.xcuserstate

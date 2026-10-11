@@ -1,0 +1,5 @@
+{
+  "ruleID": "ASH-STATE-VALIDITY-001",
+  "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+  "ruleFamily": "state-validity"
+}

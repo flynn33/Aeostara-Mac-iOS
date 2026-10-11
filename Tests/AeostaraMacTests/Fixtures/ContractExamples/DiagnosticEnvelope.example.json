@@ -1,0 +1,21 @@
+{
+  "diagnosticID": "diagnostic-state-validity-root",
+  "chainRootReference": "diagnostic-state-validity-root",
+  "parentDiagnosticID": null,
+  "diagnosticKind": "STATE_VALIDITY",
+  "severity": "INFO",
+  "message": "Deterministic state-validity diagnostic for Aeostara schema examples.",
+  "ruleReferences": [
+    {
+      "ruleID": "ASH-STATE-VALIDITY-001",
+      "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+      "ruleFamily": "state-validity"
+    }
+  ],
+  "sourceReferences": [
+    "specs/ash_baseline/state_validity_diagnostic_binding.md"
+  ],
+  "evidence": {
+    "exampleSet": "schema_examples"
+  }
+}

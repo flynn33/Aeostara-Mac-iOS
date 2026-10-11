@@ -1,6 +1,5 @@
 // Aeostara — macOS Forsetti Bridge (Stub)
-// Copyright (c) 2026 James Daley. All Rights Reserved.
-// Proprietary and Confidential.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 //
 // This is a placeholder for the future Forsetti macOS bridge interface.
 // The bridge will adapt Aeostara's IHealingEngine to Forsetti's

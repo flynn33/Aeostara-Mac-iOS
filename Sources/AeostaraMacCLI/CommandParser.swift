@@ -1,13 +1,13 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
 
 /// Parsed CLI command and arguments.
 enum Command {
-    case validate(config: String, desired: String, invariants: String?)
-    case diff(config: String, desired: String, invariants: String?)
-    case heal(config: String, desired: String, invariants: String?, audit: String)
+    case validate(config: String, desired: String, invariants: String?, semanticContext: String?)
+    case diff(config: String, desired: String, invariants: String?, semanticContext: String?)
+    case heal(config: String, desired: String, invariants: String?, audit: String, semanticContext: String?)
     case help
 }
 
@@ -38,6 +38,7 @@ enum CommandParser {
         var config: String?
         var desired: String?
         var invariants: String?
+        var context: String?
         var positionalIndex = 0
 
         var i = 0
@@ -46,6 +47,9 @@ enum CommandParser {
             case "--desired":
                 i += 1
                 if i < args.count { desired = args[i] }
+            case "--semantic-context":
+                i += 1
+                if i < args.count { context = args[i] }
             case "--invariants":
                 i += 1
                 if i < args.count { invariants = args[i] }
@@ -63,9 +67,9 @@ enum CommandParser {
         }
 
         if isValidate {
-            return .validate(config: c, desired: d, invariants: invariants)
+            return .validate(config: c, desired: d, invariants: invariants, semanticContext: context)
         } else {
-            return .diff(config: c, desired: d, invariants: invariants)
+            return .diff(config: c, desired: d, invariants: invariants, semanticContext: context)
         }
     }
 
@@ -73,6 +77,7 @@ enum CommandParser {
         var config: String?
         var desired: String?
         var invariants: String?
+        var context: String?
         var audit: String = "audit.jsonl"
         var positionalIndex = 0
 
@@ -82,6 +87,9 @@ enum CommandParser {
             case "--desired":
                 i += 1
                 if i < args.count { desired = args[i] }
+            case "--semantic-context":
+                i += 1
+                if i < args.count { context = args[i] }
             case "--invariants":
                 i += 1
                 if i < args.count { invariants = args[i] }
@@ -101,6 +109,6 @@ enum CommandParser {
             return .help
         }
 
-        return .heal(config: c, desired: d, invariants: invariants, audit: audit)
+        return .heal(config: c, desired: d, invariants: invariants, audit: audit, semanticContext: context)
     }
 }

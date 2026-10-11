@@ -1,0 +1,110 @@
+{
+  "executionContextID": "executioncontext-executioncontextid",
+  "recoveryPlanID": "executioncontext-recoveryplanid",
+  "policyDecision": {
+    "policyDecisionID": "policydecision-policydecisionid",
+    "decision": "ALLOW",
+    "policyBundleID": "policydecision-policybundleid",
+    "reasons": [
+      "policydecision-reasons"
+    ],
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "backupResult": {
+    "backupResultID": "backupresult-backupresultid",
+    "status": "SUCCEEDED",
+    "backupRecord": {
+      "backupRecordID": "backuprecord-backuprecordid",
+      "sourceDocument": {
+        "documentID": "jsondocumentreference-documentid",
+        "role": "OBSERVED",
+        "canonicalHash": "88ec836bdd8a66d5402a4f3caf21b0e555a7061346896d38503c4650ff055c83",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md"
+      },
+      "sourceHash": "5ac75cd9b7ffbd93f549162c8313a6f871e362b6d93cea69f28ee20f14b873fa",
+      "storageReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+      "diagnosticReference": {
+        "diagnosticID": "diagnostic-state-validity-root",
+        "chainRootReference": "diagnostic-state-validity-root",
+        "diagnosticKind": "STATE_VALIDITY",
+        "ruleReferences": [
+          {
+            "ruleID": "ASH-STATE-VALIDITY-001",
+            "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+            "ruleFamily": "state-validity"
+          }
+        ]
+      }
+    },
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "verificationPlan": {
+    "verificationPlanID": "verificationplan-verificationplanid",
+    "checks": [
+      {}
+    ],
+    "expectedSemanticState": {
+      "stateID": "ash-state-stable",
+      "coordinates": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "sourceReference": "specs/ash_baseline/ash_state_space_binding.md",
+      "canonicalHash": "ff784047beb4e8645d7fb6484b65579af3b6fb4c49459eabe9b047298321f714"
+    },
+    "generatedBeforeMutation": true,
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "diagnosticReference": {
+    "diagnosticID": "diagnostic-state-validity-root",
+    "chainRootReference": "diagnostic-state-validity-root",
+    "diagnosticKind": "STATE_VALIDITY",
+    "ruleReferences": [
+      {
+        "ruleID": "ASH-STATE-VALIDITY-001",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+        "ruleFamily": "state-validity"
+      }
+    ]
+  }
+}

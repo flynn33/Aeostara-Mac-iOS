@@ -1,5 +1,5 @@
 # Aeostara CLI — Executable
-# Copyright (c) 2026 James Daley. All Rights Reserved.
+# Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 add_executable(aeostara
     Main.cpp

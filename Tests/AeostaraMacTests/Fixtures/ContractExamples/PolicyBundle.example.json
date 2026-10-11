@@ -1,0 +1,10 @@
+{
+  "policyBundleID": "policybundle-policybundleid",
+  "sourceReferences": [
+    "specs/ash_baseline/state_validity_diagnostic_binding.md"
+  ],
+  "rules": [
+    {}
+  ],
+  "bundleHash": "7f4af41d032921c054172b06036276c7d01a306c7fb1f692e7050dd2631db491"
+}

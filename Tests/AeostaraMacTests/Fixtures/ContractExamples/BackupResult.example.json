@@ -1,0 +1,39 @@
+{
+  "backupResultID": "backupresult-backupresultid",
+  "status": "SUCCEEDED",
+  "backupRecord": {
+    "backupRecordID": "backuprecord-backuprecordid",
+    "sourceDocument": {
+      "documentID": "jsondocumentreference-documentid",
+      "role": "OBSERVED",
+      "canonicalHash": "88ec836bdd8a66d5402a4f3caf21b0e555a7061346896d38503c4650ff055c83",
+      "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md"
+    },
+    "sourceHash": "5ac75cd9b7ffbd93f549162c8313a6f871e362b6d93cea69f28ee20f14b873fa",
+    "storageReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+    "diagnosticReference": {
+      "diagnosticID": "diagnostic-state-validity-root",
+      "chainRootReference": "diagnostic-state-validity-root",
+      "diagnosticKind": "STATE_VALIDITY",
+      "ruleReferences": [
+        {
+          "ruleID": "ASH-STATE-VALIDITY-001",
+          "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+          "ruleFamily": "state-validity"
+        }
+      ]
+    }
+  },
+  "diagnosticReference": {
+    "diagnosticID": "diagnostic-state-validity-root",
+    "chainRootReference": "diagnostic-state-validity-root",
+    "diagnosticKind": "STATE_VALIDITY",
+    "ruleReferences": [
+      {
+        "ruleID": "ASH-STATE-VALIDITY-001",
+        "sourceReference": "specs/ash_baseline/state_validity_diagnostic_binding.md",
+        "ruleFamily": "state-validity"
+      }
+    ]
+  }
+}

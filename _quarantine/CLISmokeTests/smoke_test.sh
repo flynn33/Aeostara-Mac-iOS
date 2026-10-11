@@ -1,7 +1,7 @@
 #!/bin/bash
 # Aeostara CLI Smoke Tests
 # Validates that the CLI commands work end-to-end with test fixtures.
-# Copyright (c) 2026 James Daley. All Rights Reserved.
+# Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 #
 # Usage: smoke_test.sh <build_dir>
 #   build_dir: path to the CMake build directory (e.g., build)

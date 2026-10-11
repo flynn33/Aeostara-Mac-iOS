@@ -1,3 +1,5 @@
+> Historical reference only. Forsetti is not selected for the current Apple SDK. These artifacts remain excluded from native builds and SDK distribution. Current first-party ownership follows the root Apache License 2.0; third-party terms remain unchanged.
+
 # Quarantined Artifacts — Non-Compliant Architecture
 
 These files are the original C++20/CMake/vcpkg/Catch2 implementation of Aeostara for macOS.

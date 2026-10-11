@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
@@ -8,20 +8,23 @@ import AeostaraMacServices
 /// Executes CLI commands against the healing engine.
 final class CLIRunner {
 
-    private let engine: IHealingEngine
+    private var engine: IHealingEngine?
 
-    init(engine: IHealingEngine) {
+    init(engine: IHealingEngine? = nil) {
         self.engine = engine
     }
 
     /// Run the given command. Returns exit code: 0 = success, 1 = drift/blocked, 2 = error.
     func run(command: Command) -> Int32 {
         switch command {
-        case .validate(let config, let desired, let invariants):
+        case .validate(let config, let desired, let invariants, let context):
+            guard bind(context) else { return 2 }
             return runValidate(config: config, desired: desired, invariants: invariants)
-        case .diff(let config, let desired, let invariants):
+        case .diff(let config, let desired, let invariants, let context):
+            guard bind(context) else { return 2 }
             return runDiff(config: config, desired: desired, invariants: invariants)
-        case .heal(let config, let desired, let invariants, let audit):
+        case .heal(let config, let desired, let invariants, let audit, let context):
+            guard bind(context) else { return 2 }
             return runHeal(config: config, desired: desired, invariants: invariants, audit: audit)
         case .help:
             printUsage()
@@ -33,92 +36,57 @@ final class CLIRunner {
 
     private func runValidate(config: String, desired: String, invariants: String?) -> Int32 {
         do {
-            let result = try engine.validate(configPath: config, desiredPath: desired, invariantsPath: invariants)
+            let result = try engine!.validate(configPath: config, desiredPath: desired, invariantsPath: invariants)
 
-            if result.valid {
-                print("VALID: No drift detected.")
-                return 0
-            } else {
-                print("DRIFT DETECTED: \(result.drifts.count) difference(s) found.")
-                for drift in result.drifts {
-                    print("  [\(drift.type.rawValue)] \(drift.keyPath): \(drift.description)")
-                }
-                if !result.violations.isEmpty {
-                    print("VIOLATIONS:")
-                    for v in result.violations { print("  - \(v)") }
-                }
-                return 1
-            }
+            try output([JSONMember("valid", .bool(result.valid)), JSONMember("driftCount", .integer(String(result.drifts.count))), JSONMember("violations", .array(result.violations.map(JSONValue.string))), JSONMember("errors", .array(result.errors.map(JSONValue.string))), JSONMember("nativeResult", result.nativeResult?.contractJSON ?? .null), JSONMember("diagnosticChain", result.nativeFailure?.diagnosticChain.contractJSON ?? .null)])
+            return result.errors.isEmpty ? (result.valid ? 0 : 1) : 2
         } catch {
-            printError("Validation failed: \(error.localizedDescription)")
+            printFailure(error)
             return 2
         }
     }
 
     private func runDiff(config: String, desired: String, invariants: String?) -> Int32 {
         do {
-            let result = try engine.diff(configPath: config, desiredPath: desired, invariantsPath: invariants)
+            let result = try engine!.diff(configPath: config, desiredPath: desired, invariantsPath: invariants)
 
-            if result.drifts.isEmpty {
-                print("No drift detected.")
-                return 0
-            }
-
-            print("DRIFT: \(result.drifts.count) difference(s) found.")
-            for drift in result.drifts {
-                print("  [\(drift.type.rawValue)] \(drift.keyPath): \(drift.description)")
-            }
-
-            if let plan = result.proposedPlan {
-                print("\nPROPOSED REPAIR PLAN (ID: \(plan.planID)):")
-                for action in plan.actions {
-                    print("  [\(action.actionType.rawValue)] \(action.keyPath): \(action.rationale)")
-                }
-            }
-            return 1
+            try output([JSONMember("driftCount", .integer(String(result.drifts.count))), JSONMember("violations", .array(result.violations.map(JSONValue.string))), JSONMember("proposedPlan", result.nativeResult?.recoveryPlan.contractJSON ?? .null), JSONMember("nativeResult", result.nativeResult?.contractJSON ?? .null)])
+            return result.drifts.isEmpty && result.violations.isEmpty ? 0 : 1
         } catch {
-            printError("Diff failed: \(error.localizedDescription)")
+            printFailure(error)
             return 2
         }
     }
 
     private func runHeal(config: String, desired: String, invariants: String?, audit: String) -> Int32 {
         do {
-            let result = try engine.heal(configPath: config, desiredPath: desired, invariantsPath: invariants, auditPath: audit)
+            let result = try engine!.heal(configPath: config, desiredPath: desired, invariantsPath: invariants, auditPath: audit)
 
-            if result.success {
-                print("HEAL SUCCESSFUL: \(result.message)")
-                if let plan = result.executedPlan {
-                    print("  Plan ID: \(plan.planID)")
-                    print("  Actions: \(plan.actions.count)")
-                }
-                return 0
-            } else {
-                print("HEAL FAILED: \(result.message)")
-                return 1
-            }
+            try output([JSONMember("success", .bool(result.success)), JSONMember("message", .string(result.message)), JSONMember("nativeResult", result.nativeResult?.contractJSON ?? .null), JSONMember("diagnosticChain", result.nativeFailure?.diagnosticChain.contractJSON ?? .null)])
+            return result.success ? 0 : result.nativeFailure?.failedStage == .observe ? 2 : 1
         } catch {
-            printError("Heal failed: \(error.localizedDescription)")
+            printFailure(error)
             return 2
         }
     }
 
     // MARK: - Helpers
 
+    private func bind(_ path: String?) -> Bool {
+        do {
+            if let path { engine = try NativeCLIContext(data: Data(contentsOf: URL(fileURLWithPath: path))) }
+            guard engine != nil else { throw try LifecycleFailure.missingContext() }
+            return true
+        } catch { printFailure(error); return false }
+    }
     private func printUsage() {
-        print("""
-        Aeostara v0.1 — Deterministic JSON Configuration Drift Detection and Healing
-
-        Usage:
-          aeostara validate <config> --desired <desired> [--invariants <invariants>]
-          aeostara diff    <config> --desired <desired> [--invariants <invariants>]
-          aeostara heal    <config> --desired <desired> [--invariants <invariants>] [--audit <audit.jsonl>]
-
-        Exit codes: 0 = success/no drift, 1 = drift/policy blocked, 2 = error
-        """)
+        print("Aeostara SDK 0.1.0-rc.1: validate|diff|heal <config> --desired <desired> --semantic-context <declared-context.json> [--invariants <invariants>] [--audit <audit.jsonl>]")
+    }
+    private func output(_ fields: [JSONMember]) throws { print(try JSONValue.object(fields).canonicalText()) }
+    private func printFailure(_ error: Error) {
+        let failure = error as? LifecycleFailure
+        let fields = [JSONMember("error", .string(failure?.code.rawValue ?? "invalidContext")), JSONMember("diagnosticChain", failure?.diagnosticChain.contractJSON ?? .null)]
+        if let bytes = try? JSONValue.object(fields).canonicalData() { FileHandle.standardError.write(bytes + Data([10])) }
     }
 
-    private func printError(_ message: String) {
-        FileHandle.standardError.write(Data("ERROR: \(message)\n".utf8))
-    }
 }
