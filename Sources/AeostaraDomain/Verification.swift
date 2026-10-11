@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
@@ -74,15 +74,6 @@ public final class Verification {
 extension AnyCodable {
     /// Compare two Any values for equality (used in verification).
     static func valuesEqual(_ lhs: Any, _ rhs: Any) -> Bool {
-        switch (lhs, rhs) {
-        case let (l as Bool, r as Bool): return l == r
-        case let (l as Int, r as Int): return l == r
-        case let (l as Double, r as Double): return l == r
-        case let (l as String, r as String): return l == r
-        case let (l as Int, r as Double): return Double(l) == r
-        case let (l as Double, r as Int): return l == Double(r)
-        case (is NSNull, is NSNull): return true
-        default: return false
-        }
+        AnyCodable(lhs) == AnyCodable(rhs)
     }
 }

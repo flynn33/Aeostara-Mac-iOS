@@ -1,6 +1,5 @@
 // Aeostara — iOS Bridge Implementation
-// Copyright (c) 2026 James Daley. All Rights Reserved.
-// Proprietary and Confidential.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 //
 // Thin Objective-C++ bridge: translates Foundation types to/from C++ core.
 // NO healing logic here — all drift/repair/rollback lives in C++ core.

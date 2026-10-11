@@ -1,5 +1,5 @@
 # AeostaraCore — C++20 Static Library (iOS)
-# Copyright (c) 2026 James Daley. All Rights Reserved.
+# Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 add_library(AeostaraCore STATIC
     src/Version.cpp

@@ -1,6 +1,5 @@
 // Aeostara — iOS UI Smoke Tests
-// Copyright (c) 2026 James Daley. All Rights Reserved.
-// Proprietary and Confidential.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 //
 // Basic UI smoke tests to verify the app launches and
 // core UI elements are present and interactive.

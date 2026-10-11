@@ -1,5 +1,5 @@
 # Aeostara Tests — iOS (XCTest via CMake)
-# Copyright (c) 2026 James Daley. All Rights Reserved.
+# Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 #
 # When generating with Xcode, these tests can be run via:
 #   xcodebuild test -project build/ios/Aeostara.xcodeproj -scheme AeostaraTests

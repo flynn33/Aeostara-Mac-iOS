@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
@@ -20,6 +20,8 @@ public final class BackupManager: IBackupProvider {
         let timestamp = timestampProvider()
         let backupPath = "\(filePath).backup.\(timestamp)"
 
+        guard !fileSystem.fileExists(path:backupPath) else { throw AeostaraError.backupFailed(filePath) }
+
         let success = try fileSystem.copyFile(from: filePath, to: backupPath)
         guard success else {
             throw AeostaraError.backupFailed(filePath)
@@ -33,6 +35,8 @@ public final class BackupManager: IBackupProvider {
         guard fileSystem.fileExists(path: backupPath) else {
             return false
         }
-        return try fileSystem.copyFile(from: backupPath, to: originalPath)
+        let content = try fileSystem.readFile(path:backupPath)
+        try fileSystem.writeFile(path:originalPath,content:content)
+        return try fileSystem.readFile(path:originalPath) == content
     }
 }

@@ -2,7 +2,7 @@
 """
 Aeostara Schema Validator
 Validates all JSON Schema files in specs/contracts/ are well-formed.
-Copyright (c) 2026 James Daley. All Rights Reserved.
+Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 Usage: python ci/validate_schemas.py
 """

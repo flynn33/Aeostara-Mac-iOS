@@ -1,3 +1,5 @@
+> Historical phase receipt. Its original results and version references are preserved; current SDK qualification is recorded in the coordinated 0.1.0-rc.1 release record.
+
 # Phase 5 Closeout — platform/ios
 
 ## Status: SOURCE-COMPLETE, BUILD-UNVERIFIED

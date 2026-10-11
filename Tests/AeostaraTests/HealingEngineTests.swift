@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 import XCTest
 @testable import AeostaraDomain
@@ -27,7 +27,7 @@ final class HealingEngineTests: XCTestCase {
         fs.files["/desired.json"] = """
         { "key": "new" }
         """
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:"{\"key\":\"new\"}")
 
         let result = try engine.validate(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: nil)
         XCTAssertFalse(result.valid)
@@ -57,7 +57,7 @@ final class HealingEngineTests: XCTestCase {
         fs.files["/desired.json"] = """
         { "key": "new" }
         """
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:"{\"key\":\"new\"}")
 
         let result = try engine.heal(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: nil, auditPath: "/audit.jsonl")
         XCTAssertTrue(result.success)
@@ -71,8 +71,6 @@ final class HealingEngineTests: XCTestCase {
         """
         let engine = buildTestEngine(fileSystem: fs)
 
-        let result = try engine.heal(configPath: "/missing.json", desiredPath: "/desired.json", invariantsPath: nil, auditPath: "/audit.jsonl")
-        XCTAssertFalse(result.success)
-        XCTAssertTrue(result.message.contains("Cannot load config"))
+        XCTAssertThrowsError(try engine.heal(configPath:"/missing.json",desiredPath:"/desired.json",invariantsPath:nil,auditPath:"/audit.jsonl")) { XCTAssertEqual(($0 as? LifecycleFailure)?.code,.missingSemanticContext) }
     }
 }

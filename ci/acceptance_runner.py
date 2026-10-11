@@ -2,7 +2,7 @@
 """
 Aeostara Acceptance Test Runner
 Runs acceptance tests against a platform's built binary.
-Copyright (c) 2026 James Daley. All Rights Reserved.
+Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 Usage: python ci/acceptance_runner.py <binary_path> <fixtures_dir>
 

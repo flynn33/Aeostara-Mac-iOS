@@ -1,0 +1,11 @@
+# Native iOS baseline and authority
+
+This permanent `platform/ios` branch owns the Swift implementation in `AeostaraDomain` and `AeostaraServices`, plus the existing producer-only `AeostaraApp` shell and tests. The Apple SDK public library boundary is Domain and Services. Platform histories remain separate; native implementation is never merged into main or the macOS branch.
+
+ASH canonical semantics at `e123f5d7fdbb381179971f721a3292c31eb1cbc2` govern the Aeostara base at `774b981ef2267a41c1b1a59497b2b0746a86f32b`. [The baseline reference](../AEOSTARA_BASELINE_REFERENCE.md) and [migration provenance](../MIGRATION_PROVENANCE.md) retain those source identities. ASH wins semantic conflicts; the base defines the complete observation, projection, diagnosis, classification, recoverability, planning, policy, backup, controlled execution, verification and recovery contracts. This branch owns native mechanics and must demonstrate their actual conformance.
+
+The `specs/` files retained here document legacy native API shapes and test references. They are subordinate compatibility material. The old generic healing algorithms and architecture descriptions were retired because they described a different branch model and allowed behavior inconsistent with the bound lifecycle. Original content remains in the native Git history beginning at the migration records; its removal does not change that history.
+
+The current native baseline has not been certified as the new SDK realization. Source builds and legacy tests are evidence only for the commands actually executed. Semantic lifecycle, policy and audit failures, canonical JSON identity, verified backup/restoration, concurrency, rich development diagnostics and structural release replacement require their separate implementation and evidence. No ASH/base/policy repository is a runtime dependency. Forsetti is not selected for the Apple SDK assignment.
+
+SDK runtime packages include only the named public compiled frameworks and their relative binary package metadata. App shell, tests, legacy specifications, development collectors, authority repositories and raw diagnostics remain outside distribution. Current release qualification is reported in the reviewed SDK conformance and release records when those records exist; this baseline note asserts no passing release gate.

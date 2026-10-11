@@ -1,6 +1,5 @@
 # Aeostara — iOS Build System
-# Copyright (c) 2026 James Daley. All Rights Reserved.
-# Proprietary and Confidential.
+# Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 #
 # Generates an Xcode project for the iOS Aeostara app.
 # Usage: cmake -G Xcode -B build/ios -DCMAKE_SYSTEM_NAME=iOS

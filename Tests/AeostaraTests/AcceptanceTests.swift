@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Acceptance tests mapping to main/specs/acceptance/acceptance_targets.md
 
 import XCTest
@@ -56,7 +56,7 @@ final class AcceptanceTests: XCTestCase {
         let fs = InMemoryFileSystem()
         fs.files["/config.json"] = Self.validConfig
         fs.files["/desired.json"] = Self.desiredState
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:Self.desiredState)
 
         let result = try engine.validate(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: nil)
         XCTAssertTrue(result.valid)
@@ -70,7 +70,7 @@ final class AcceptanceTests: XCTestCase {
         let fs = InMemoryFileSystem()
         fs.files["/config.json"] = Self.invalidConfig
         fs.files["/desired.json"] = Self.desiredState
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:Self.desiredState)
 
         let result = try engine.validate(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: nil)
         XCTAssertFalse(result.valid)
@@ -92,7 +92,7 @@ final class AcceptanceTests: XCTestCase {
         fs.files["/config.json"] = Self.policyBlockedConfig
         fs.files["/desired.json"] = Self.desiredState
         fs.files["/invariants.json"] = strictInvariants
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:Self.desiredState)
 
         let result = try engine.heal(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: "/invariants.json", auditPath: "/audit.jsonl")
         XCTAssertFalse(result.success)
@@ -100,7 +100,7 @@ final class AcceptanceTests: XCTestCase {
 
         // Check audit contains PolicyBlocked event
         let auditContent = fs.files["/audit.jsonl"] ?? ""
-        XCTAssertTrue(auditContent.contains("PolicyBlocked"))
+        XCTAssertTrue(auditContent.contains("POLICY_GATE"))
     }
 
     // MARK: - Scenario 4: Successful Repair
@@ -110,7 +110,7 @@ final class AcceptanceTests: XCTestCase {
         fs.files["/config.json"] = Self.repairableConfig
         fs.files["/desired.json"] = Self.desiredState
         fs.files["/invariants.json"] = Self.invariants
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:Self.desiredState)
 
         let result = try engine.heal(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: "/invariants.json", auditPath: "/audit.jsonl")
         XCTAssertTrue(result.success)
@@ -123,10 +123,10 @@ final class AcceptanceTests: XCTestCase {
 
         // Audit trail should contain expected events
         let auditContent = fs.files["/audit.jsonl"] ?? ""
-        XCTAssertTrue(auditContent.contains("HealStarted"))
-        XCTAssertTrue(auditContent.contains("BackupCreated"))
-        XCTAssertTrue(auditContent.contains("RepairApplied"))
-        XCTAssertTrue(auditContent.contains("VerificationSucceeded"))
+        XCTAssertTrue(auditContent.contains("PLAN"))
+        XCTAssertTrue(auditContent.contains("BACKUP"))
+        XCTAssertTrue(auditContent.contains("EXECUTE"))
+        XCTAssertTrue(auditContent.contains("VERIFY"))
     }
 
     // MARK: - Scenario 5: Forced Rollback — Verification Failure
@@ -152,7 +152,8 @@ final class AcceptanceTests: XCTestCase {
             rollbackManager: RollbackManager(backupProvider: backupManager),
             fileSystem: fs,
             timestampProvider: fixedTimestamp(),
-            eventIDProvider: sequentialEventID()
+            eventIDProvider: sequentialEventID(),
+            semanticContext:try LegacyTestContext.make(trusted:CanonicalJSON.parse(Self.desiredState)),nativePolicies:try LegacyTestContext.policies(),nativePolicyBundle:try LegacyTestContext.bundle(),nativeResources:try NativeResourceSet(configuration:"/config.json",desired:"/desired.json",audit:"/audit.jsonl",backupDirectory:"/"),resourceIO:fs,identifierProvider:{"20260322_000000"}
         )
 
         let result = try engine.heal(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: "/invariants.json", auditPath: "/audit.jsonl")
@@ -162,7 +163,7 @@ final class AcceptanceTests: XCTestCase {
 
         // Audit trail should contain rollback events
         let auditContent = fs.files["/audit.jsonl"] ?? ""
-        XCTAssertTrue(auditContent.contains("VerificationFailed") || auditContent.contains("RollbackExecuted"))
+        XCTAssertTrue(auditContent.contains("VERIFY") && auditContent.contains("ROLLBACK"))
     }
 
     // MARK: - Heal with no drift
@@ -171,11 +172,11 @@ final class AcceptanceTests: XCTestCase {
         let fs = InMemoryFileSystem()
         fs.files["/config.json"] = Self.validConfig
         fs.files["/desired.json"] = Self.desiredState
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:Self.desiredState)
 
         let result = try engine.heal(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: nil, auditPath: "/audit.jsonl")
         XCTAssertTrue(result.success)
-        XCTAssertTrue(result.message.contains("No drift"))
+        XCTAssertTrue(result.message.contains("No semantic recovery"))
     }
 
     // MARK: - Diff shows plan
@@ -184,7 +185,7 @@ final class AcceptanceTests: XCTestCase {
         let fs = InMemoryFileSystem()
         fs.files["/config.json"] = Self.repairableConfig
         fs.files["/desired.json"] = Self.desiredState
-        let engine = buildTestEngine(fileSystem: fs)
+        let engine = buildTestEngine(fileSystem: fs,trustedApplicationDocument:Self.desiredState)
 
         let result = try engine.diff(configPath: "/config.json", desiredPath: "/desired.json", invariantsPath: nil)
         XCTAssertFalse(result.drifts.isEmpty)
@@ -197,6 +198,11 @@ final class AcceptanceTests: XCTestCase {
 
 final class CorruptOnVerifyFileSystem: InMemoryFileSystem {
     var writeCount: [String: Int] = [:]
+    var tampered = false
+    override func appendFile(path: String,content: String) throws {
+        try super.appendFile(path:path,content:content)
+        if !tampered && content.contains("\"eventType\":\"EXECUTE\"") { tampered = true;files["/config.json"] = "{}" }
+    }
 
     override func writeFile(path: String, content: String) throws {
         writeCount[path, default: 0] += 1

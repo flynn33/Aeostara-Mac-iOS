@@ -1,7 +1,8 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
+import CoreFoundation
 
 /// Type-erased Codable wrapper for JSON values.
 /// Supports String, Int, Double, Bool, null, [AnyCodable], and [String: AnyCodable].
@@ -35,7 +36,15 @@ public struct AnyCodable: Codable, Equatable, CustomStringConvertible {
     }
 
     public func encode(to encoder: Encoder) throws {
+        if let json = value as? JSONValue { try json.encode(to:encoder);return }
         var container = encoder.singleValueContainer()
+
+        if let number = value as? NSNumber {
+            if CFGetTypeID(number) == CFBooleanGetTypeID() { try container.encode(number.boolValue) }
+            else if String(cString:number.objCType) == "f" || String(cString:number.objCType) == "d" { try container.encode(number.doubleValue) }
+            else { try container.encode(number.int64Value) }
+            return
+        }
 
         switch value {
         case is NSNull:
@@ -62,6 +71,12 @@ public struct AnyCodable: Codable, Equatable, CustomStringConvertible {
     }
 
     private static func isEqual(_ lhs: Any, _ rhs: Any) -> Bool {
+        if let l = lhs as? NSNumber, let r = rhs as? NSNumber {
+            let lb = CFGetTypeID(l) == CFBooleanGetTypeID(), rb = CFGetTypeID(r) == CFBooleanGetTypeID()
+            guard lb == rb else { return false }
+            return lb ? l.boolValue == r.boolValue : l.compare(r) == .orderedSame
+        }
+        if let l = lhs as? JSONValue,let r = rhs as? JSONValue { return l == r }
         switch (lhs, rhs) {
         case is (NSNull, NSNull):
             return true
@@ -114,7 +129,7 @@ public struct AnyCodable: Codable, Equatable, CustomStringConvertible {
     public var stringValue: String? { value as? String }
     public var intValue: Int? { value as? Int }
     public var doubleValue: Double? { value as? Double ?? (value as? Int).map(Double.init) }
-    public var boolValue: Bool? { value as? Bool }
+    public var boolValue: Bool? { guard let number = value as? NSNumber, CFGetTypeID(number) == CFBooleanGetTypeID() else { return nil }; return number.boolValue }
     public var isNull: Bool { value is NSNull }
     public var arrayValue: [Any]? { value as? [Any] }
     public var dictValue: [String: Any]? { value as? [String: Any] }

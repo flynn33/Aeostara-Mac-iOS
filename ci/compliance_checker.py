@@ -14,22 +14,9 @@ import sys
 from typing import List, Tuple
 
 
-REQUIRED_FILES = [
-    "REMEDIATION_STATUS.md",
-    "README.md",
-    "specs/architecture/ash_authority_and_aeostara_conformance.md",
-    "specs/acceptance/ash_conformance_targets.md",
-    "specs/acceptance/traceability_matrix.md",
-    "specs/acceptance/remediation_acceptance_targets.md",
-    "specs/acceptance/acceptance_targets.md",
-    "specs/acceptance/acceptance_execution_model.md",
-    "specs/acceptance/compliance_checklist.md",
-]
+REQUIRED_FILES = ['README.md', 'AGENTS.md', 'LICENSE', 'Docs/NATIVE_BASELINE.md', 'Docs/Conformance_Trace.md', 'SDK/ReleaseConfiguration.json', 'SDK/README.md', 'SDK/Documentation/Integration.md', 'SDK/Documentation/Public_API.md', 'SDK/Documentation/Safety_and_Recovery.md', 'SDK/Documentation/Diagnostics.md', 'SDK/Documentation/Compatibility.md', 'SDK/Documentation/Migration.md', 'SDK/AeostaraSDK.xcodeproj/project.pbxproj', 'Tools/SDK/build_sdk.py', 'Tools/SDK/package_sdk.py', 'Tools/SDK/artifact_inventory.py']
 
-REQUIRED_PHRASES = [
-    ("REMEDIATION_STATUS.md", "ASH is the immutable upstream semantic authority"),
-    ("README.md", "downstream ASH-based"),
-]
+REQUIRED_PHRASES = [("README.md", "downstream ASH-based"), ("README.md", "SDK consumption boundary"), ("SDK/Documentation/Integration.md", "SDK consumption boundary")]
 
 DISALLOWED_PATTERNS = [
     re.compile(r"Aeostara core defines ASH semantics", re.IGNORECASE),
@@ -39,8 +26,8 @@ DISALLOWED_PATTERNS = [
 
 SCAN_PATHS = [
     "README.md",
-    "specs/architecture",
-    "specs/acceptance",
+    "Docs",
+    "SDK/Documentation",
 ]
 
 PYTHON_PATTERNS = [
@@ -122,6 +109,7 @@ def run_source_safety(repo_root: str) -> Tuple[bool, List[str]]:
     failures: List[str] = []
 
     for root, _dirs, files in os.walk(repo_root):
+        _dirs[:] = [d for d in _dirs if d not in {".git", ".build", ".swiftpm", "DerivedData", "__pycache__"}]
         rel = os.path.relpath(root, repo_root)
         if (
             rel.startswith(".github")

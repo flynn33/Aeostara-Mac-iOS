@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "sdk_version": "0.1.0-rc.1",
+  "platform": "ios",
+  "minimum_os": "16.0",
+  "domain_module": "AeostaraDomain",
+  "services_module": "AeostaraServices",
+  "base_commit": "774b981ef2267a41c1b1a59497b2b0746a86f32b",
+  "ash_commit": "e123f5d7fdbb381179971f721a3292c31eb1cbc2",
+  "signing": "unsigned",
+  "release_profile": "lean",
+  "development_target_shipping": false
+}

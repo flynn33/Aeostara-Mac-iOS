@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
@@ -225,22 +225,26 @@ public struct ValidationResult: Equatable {
     public let errors: [String]
     public let drifts: [DriftEvent]
     public let violations: [String]
+    public let semanticResult: AeostaraContract.DryRunResult?
 
-    public init(valid: Bool, errors: [String], drifts: [DriftEvent], violations: [String]) {
+    public init(valid: Bool, errors: [String], drifts: [DriftEvent], violations: [String], semanticResult: AeostaraContract.DryRunResult? = nil) {
         self.valid = valid
         self.errors = errors
         self.drifts = drifts
         self.violations = violations
+        self.semanticResult = semanticResult
     }
 }
 
 public struct DiffResult: Equatable {
     public let drifts: [DriftEvent]
     public let proposedPlan: RepairPlan?
+    public let semanticResult: AeostaraContract.DryRunResult?
 
-    public init(drifts: [DriftEvent], proposedPlan: RepairPlan?) {
+    public init(drifts: [DriftEvent], proposedPlan: RepairPlan?, semanticResult: AeostaraContract.DryRunResult? = nil) {
         self.drifts = drifts
         self.proposedPlan = proposedPlan
+        self.semanticResult = semanticResult
     }
 }
 
@@ -251,14 +255,18 @@ public struct HealResult: Equatable {
     public let rollback: RollbackPlan?
     public let auditEvents: [AuditEvent]
     public let message: String
+    public let nativeResult: AeostaraContract.HealResult?
+    public let nativeBackup: AeostaraContract.BackupResult?
 
-    public init(success: Bool, executedPlan: RepairPlan? = nil, verification: VerificationResult? = nil, rollback: RollbackPlan? = nil, auditEvents: [AuditEvent] = [], message: String) {
+    public init(success: Bool, executedPlan: RepairPlan? = nil, verification: VerificationResult? = nil, rollback: RollbackPlan? = nil, auditEvents: [AuditEvent] = [], message: String, nativeResult: AeostaraContract.HealResult? = nil, nativeBackup: AeostaraContract.BackupResult? = nil) {
         self.success = success
         self.executedPlan = executedPlan
         self.verification = verification
         self.rollback = rollback
         self.auditEvents = auditEvents
         self.message = message
+        self.nativeResult = nativeResult
+        self.nativeBackup = nativeBackup
     }
 }
 

@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "branch": "platform/ios",
+  "sdk_version": "0.1.0-rc.1",
+  "required_files": [
+    "README.md",
+    "AGENTS.md",
+    "LICENSE",
+    "Docs/NATIVE_BASELINE.md",
+    "Docs/Conformance_Trace.md",
+    "SDK/ReleaseConfiguration.json",
+    "SDK/README.md",
+    "SDK/Documentation/Integration.md",
+    "SDK/Documentation/Public_API.md",
+    "SDK/Documentation/Safety_and_Recovery.md",
+    "SDK/Documentation/Diagnostics.md",
+    "SDK/Documentation/Compatibility.md",
+    "SDK/Documentation/Migration.md",
+    "SDK/AeostaraSDK.xcodeproj/project.pbxproj",
+    "Tools/SDK/build_sdk.py",
+    "Tools/SDK/package_sdk.py",
+    "Tools/SDK/artifact_inventory.py",
+    "Package.swift"
+  ],
+  "required_phrases": [
+    {
+      "file": "README.md",
+      "phrase": "SDK consumption boundary"
+    },
+    {
+      "file": "README.md",
+      "phrase": "774b981ef2267a41c1b1a59497b2b0746a86f32b"
+    },
+    {
+      "file": "README.md",
+      "phrase": "e123f5d7fdbb381179971f721a3292c31eb1cbc2"
+    }
+  ],
+  "required_globs": [
+    {
+      "pattern": "Sources/AeostaraDomain/*.swift",
+      "min_count": 1
+    },
+    {
+      "pattern": "Sources/AeostaraServices/*.swift",
+      "min_count": 1
+    },
+    {
+      "pattern": "Tests/**/*.swift",
+      "min_count": 1
+    }
+  ],
+  "forbidden_globs": [
+    {
+      "pattern": "Sources/AeostaraMacDomain/**"
+    }
+  ]
+}

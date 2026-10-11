@@ -1,6 +1,5 @@
 // Aeostara — iOS Bridging Header
-// Copyright (c) 2026 James Daley. All Rights Reserved.
-// Proprietary and Confidential.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 //
 // This Objective-C++ header bridges the C++ healing engine
 // to Swift via the AeostaraKit framework.

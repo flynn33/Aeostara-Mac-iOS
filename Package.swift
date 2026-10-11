@@ -1,5 +1,5 @@
 // swift-tools-version: 5.9
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 
 import PackageDescription
 
@@ -22,9 +22,14 @@ let package = Package(
             dependencies: ["AeostaraDomain"],
             path: "Sources/AeostaraServices"
         ),
+        .target(
+            name: "AeostaraDevelopmentDiagnostics",
+            dependencies: ["AeostaraDomain"],
+            path: "Sources/AeostaraDevelopmentDiagnostics"
+        ),
         .testTarget(
             name: "AeostaraTests",
-            dependencies: ["AeostaraDomain", "AeostaraServices"],
+            dependencies: ["AeostaraDomain", "AeostaraServices", "AeostaraDevelopmentDiagnostics"],
             path: "Tests/AeostaraTests",
             resources: [
                 .copy("Fixtures")

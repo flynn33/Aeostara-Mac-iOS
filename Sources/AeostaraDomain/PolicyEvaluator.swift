@@ -1,4 +1,4 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 // Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
 
 import Foundation
@@ -49,6 +49,16 @@ public final class PolicyEvaluator {
         guard let actualValue = state[parsed.keyPath] else { return false }
 
         return compare(actual: actualValue, op: parsed.op, expected: parsed.expectedValue)
+    }
+
+    /// The compatibility grammar names nested members with dots; canonical lifecycle addressing remains JSON Pointer.
+    public func evaluateExpression(_ expression: String, document: JSONValue) -> Bool {
+        guard let parsed = parseExpression(expression), !parsed.keyPath.isEmpty else { return false }
+        let tokens = parsed.keyPath.split(separator:".",omittingEmptySubsequences:false).map(String.init)
+        guard tokens.allSatisfy({ !$0.isEmpty }), let pointer = try? JSONPointer("/"+tokens.map { $0.replacingOccurrences(of:"~",with:"~0").replacingOccurrences(of:"/",with:"~1") }.joined(separator:"/")),
+              let value = pointer.resolve(in:document), let bytes = try? CanonicalJSON.encode(value),
+              let actual = try? JSONSerialization.jsonObject(with:bytes,options:[.fragmentsAllowed]) else { return false }
+        return compare(actual:actual,op:parsed.op,expected:parsed.expectedValue)
     }
 
     // MARK: - Private
@@ -122,8 +132,9 @@ public final class PolicyEvaluator {
     }
 
     private func isEqual(_ lhs: Any, _ rhs: Any) -> Bool {
+        if let l = AnyCodable(lhs).boolValue, let r = AnyCodable(rhs).boolValue { return l == r }
+        if AnyCodable(lhs).boolValue != nil || AnyCodable(rhs).boolValue != nil { return false }
         switch (lhs, rhs) {
-        case let (l as Bool, r as Bool): return l == r
         case let (l as Int, r as Int): return l == r
         case let (l as Double, r as Double): return l == r
         case let (l as String, r as String): return l == r
@@ -134,7 +145,7 @@ public final class PolicyEvaluator {
         }
     }
 
-    private func numericCompare(_ lhs: Any, _ rhs: Any) -> ComparisonResult {
+    private func numericCompare(_ lhs: Any, _ rhs: Any) -> ComparisonResult? {
         let lDouble = toDouble(lhs)
         let rDouble = toDouble(rhs)
 
@@ -143,7 +154,7 @@ public final class PolicyEvaluator {
             if let ls = lhs as? String, let rs = rhs as? String {
                 return ls.compare(rs)
             }
-            return .orderedSame
+            return nil
         }
 
         if l < r { return .orderedAscending }
@@ -152,6 +163,7 @@ public final class PolicyEvaluator {
     }
 
     private func toDouble(_ value: Any) -> Double? {
+        if AnyCodable(value).boolValue != nil { return nil }
         switch value {
         case let i as Int: return Double(i)
         case let d as Double: return d

@@ -1,263 +1,117 @@
-// Copyright (c) 2026 James Daley. All Rights Reserved.
-// Aeostara — Deterministic JSON Configuration Drift Detection and Healing Platform
-
+// Copyright 2026 James Daley, DBA: Raven Forge Software. See LICENSE for license terms.
 import Foundation
 
-/// Orchestrates the complete 15-step deterministic healing flow.
-/// Implements validate, diff, and heal operations per spec.
+/// Source-compatible file entrypoints backed by explicit native semantic context.
+/// The older adapter arguments remain accepted; mutation is owned by SemanticResourceIO.
 public final class HealingEngine: IHealingEngine {
-
-    private let adapter: IConfigAdapter
-    private let backupManager: IBackupProvider
-    private let driftAnalyzer: DriftAnalyzer
-    private let repairPlanner: RepairPlanner
-    private let policyEvaluator: PolicyEvaluator
-    private let invariantParser: InvariantParser
-    private let verification: Verification
-    private let rollbackManager: RollbackManager
     private let fileSystem: IFileSystem
     private let timestampProvider: () -> String
-    private let eventIDProvider: () -> String
+    private let invariantParser: InvariantParser
+    private let policyEvaluator: PolicyEvaluator
+    private let context: SemanticContext?
+    private let resources: NativeResourceSet?
+    private let resourceIO: (any SemanticResourceIO)?
+    private let policies: NativePolicyRegistry?
+    private let policyBundle: AeostaraContract.PolicyBundle?
+    private let recorder: (any DiagnosticRecording)?
+    private let identifierProvider: () -> String
+    private let operationGuard = NSLock()
+    private var terminal: LifecycleFailure?
 
-    public init(
-        adapter: IConfigAdapter,
-        backupManager: IBackupProvider,
-        driftAnalyzer: DriftAnalyzer,
-        repairPlanner: RepairPlanner,
-        policyEvaluator: PolicyEvaluator,
-        invariantParser: InvariantParser,
-        verification: Verification,
-        rollbackManager: RollbackManager,
-        fileSystem: IFileSystem,
-        timestampProvider: @escaping () -> String,
-        eventIDProvider: @escaping () -> String
-    ) {
-        self.adapter = adapter
-        self.backupManager = backupManager
-        self.driftAnalyzer = driftAnalyzer
-        self.repairPlanner = repairPlanner
-        self.policyEvaluator = policyEvaluator
-        self.invariantParser = invariantParser
-        self.verification = verification
-        self.rollbackManager = rollbackManager
-        self.fileSystem = fileSystem
-        self.timestampProvider = timestampProvider
-        self.eventIDProvider = eventIDProvider
+    public init(adapter: IConfigAdapter, backupManager: IBackupProvider, driftAnalyzer: DriftAnalyzer,
+                repairPlanner: RepairPlanner, policyEvaluator: PolicyEvaluator, invariantParser: InvariantParser,
+                verification: Verification, rollbackManager: RollbackManager, fileSystem: IFileSystem,
+                timestampProvider: @escaping () -> String, eventIDProvider: @escaping () -> String,
+                semanticContext: SemanticContext? = nil, nativePolicies: NativePolicyRegistry? = nil,
+                nativePolicyBundle: AeostaraContract.PolicyBundle? = nil, nativeResources: NativeResourceSet? = nil,
+                resourceIO: (any SemanticResourceIO)? = nil, recorder: (any DiagnosticRecording)? = nil,
+                identifierProvider: @escaping () -> String = { UUID().uuidString }) {
+        self.fileSystem = fileSystem;self.timestampProvider = timestampProvider;self.policyEvaluator = policyEvaluator
+        self.invariantParser = invariantParser;context = semanticContext;policies = nativePolicies;policyBundle = nativePolicyBundle
+        resources = nativeResources;self.resourceIO = resourceIO ?? (fileSystem as? any SemanticResourceIO)
+        self.recorder = recorder;self.identifierProvider = identifierProvider
     }
-
-    // MARK: - Validate
-
-    public func validate(configPath: String, desiredPath: String, invariantsPath: String?) throws -> ValidationResult {
-        // 1. Observe
-        let observed: ObservedState
-        do {
-            observed = try adapter.observe(filePath: configPath)
-        } catch {
-            return ValidationResult(valid: false, errors: ["Cannot load config: \(error.localizedDescription)"], drifts: [], violations: [])
-        }
-
-        // 2. Load desired
-        let desired: DesiredState
-        do {
-            desired = try loadDesiredState(path: desiredPath)
-        } catch {
-            return ValidationResult(valid: false, errors: ["Cannot load desired state: \(error.localizedDescription)"], drifts: [], violations: [])
-        }
-
-        // 3. Load invariants
-        let invariants = (try? invariantParser.parseInvariants(from: invariantsPath, fileSystem: fileSystem)) ?? []
-
-        // 4. Encode
-        let encoded = adapter.encode(observed: observed, desired: desired)
-
-        // 5. Analyze drift
-        let drifts = driftAnalyzer.analyzeDrift(encoded: encoded)
-
-        // 6. Check invariants against observed state
-        let violations = policyEvaluator.checkInvariants(invariants, state: encoded.observed)
-
-        // 7. Return result
-        return ValidationResult(
-            valid: drifts.isEmpty,
-            errors: [],
-            drifts: drifts,
-            violations: violations
-        )
+    private func failure(_ code: LifecycleFaultCode) throws -> LifecycleFailure {
+        try SemanticLedger(identity:context?.knownValidStates.contextHash ?? "legacy-missing-semantic-context",time:timestampProvider()).failure(code)
     }
-
-    // MARK: - Diff
-
-    public func diff(configPath: String, desiredPath: String, invariantsPath: String?) throws -> DiffResult {
-        // 1. Observe
-        let observed = try adapter.observe(filePath: configPath)
-
-        // 2. Load desired
-        let desired = try loadDesiredState(path: desiredPath)
-
-        // 3. Encode
-        let encoded = adapter.encode(observed: observed, desired: desired)
-
-        // 4. Analyze drift
-        let drifts = driftAnalyzer.analyzeDrift(encoded: encoded)
-
-        // 5. Generate plan
-        let plan: RepairPlan? = drifts.isEmpty ? nil : repairPlanner.generateRepairPlan(drifts: drifts, timestamp: timestampProvider())
-
-        return DiffResult(drifts: drifts, proposedPlan: plan)
+    private func requireContext() throws -> SemanticContext {
+        if let terminal { throw terminal }
+        guard let context else { throw try failure(.missingSemanticContext) };return context
     }
-
-    // MARK: - Heal (15-step flow)
-
-    public func heal(configPath: String, desiredPath: String, invariantsPath: String?, auditPath: String) throws -> HealResult {
-        let auditTrail = AuditTrail(auditPath: auditPath, fileSystem: fileSystem)
-        var auditEvents: [AuditEvent] = []
-
-        func audit(_ type: AuditEventType, details: [String: AnyCodable]? = nil) {
-            let event = AuditTrail.createEvent(
-                type: type,
-                configFile: configPath,
-                details: details,
-                eventID: eventIDProvider(),
-                timestamp: timestampProvider()
-            )
-            try? auditTrail.record(event: event)
-            auditEvents.append(event)
-        }
-
-        // Step 1: Observe
-        let observed: ObservedState
-        do {
-            observed = try adapter.observe(filePath: configPath)
-        } catch {
-            return HealResult(success: false, message: "Cannot load config: \(error.localizedDescription)")
-        }
-
-        // Step 2: Load desired state
-        let desired: DesiredState
-        do {
-            desired = try loadDesiredState(path: desiredPath)
-        } catch {
-            return HealResult(success: false, message: "Cannot load desired state: \(error.localizedDescription)")
-        }
-
-        // Step 3: Parse invariants
-        let invariants = (try? invariantParser.parseInvariants(from: invariantsPath, fileSystem: fileSystem)) ?? []
-
-        // Step 4: Encode
-        let encoded = adapter.encode(observed: observed, desired: desired)
-
-        // Step 5: Analyze drift
-        let drifts = driftAnalyzer.analyzeDrift(encoded: encoded)
-
-        // Step 6: No drift?
-        if drifts.isEmpty {
-            audit(.noDrift)
-            return HealResult(success: true, auditEvents: auditEvents, message: "No drift detected")
-        }
-
-        // Step 7: Generate repair plan
-        let plan = repairPlanner.generateRepairPlan(drifts: drifts, timestamp: timestampProvider())
-
-        // Step 8: Evaluate policy
-        let policyDecision = policyEvaluator.evaluatePolicy(
-            plan: plan,
-            invariants: invariants,
-            state: observed.data
-        )
-
-        // Step 9: Policy blocked?
-        if !policyDecision.allowed {
-            audit(.policyBlocked, details: ["reason": AnyCodable(policyDecision.reason)])
-            return HealResult(
-                success: false,
-                executedPlan: plan,
-                auditEvents: auditEvents,
-                message: "Policy blocked: \(policyDecision.reason)"
-            )
-        }
-
-        // Step 10: Audit heal started
-        audit(.healStarted, details: ["planID": AnyCodable(plan.planID)])
-
-        // Step 11: Create backup
-        let backupPath: String
-        do {
-            backupPath = try backupManager.createBackup(filePath: configPath)
-            audit(.backupCreated, details: ["backupPath": AnyCodable(backupPath)])
-        } catch {
-            return HealResult(success: false, executedPlan: plan, auditEvents: auditEvents, message: "Backup failed: \(error.localizedDescription)")
-        }
-
-        // Step 12: Apply repair
-        let applied: Bool
-        do {
-            applied = try adapter.applyRepair(filePath: configPath, plan: plan)
-        } catch {
-            applied = false
-        }
-
-        if !applied {
-            let rollbackPlan = rollbackManager.createRollbackPlan(planID: plan.planID, backupPath: backupPath, originalPath: configPath)
-            _ = try? rollbackManager.executeRollback(plan: rollbackPlan)
-            audit(.rollbackExecuted, details: ["reason": AnyCodable("Repair apply failed")])
-            return HealResult(
-                success: false,
-                executedPlan: plan,
-                rollback: rollbackPlan,
-                auditEvents: auditEvents,
-                message: "Repair apply failed, rolled back"
-            )
-        }
-
-        audit(.repairApplied, details: ["planID": AnyCodable(plan.planID)])
-
-        // Step 13: Verify
-        let verificationResult = verification.verify(
-            configPath: configPath,
-            desired: desired,
-            invariants: invariants,
-            fileSystem: fileSystem,
-            timestamp: timestampProvider()
-        )
-
-        // Step 14: Verification succeeded?
-        if verificationResult.success {
-            audit(.verificationSucceeded, details: ["planID": AnyCodable(plan.planID)])
-            return HealResult(
-                success: true,
-                executedPlan: plan,
-                verification: verificationResult,
-                auditEvents: auditEvents,
-                message: "Heal successful"
-            )
-        }
-
-        // Step 15: Verification failed — rollback
-        audit(.verificationFailed, details: ["failedChecks": AnyCodable(verificationResult.failedChecks)])
-        let rollbackPlan = rollbackManager.createRollbackPlan(planID: plan.planID, backupPath: backupPath, originalPath: configPath)
-        _ = try? rollbackManager.executeRollback(plan: rollbackPlan)
-        audit(.rollbackExecuted, details: ["reason": AnyCodable("Verification failed")])
-
-        return HealResult(
-            success: false,
-            executedPlan: plan,
-            verification: verificationResult,
-            rollback: rollbackPlan,
-            auditEvents: auditEvents,
-            message: "Verification failed, rolled back to backup"
-        )
+    private func invariants(_ path: String?) throws -> [Invariant] {
+        do { return try invariantParser.parseInvariants(from:path,fileSystem:fileSystem) }
+        catch { throw try failure(.malformedContract) }
     }
-
-    // MARK: - Private Helpers
-
-    private func loadDesiredState(path: String) throws -> DesiredState {
-        let content = try fileSystem.readFile(path: path)
-        guard let data = content.data(using: .utf8),
-              let parsed = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            throw AeostaraError.cannotLoadDesiredState(path)
+    private func makeEngine(invariants: [Invariant]) throws -> (NativeHealingEngine,AeostaraContract.PolicyBundle) {
+        let context = try requireContext()
+        guard let policies,let policyBundle else { throw try failure(.missingSemanticContext) }
+        let id = "LEGACY-REQUESTED-INVARIANTS"
+        let evaluator = policyEvaluator
+        let predicate = try RegisteredPolicyPredicate(identifier:id,sourceReferences:["Aeostara file API: explicitly requested invariant expressions"],evaluate:{ input in
+            var planned = input.observed
+            for operation in input.plan.recoverySteps.flatMap(\.jsonMutationOperations) { planned = try JSONPointer(operation.path.pointer).applying(operation.op,value:operation.value,to:planned) }
+            let criticalObserved = invariants.contains { $0.severity == .critical && !$0.autoRemediate && !evaluator.evaluateExpression($0.expression,document:input.observed) }
+            return criticalObserved || invariants.contains { !evaluator.evaluateExpression($0.expression,document:planned) }
+        })
+        let registry = try policies.adding([predicate])
+        let rules = policyBundle.rules + [.object([JSONMember("policyID",.string(id)),JSONMember("predicateID",.string(id)),JSONMember("effect",.string("BLOCK"))])]
+        let bundleID = policyBundle.policyBundleID + "-requested-invariants"
+        let source = policyBundle.sourceReferences + ["Aeostara file API: invariantsPath nil means intentional omission"]
+        // Validate the caller's original bundle before deriving the documented additional invariant gate.
+        let originalIdentity = JSONValue.object([JSONMember("policyBundleID",.string(policyBundle.policyBundleID)),JSONMember("rules",.array(policyBundle.rules)),JSONMember("sourceReferences",.array(policyBundle.sourceReferences.map(JSONValue.string)))])
+        guard try CanonicalJSON.hash(originalIdentity) == policyBundle.bundleHash else { throw try failure(.malformedContract) }
+        let identity = JSONValue.object([JSONMember("policyBundleID",.string(bundleID)),JSONMember("rules",.array(rules)),JSONMember("sourceReferences",.array(source.map(JSONValue.string)))])
+        let bundle = try AeostaraContract.PolicyBundle(policyBundleID:bundleID,sourceReferences:source,rules:rules,bundleHash:CanonicalJSON.hash(identity))
+        return (NativeHealingEngine(context:context,timestampProvider:timestampProvider,recorder:recorder,resourceIO:resourceIO,policies:registry,resources:resources,identifierProvider:identifierProvider),bundle)
+    }
+    private func preparation(configPath: String,desiredPath: String,invariantsPath: String?) throws -> (NativeDiagnosisPlan,AeostaraContract.PolicyDecision,[Invariant]) {
+        let rules = try invariants(invariantsPath), (engine,bundle) = try makeEngine(invariants:rules)
+        let observed = try CanonicalJSON.parse(fileSystem.readFile(path:configPath)),desired = try CanonicalJSON.parse(fileSystem.readFile(path:desiredPath))
+        let prepared = try engine.prepare(observed:observed,desired:desired)
+        let decision = try engine.policyRegistry!.decide(bundle:bundle,input:.init(plan:prepared.dryRunResult.recoveryPlan,observed:observed,resources:resources),diagnostic:prepared.mapping.diagnosticReferences[0])
+        return (prepared,decision,rules)
+    }
+    public func validate(configPath: String,desiredPath: String,invariantsPath: String?) throws -> ValidationResult {
+        _ = try requireContext()
+        let rules = try invariants(invariantsPath)
+        // Observation errors have a truthful validation result; semantic/policy failures remain typed errors.
+        do { _ = try CanonicalJSON.parse(fileSystem.readFile(path:configPath));_ = try CanonicalJSON.parse(fileSystem.readFile(path:desiredPath)) }
+        catch { return .init(valid:false,errors:["Cannot load config or desired JSON"],drifts:[],violations:[]) }
+        let (prepared,decision,_) = try preparation(configPath:configPath,desiredPath:desiredPath,invariantsPath:invariantsPath)
+        let observed = try CanonicalJSON.parse(fileSystem.readFile(path:configPath))
+        let violations = rules.filter { !policyEvaluator.evaluateExpression($0.expression,document:observed) }.map { "Invariant violated: "+$0.name }
+        return .init(valid:prepared.stateClass == .STABLE && violations.isEmpty && decision.decision == .ALLOW,
+                     errors:decision.decision == .ALLOW ? [] : ["Policy blocked"],drifts:surfaceDrifts(prepared),violations:violations,semanticResult:prepared.dryRunResult)
+    }
+    public func diff(configPath: String,desiredPath: String,invariantsPath: String?) throws -> DiffResult {
+        _ = try requireContext()
+        let (prepared,decision,_) = try preparation(configPath:configPath,desiredPath:desiredPath,invariantsPath:invariantsPath)
+        guard decision.decision == .ALLOW else { throw try failure(.policyBlocked) }
+        return .init(drifts:surfaceDrifts(prepared),proposedPlan:legacyPlan(prepared.dryRunResult.recoveryPlan),semanticResult:prepared.dryRunResult)
+    }
+    public func heal(configPath: String,desiredPath: String,invariantsPath: String?,auditPath: String) throws -> HealResult {
+        _ = try requireContext()
+        guard operationGuard.try() else { throw try failure(.resourceBusy) };defer { operationGuard.unlock() }
+        let rules = try invariants(invariantsPath), (engine,bundle) = try makeEngine(invariants:rules)
+        guard let resources,resources.configuration == configPath,resources.desired == desiredPath,resources.audit == auditPath,resourceIO != nil else { throw try failure(.missingSemanticContext) }
+        let receipt = try engine.heal(resources:resources,policyBundle:bundle)
+        if receipt.safeHalt != nil { terminal = LifecycleFailure(code:.terminalHalt,diagnosticChain:receipt.result.diagnosticChain,auditChain:receipt.result.auditChain) }
+        let succeeded = receipt.result.status == .HEALED || receipt.result.status == .NO_ACTION
+        let verification = receipt.verification.map { VerificationResult(success:$0.status == .PASSED,failedChecks:$0.status == .PASSED ? [] : ["Native verification failed"],verifiedAt:timestampProvider()) }
+        let rollback: RollbackPlan? = receipt.rollback?.status == .SUCCEEDED ? receipt.backup.map { RollbackPlan(planID:receipt.result.recoveryPlan.recoveryPlanID,backupFilePath:$0.backupRecord.storageReference,originalFilePath:configPath) } : nil
+        let message = receipt.result.status == .NO_ACTION ? "No semantic recovery required" : (receipt.result.status == .BLOCKED ? "Policy blocked" : (succeeded ? "Heal successful after STABLE verification" : (rollback != nil ? "Recovery failed; exact backup rolled back" : "Recovery failed: "+receipt.result.status.rawValue)))
+        return .init(success:succeeded,executedPlan:legacyPlan(receipt.result.recoveryPlan),verification:verification,rollback:rollback,auditEvents:[],message:message,nativeResult:receipt.result,nativeBackup:receipt.backup)
+    }
+    private func legacyPlan(_ plan: AeostaraContract.RecoveryPlan) -> RepairPlan? {
+        guard plan.planDisposition == .MUTATION_REQUIRED else { return nil }
+        let actions = plan.recoverySteps.flatMap(\.jsonMutationOperations).filter { $0.op != .test }.map { operation in
+            RepairAction(keyPath:operation.path.pointer,actionType:operation.op == .remove ? .remove : (operation.op == .add ? .add : .set),fromValue:nil,toValue:operation.value.map(AnyCodable.init),rationale: "Validated native semantic operation")
         }
-
-        let anyCodableData = parsed.mapValues { AnyCodable($0) }
-        return DesiredState(data: anyCodableData, source: path)
+        return .init(planID:plan.recoveryPlanID,actions:actions,timestamp:plan.createdAt,requiresBackup:plan.requiresBackup)
+    }
+    private func surfaceDrifts(_ prepared: NativeDiagnosisPlan) -> [DriftEvent] {
+        prepared.observedState.surfaceDifferences.map { difference in
+            DriftEvent(keyPath:difference.path.pointer,type:difference.differenceKind == .MISSING ? .keyAdded : (difference.differenceKind == .REMOVED ? .keyRemoved : .valueChanged),observedValue:(try? JSONPointer(difference.path.pointer))?.resolve(in:prepared.observedDocument).map(AnyCodable.init),desiredValue:(try? JSONPointer(difference.path.pointer))?.resolve(in:prepared.desiredDocument).map(AnyCodable.init),description:"Surface evidence at "+difference.path.pointer)
+        }
     }
 }

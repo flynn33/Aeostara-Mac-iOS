@@ -1,61 +1,38 @@
 {
+  "schemaVersion": "2.0",
   "platform": "ios",
-  "displayName": "Aeostara for iOS",
-  "status": "source-complete, build-unverified",
-  "version": "0.1.0",
-  "toolchain": {
-    "ide": "Xcode 15+",
-    "minimumTarget": "iOS 16.0",
-    "swift": "5.9+"
-  },
-  "implementation": {
-    "language": "Swift (pure — no C++, no Objective-C++)",
-    "uiFramework": "SwiftUI",
-    "buildSystem": "SwiftPM (Package.swift)",
-    "testFramework": "XCTest, XCUITest",
-    "dependencies": []
-  },
-  "modules": {
-    "domain": "AeostaraDomain (Sources/AeostaraDomain/) — 14 Swift files",
-    "services": "AeostaraServices (Sources/AeostaraServices/) — 3 Swift files",
-    "app": "AeostaraApp (Sources/AeostaraApp/) — 3 Swift files",
-    "tests": "AeostaraTests (Tests/AeostaraTests/) — 12 Swift files + fixtures",
-    "uiTests": "AeostaraUITests (Tests/AeostaraUITests/) — 1 Swift file"
-  },
-  "shell": {
-    "type": "SwiftUI app",
-    "cli": false,
-    "features": [
-      "File import via document picker",
-      "Sandbox-local file staging",
-      "Validate / Diff / Heal operations",
-      "Audit trail viewer",
-      "Backup in app container"
+  "displayName": "Aeostara iOS SDK",
+  "version": "0.1.0-rc.1",
+  "stage": "release-candidate",
+  "qualificationRecord": "coordinated SDK release manifest and guide",
+  "minimumTarget": "iOS 16.0",
+  "swiftToolsVersion": "5.9",
+  "publicProducts": {
+    "AeostaraDomain": [
+      "AeostaraDomain"
+    ],
+    "AeostaraServices": [
+      "AeostaraServices",
+      "AeostaraDomain"
     ]
   },
-  "ci": {
-    "buildWorkflow": "ios-build-test.yml",
-    "testTargets": ["AeostaraTests", "AeostaraUITests"]
+  "sourceDevelopmentProducts": [
+    "AeostaraApp"
+  ],
+  "developmentDiagnosticsShipping": false,
+  "thirdPartyRuntimeDependencies": [],
+  "authority": {
+    "base": "774b981ef2267a41c1b1a59497b2b0746a86f32b",
+    "ash": "e123f5d7fdbb381179971f721a3292c31eb1cbc2"
   },
-  "compliance": {
-    "nativeOnly": true,
-    "configFormat": "JSON-only",
-    "noPython": true,
-    "noYAML": true,
-    "noCpp": true,
-    "noObjCpp": true,
-    "noCMake": true,
-    "noVcpkg": true,
-    "noCatch2": true,
-    "noNlohmannJson": true,
-    "sandboxed": true,
-    "forsettiCompliant": true,
-    "allClassesFinal": true,
-    "foundationOnly": true
-  },
+  "frameworkProject": "SDK/AeostaraSDK.xcodeproj",
+  "buildTools": "Tools/SDK",
+  "tests": "Tests",
+  "signing": "unsigned",
+  "governanceRuntime": "not_applicable",
   "quarantine": {
     "path": "_quarantine/",
-    "contents": "Non-compliant reference artifacts from pre-remediation C++20/Obj-C++ implementation",
+    "role": "historical reference only",
     "shipped": false
   }
 }
