@@ -10,4 +10,4 @@ Use only the named public SDK products and their declared dependency closure. Do
 
 ## Integrity and license
 
-Compare this ZIP with the coordinated `SHA256SUMS`. `SDK_MANIFEST.json` records the native source commit, authority pins, toolchain, architecture inspections, and every payload entry except itself. Frameworks are unsigned; a checksum is an integrity comparison, not a signature. Copyright 2026 James Daley. Dual license: non-commercial, academic and personal use under [LICENSE](LICENSE); commercial use requires a separate written license.
+Compare this ZIP with the coordinated `SHA256SUMS`. `SDK_MANIFEST.json` records the native source commit, authority pins, toolchain, architecture inspections, and every payload entry except itself. The manifest/configuration `signing: "unsigned"` denotes `CODE_SIGNING_ALLOWED=NO` and no distribution signing identity. The macOS frameworks carry linker ad-hoc signatures. A checksum is an integrity comparison, not a distribution signature. Copyright 2026 James Daley. Dual license: non-commercial, academic and personal use under [LICENSE](LICENSE); commercial use requires a separate written license.
