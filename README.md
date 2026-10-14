@@ -24,4 +24,4 @@ The application owns explicit semantic mappings, recognized valid states, desire
 
 ## License and maintenance
 
-Copyright 2026 James Daley, DBA: Raven Forge Software. Non-commercial, academic and personal use follows the dual license in [LICENSE](LICENSE); commercial use requires a separate written license. Outside contributions are not accepted; see [CONTRIBUTING](CONTRIBUTING.md). Historical migration receipts preserve their original identities and do not constitute current SDK acceptance.
+Copyright (c) 2026 James Daley, Raven Forge Software. Licensed under the MIT License in [LICENSE](LICENSE). Outside contributions are not accepted; see [CONTRIBUTING](CONTRIBUTING.md). Historical migration receipts preserve their original identities and do not constitute current SDK acceptance.

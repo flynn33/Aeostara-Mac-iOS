@@ -139,7 +139,7 @@
   "license": {
     "authority_commit": "b92f058b4deb2b58c63ff9825b49b68772615254",
     "sha256": "18dfde32c0cdce320832cb12a8730f2be531825dfa4df15f8791317bbc4cd8ba",
-    "terms": "Owner dual license; non-commercial/academic/personal use; commercial use requires a separate written license"
+    "terms": "MIT License. Copyright (c) 2026 James Daley, Raven Forge Software."
   },
   "limitations": [
     "Physical iOS runtime and Intel runtime unverified",
