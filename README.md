@@ -21,4 +21,4 @@ Source checks use `swift test` (Debug and Release); iOS runtime checks use Xcode
 
 ## Repository and license
 
-The native implementation branches do not merge into each other or coordination `main`. No new third-party runtime dependency is present. Copyright 2026 James Daley. Dual license: non-commercial, academic and personal use under [LICENSE](LICENSE); commercial use requires a separate written license. Outside contributions are not accepted; the owner's maintenance policy controls this repository.
+The native implementation branches do not merge into each other or coordination `main`. No new third-party runtime dependency is present. Copyright 2026 James Daley. Licensed under the Apache License, Version 2.0 in [LICENSE](LICENSE). Commercial use is allowed. Retain the LICENSE and NOTICE, credit James Daley for this project, and mark changes so provenance stays intact. Outside contributions are not accepted; the owner's maintenance policy controls this repository.
