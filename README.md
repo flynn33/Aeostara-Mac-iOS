@@ -22,3 +22,5 @@ Source checks use `swift test` (Debug and Release); iOS runtime checks use Xcode
 ## Repository and license
 
 The native implementation branches do not merge into each other or coordination `main`. No new third-party runtime dependency is present. Copyright 2026 James Daley. Licensed under the Apache License, Version 2.0 in [LICENSE](LICENSE). Commercial use is allowed. Retain the LICENSE and NOTICE, credit James Daley for this project, and mark changes so provenance stays intact. Outside contributions are not accepted; the owner's maintenance policy controls this repository.
+
+You must give credit to James Daley, DBA: Raven Forge Software, for Aeostara for macOS. Keep that credit with every copy or product that uses this work. Keep the LICENSE and NOTICE files, keep the copyright lines in the source, and state the changes you make.
