@@ -25,3 +25,5 @@ The application owns explicit semantic mappings, recognized valid states, desire
 ## License and maintenance
 
 Copyright (c) 2026 James Daley, Raven Forge Software. Licensed under the Apache License, Version 2.0 in [LICENSE](LICENSE). Outside contributions are not accepted; see [CONTRIBUTING](CONTRIBUTING.md). Historical migration receipts preserve their original identities and do not constitute current SDK acceptance.
+
+You must give credit to James Daley, Raven Forge Software, for Aeostara for Mac and iOS. Keep that credit with every copy or product that uses this work. Keep the LICENSE and NOTICE files, keep the copyright lines in the source, and state the changes you make.
