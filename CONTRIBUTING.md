@@ -2,6 +2,8 @@
 
 This repository is licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE). Copyright remains with the copyright holder named in LICENSE and NOTICE. You may use, modify, and distribute this project, including for commercial purposes. Retain the LICENSE and NOTICE, credit the copyright holder for this project, and mark your changes so provenance stays intact.
 
+You must give credit to James Daley, DBA: Raven Forge Software, for Aeostara for iOS. Keep that credit with every copy or product that uses this work. Keep the LICENSE and NOTICE files, keep the copyright lines in the source, and state the changes you make.
+
 You are welcome to use, study, modify, and distribute the code under the terms of that license.
 
 ## Outside contributions are not accepted
