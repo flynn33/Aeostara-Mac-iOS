@@ -8,7 +8,7 @@ Current Apple SDK version: `0.1.0-rc.1`. Earlier entries below retain the origin
 - Durable audit, exclusive verified backup, exact restoration, resource leases and terminal recovery safeguards.
 - Internal bounded rich diagnostics and structurally separate lean release recorder with paired offline export.
 - Genuine dynamic XCFramework build tooling, local binary package distribution, payload inventories and coordinated consumer guides.
-- Current owner dual-license alignment and preserved permanent native branch isolation.
+- Apache License, Version 2.0: copyright stays with James Daley, commercial use is allowed, and attribution plus change records are required. Permanent native branch isolation is preserved.
 
 ## Historical upstream entries
 
